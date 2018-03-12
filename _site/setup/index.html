@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="last-modified" content="2018-03-11 12:32:26 -0500">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- meta "search-domain" used for google site search function google_search() -->
+    <meta name="search-domain" value="">
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/lesson.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/syntax.css" />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon-swc.ico" />
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+    <title>Python for Business: Setup</title>
+  </head>
+  <body>
+    <div class="container">
+      
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      
+      
+
+      
+      <a class="navbar-brand" href="../">Home</a>
+
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+	
+        <li><a href="../conduct/">Code of Conduct</a></li>
+
+        
+	
+        <li><a href="../setup/">Setup</a></li>
+
+        
+        <li class="dropdown">
+          <a href="../" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Episodes <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            
+            <li><a href="../00-intro/">Python basics 1 - Intro to Python</a></li>
+            
+            <li><a href="../01-conditional_loop/">Python basics 2 - Conditional statements and Loops</a></li>
+            
+            <li><a href="../02-func/">Python basics 3 - Functions and Modules</a></li>
+            
+            <li><a href="../03-debugging/">Debugging</a></li>
+            
+            <li><a href="../03-lists/">Storing Multiple Values in Lists</a></li>
+            
+            <li><a href="../04-files/">Analyzing Data from Multiple Files</a></li>
+            
+            <li><a href="../04-numpy/">Analyzing Patient Data</a></li>
+            
+            <li><a href="../06-func/">Creating Functions</a></li>
+            
+            <li><a href="../07-errors/">Errors and Exceptions</a></li>
+            
+            <li><a href="../08-defensive/">Defensive Programming</a></li>
+            
+	    <li role="separator" class="divider"></li>
+            <li><a href="../aio/">All in one page (Beta)</a></li>
+          </ul>
+        </li>
+	
+
+	
+	
+        <li class="dropdown">
+          <a href="../" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Extras <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="../reference/">Reference</a></li>
+            
+            <li><a href="../about/">About</a></li>
+            
+            <li><a href="../discuss/">Discussion</a></li>
+            
+            <li><a href="../extras/figures.html">Figures</a></li>
+            
+            <li><a href="../guide/">Instructor Notes</a></li>
+            
+          </ul>
+        </li>
+	
+
+	
+        <li><a href="../LICENSE.html">License</a></li>
+	
+	<li><a href="/edit/gh-pages/setup.md">Improve this page <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></li>
+	
+      </ul>
+      <form class="navbar-form navbar-right" role="search" id="search" onsubmit="google_search(); return false;">
+        <div class="form-group">
+          <input type="text" id="google-search" placeholder="Search..." aria-label="Google site search">
+        </div>
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+<h1 class="maintitle"><a href="../">Python for Business</a>: Setup</h1>
+
+<blockquote class="prereq">
+  <h2 id="software">Software</h2>
+
+  <p>We will use jupyter notebook to run python. If you have not installed jupyter notebooks, please follow the <a href="http://jupyter.&gt; org/install">instructions</a> to install. For both windows and Mac, the easiest way is to install <a href="https://www.anaconda.com/download">ANACODA</a> (recomend download and install the python 3.6 version). ANACODA will automatically install python, jupyter and few packages that are frequently used in data analytics to your computer. You can also choose to use <code class="highlighter-rouge">python3 -m pip install jupyter</code> command to install if you already have python in your computer.</p>
+
+  <p>After installing anacoda or jupyter notebook,</p>
+  <h3 id="windows">Windows</h3>
+  <ul>
+    <li>go to “Start” or the windows button on your desktop, type “cmd” in your search bar, click “command prompt”.</li>
+    <li>Now we will make a folder for the workshop:</li>
+    <li>Type <code class="highlighter-rouge">cd Desktop</code> and hit enter (this will go to your desktop. You can use other directory as well)</li>
+    <li>Type <code class="highlighter-rouge">mkdir sql_workshop</code> and hit enter (this will create an folder named “sql_workshop” on your desktop, you can change the name if you want)</li>
+    <li>Type <code class="highlighter-rouge">cd sql_workshop</code> and hit enter to go to the folder you just created</li>
+    <li>Type <code class="highlighter-rouge">jupyter notebook</code> to open the notebook! It will automatically open your browser. If not, copy the link that shows up on the terminal and paste it into your browser.</li>
+  </ul>
+
+  <h3 id="macs">Macs</h3>
+  <ul>
+    <li>go to “Go” -&gt; “Utilities” -&gt; “Terminal”</li>
+    <li>Now we will make a folder for the workshop:</li>
+    <li>Type <code class="highlighter-rouge">cd Desktop</code> and hit enter (this will go to your desktop. You can use other directory as well)</li>
+    <li>Type <code class="highlighter-rouge">mkdir sql_workshop</code> and hit enter (this will create an folder named “sql_workshop” on your desktop, you can change the name if you want)</li>
+    <li>Type <code class="highlighter-rouge">cd sql_workshop</code> and hit enter to go to the folder you just created</li>
+    <li>Type <code class="highlighter-rouge">jupyter notebook</code> to open the notebook! It will automatically open your browser. If not, copy the link that shows up on the terminal and paste it into your browser.</li>
+  </ul>
+
+  <p><strong>Now you successfully have the notebook open!</strong></p>
+</blockquote>
+
+<blockquote class="prereq">
+  <h2 id="data">Data</h2>
+  <p><strong>Download</strong> this data to your computer: <a href="https://github.com/data-lessons/python-business/tree/gh-pages/data">tbd</a></p>
+
+  <h4 id="about-the-data">About the data</h4>
+  <p>The data for this lesson is a part of the Data Carpentry Business workshop. 
+The original data for this lesson and the workshop are collected from the 
+<a href="https://data.iowa.gov/browse?category=Economy">State of Iowa</a> 
+It is open for public use, we have modified the data for the workshop</p>
+</blockquote>
+
+
+
+      
+      
+<footer>
+  <div class="row">
+    <div class="col-md-6" align="left">
+      <h4>
+	Copyright &copy; 2016–2018
+	
+	<a href="https://software-carpentry.org">Software Carpentry Foundation</a>
+	
+      </h4>
+    </div>
+    <div class="col-md-6" align="right">
+      <h4>
+	
+	<a href="/edit/gh-pages/setup.md">Edit on GitHub</a>
+	
+	/
+	<a href="/blob/gh-pages/CONTRIBUTING.md">Contributing</a>
+	/
+	<a href="/">Source</a>
+	/
+	<a href="/blob/gh-pages/CITATION">Cite</a>
+	/
+	<a href="lessons@software-carpentry.org">Contact</a>
+      </h4>
+    </div>
+  </div>
+</footer>
+
+      
+    </div>
+    
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/lesson.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-37305346-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  </body>
+</html>

@@ -3,6 +3,10 @@ layout: lesson
 root: .
 ---
 
+<p align="center">
+  <img src="../pic/nyan.gif" height="100px" title="cat">
+</p>
+
 The best way to learn how to program is to do something useful,
 so this introduction to Python is built around a common scientific task:
 data analysis.

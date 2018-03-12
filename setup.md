@@ -2,46 +2,41 @@
 layout: page
 title: Setup
 permalink: /setup/
-root: ..
 ---
 
-In preparation for this lesson, you will need to download two zipped files and place them in the specified folder:
+> ## Software
+> 
+> We will use jupyter notebook to run python. If you have not installed jupyter notebooks, please follow the [instructions](http://jupyter.> org/install) to install. For both windows and Mac, the easiest way is to install [ANACODA](https://www.anaconda.com/download) (recomend download and install the python 3.6 version). ANACODA will automatically install python, jupyter and few packages that are frequently used in data analytics to your computer. You can also choose to use `python3 -m pip install jupyter` command to install if you already have python in your computer. 
+> 
+> After installing anacoda or jupyter notebook, 
+> ### Windows 
+> - go to "Start" or the windows button on your desktop, type "cmd" in your search bar, click "command prompt".   
+> - Now we will make a folder for the workshop: 
+> - Type `cd Desktop` and hit enter (this will go to your desktop. You can use other directory as well)
+> - Type `mkdir sql_workshop` and hit enter (this will create an folder named "sql_workshop" on your desktop, you can change the name if you want)
+> - Type `cd sql_workshop` and hit enter to go to the folder you just created  
+> - Type `jupyter notebook` to open the notebook! It will automatically open your browser. If not, copy the link that shows up on the terminal and paste it into your browser. 
+> 
+> ### Macs  
+> - go to "Go" -> "Utilities" -> "Terminal"  
+> - Now we will make a folder for the workshop: 
+> - Type `cd Desktop` and hit enter (this will go to your desktop. You can use other directory as well)
+> - Type `mkdir sql_workshop` and hit enter (this will create an folder named "sql_workshop" on your desktop, you can change the name if you want)
+> - Type `cd sql_workshop` and hit enter to go to the folder you just created  
+> - Type `jupyter notebook` to open the notebook! It will automatically open your browser. If not, copy the link that shows up on the terminal and paste it into your browser. 
+> 
+> **Now you successfully have the notebook open!**  
+{: .prereq}
 
-1. Make a new folder in your Desktop called `python-novice-inflammation`.
-2. Download [python-novice-inflammation-data.zip][zipfile1] and move the file to this folder.
-3. Also download [python-novice-inflammation-code.zip][zipfile2] and move it to the same folder.
-4. If the files aren't unzipped yet, double-click to unzip them. You should end up with
-two new folders called `data` and `code`.
-5. To get started, go into the `data` folder from the Unix shell with:
+> ## Data
+> **Download** this data to your computer: [tbd](https://github.com/data-lessons/python-business/tree/gh-pages/data)    
+>
+> #### About the data
+> The data for this lesson is a part of the Data Carpentry Business workshop. 
+> The original data for this lesson and the workshop are collected from the 
+> [State of Iowa](https://data.iowa.gov/browse?category=Economy) 
+> It is open for public use, we have modified the data for the workshop  
+{: .prereq}
 
-~~~
-$ cd
-$ cd Desktop/python-novice-inflammation/data
-~~~
-{: .source}
 
-If you will be using the Jupyter (IPython) notebook for the lesson,
-you should have already
-[installed Anaconda](http://swcarpentry.github.io/workshop-template/#python)
-which includes the notebook.
 
-To start the notebook server, open a terminal or git bash and type the command:
-
-~~~
-$ jupyter notebook
-~~~
-{: .source}
-
-Then create a new notebook using the drop-down menu on the right to select 'Python 3 notebook':
-
-![](../fig/new-notebook.png)
-
-To start the Python interpreter without the notebook, open a terminal or git bash and type the command:
-
-~~~
-$ python
-~~~
-{: .source}
-
-[zipfile1]: {{ page.root }}/data/python-novice-inflammation-data.zip
-[zipfile2]: {{ page.root }}/code/python-novice-inflammation-code.zip
