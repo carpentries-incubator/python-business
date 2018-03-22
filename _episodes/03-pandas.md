@@ -1,6 +1,6 @@
 ---
 title: Intro to Pandas 
-teaching: 40
+teaching: 60
 exercises: 0
 questions:
 - "How do I read a file"
@@ -14,6 +14,7 @@ objectives:
 - "Access and summarize data stored in a DataFrame."
 - "Merge two dataframes, understand different types of join  "
 - "Perform basic mathematical operations and summary statistics on data in a Pandas DataFrame."
+- "Create pivot table"
 keypoints:
 - "Use `read_csv` to read tabular data into Python."
 - "use sort_values([columns]) to sort the dataframe." 
@@ -23,6 +24,7 @@ keypoints:
 - "use .describe() to get descriptive statistics of one column."    
 - "use df1.merge(df2) to merge two DataFrames."  
 - "use df_object.groupby(column_list1)[column_list2].agg(list_of_aggregate_function) to apply aggregation on data group by column_list1."
+- "Create pivot table with pandas.pivot_table"  
 ---
 
 # Working With Pandas DataFrames in Python
@@ -391,7 +393,7 @@ table1.merge(table2, how="right", right_on="J", left_on="J")
 Let's go back to our data. We have two DataFrames, `soda` and `invoice`. In the `invoice` DataFrame, the only information about soda is the "Item_id" column. If we want to see details of the soda associated with each invoice, we need to join the two tables together. Since `soda` DataFrame also has "Item_id" column, "Item_id" column can be used as join column.   
 > ## Challenge
 >
-> Merge `soda` and `inv` tables, call it inv_soda. 
+> Merge `soda` and `inv` tables, call it **inv_soda**. 
 > Not all kinds of soda will appear in the invoice (some were never sold). If we want to keep everything in the `soda` dataframe, what kinds of join should we use? 
 >
 >> ## Solution 
@@ -477,4 +479,39 @@ inv_soda.groupby('Item_Description')["Bottle_Cost"].agg(["count", "sum"]).reset_
 >> ```
 > {: .solution}
 {: .challenge}
+
+## Pivot Table  
+One of the most useful functionalities in Excel is pivot table. You can also create [pivot table](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.pivot_table.html#pandas-pivot-table) with Pandas! 
+
+A basic pivot table contains the following parameters:  
+```python
+pandas.pivot_table(DataFrame, values, index, columns, aggfunc)
+# values: columns to aggregate (just like choosing the field to report in Excel pivot table)
+# index: keys to group by on the pivot table index (just like dragging into the row box in Excel pivot table) 
+# columns: keys to group by on the pivot table column, (just like dragging into the column box in Excel pivot table) 
+# aggfunc: aggregate function, for example, mean, sum, min, etc. (just like setting the values box in Excel pivot table)
+```
+For example you want to see the total bottles sold for each soda in each city, you can:  
+```
+pd.pivot_table(inv_soda, values="Bottles_Sold", index = ["Item_Description"],\
+            columns = ["City_Name"], aggfunc="sum")
+
+```
+You will get something like this:  
+![pt](../pic/pivot.png){:height="300px"}
+
+> ## Challenge 
+>
+> Create a pivot table that shows the total bottle sold for from each vendor in each category. Set Vendor_Name as index and Category as columns.
+>
+>> ## Solution
+>>
+>> ```
+>> pd.pivot_table(inv_soda, values="Bottles_Sold", index = ["Vendor_Name"],\
+            columns = ["Category"], aggfunc="sum")
+>> 
+>> ```
+> {: .solution}
+{: .challenge}
+
 

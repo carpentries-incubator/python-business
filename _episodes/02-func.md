@@ -1,6 +1,6 @@
 ---
 title: Python basics 3 - Functions and Modules
-teaching: 30
+teaching: 40
 exercises: 0
 questions:
 - "How can I define new functions?"

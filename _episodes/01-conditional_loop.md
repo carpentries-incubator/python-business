@@ -1,6 +1,6 @@
 ---
 title: Python basics 2 - Conditional statements and Loops
-teaching: 30
+teaching: 40
 exercises: 0
 questions:
 - "How can my programs do different things based on data values?"

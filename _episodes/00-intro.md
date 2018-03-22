@@ -1,6 +1,6 @@
 ---
 title: Python basics 1 - Intro to Python
-teaching: 20
+teaching: 30
 exercises: 0
 questions:
 - "What is Python?"
