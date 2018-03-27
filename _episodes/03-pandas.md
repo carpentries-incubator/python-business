@@ -66,7 +66,7 @@ Our database is about soda sales from the vendors to stores. Here is all types o
 
 `csv` can be opened with Excel. However, Excel has a limit of 1,048,576 rows by 16,384 columns. Our `invoice.csv` data contains about 9 million rows of data, almost hitted the Excel limit. (Try to open it with Excel, how long it take to load it?)  
 It took me more than a half minute to just open the file (with a 5th gen i5 processor computer). It would be slow and difficult to do further analytics. 
-Excel is not very good at when dealing with scalable data. On the other hand, a huge advantage of using python is that, without graphic interface, the processing of data will be much faster. To deal with table-like data, we usually use a module called Pandas. 
+Excel is not very good when dealing with scalable data. Moreover, Excel is not very good at tracing modification records. On the other hand, a huge advantage of using python is that, without graphic interface, the processing of data will be much faster. Since you do your analytics with code, you can easily keep a record of what you have done. To deal with table-like data, we usually use a module called Pandas. In this section, you will learn the basics of Pandas. Since most of you are business students, I will also show you how to perform some frequent used Excel functionalities with Pandas.   
 
 ## black x6 phantom, white x6 panda  
 ![pandas](../pic/panda.png){:height="200px"}
@@ -243,7 +243,7 @@ the unique values in the `Category` column.
 ```python
 pd.unique(soda['Category'])
 ```
-To see how many unique sodas are there, we can do: 
+To see how many unique categories are there, we can do: 
 ```
 len(pd.unique(soda['Category']))
 ```

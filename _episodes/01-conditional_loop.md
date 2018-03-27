@@ -47,7 +47,7 @@ a = 1
 b = 3
 if (a == 1):
     print("a is one!")
-    if (b = 2): 
+    if (b == 2): 
         print ("b is two!")
 ```
 One important thing to notice in the code above is that we use a double equals sign `==` to test for equality rather than a single equals sign because the latter is used to mean assignment.
