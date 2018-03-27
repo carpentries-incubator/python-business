@@ -36,7 +36,16 @@ permalink: /setup/
 > The original data for this lesson and the workshop are collected from the 
 > [State of Iowa](https://data.iowa.gov/browse?category=Economy) 
 > It is open for public use, we have modified the data for the workshop  
+> 
+> The data sets are stored in [comma-separated values]({{ page.root }}/reference/#comma-separated-values) (CSV) format. 
+> We will learn:
+> *   load that data into memory  
+> *   perform arithmetic calculation, aggregation and analytics with the data
+> *   plot the result  
 {: .prereq}
+
+
+
 
 
 

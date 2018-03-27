@@ -4,7 +4,7 @@ teaching: 40
 exercises: 0
 questions:
 - "How can I perform statistical analysis in Python?"
-- "How to visualiza my data"
+- "How to visualize my data"
 objectives:
 - "Learn to perform statistical analysis with Scipy.stats module"
 - "Learn to visualize data with matplotlib"
