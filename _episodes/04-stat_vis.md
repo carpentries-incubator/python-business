@@ -156,3 +156,26 @@ You can do many other kinds of visualization with matplotlib. For example, [pie 
 If you are going to big companies, you will probablly learn Tableau later. Tableau can easily create nice graphs but it is a little annoying in preprocessing. We can preprocess with python and feed the data to Tableau. <br> 
 Last but not the least, there are many other cool visualization modules avaliable. If you have time, you can consider these modules: [plotly](https://plot.ly/), [graph-tool](https://graph-tool.skewed.de). They can draw cool and interactive graphs. 
 
+> ## Challenge 
+>
+> What are the top three categories in terms of total cost? Visualize it with pie chart. Read the [documentation](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.pie.html) yourself and try to figure out how to draw it. 
+> Hint: 1. Calculate total cost for each soda (arithmetic)
+> 2. Calculate total cost for each category (aggregation)
+> 3. Sort the aggregated value  
+> 4. draw the graph (what is the x? what is the label?)
+> 5. set autopct parameter to '%.0f%%' 
+> 
+>> ## Solution
+>>
+>> ```
+>> inv_soda["Total_Cost"] = inv_soda["Bottle_Cost"] * inv_soda["Bottles_Sold"]  
+>> temp = inv_soda.groupby(['Category'])["Total_Cost"].agg(["sum"]).reset_index()
+>> temp = temp.sort_values("sum", ascending = False)
+>> plt.figure(figsize=(15,15))
+>> plt.pie(ct["sum"], labels=ct["Category"], autopct='%.0f%%')
+>> plt.show()
+>> 
+>> ```
+> {: .solution}
+{: .challenge}
+

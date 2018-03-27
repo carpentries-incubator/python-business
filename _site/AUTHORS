@@ -1,2 +1,15 @@
-We borrowed some parts from  
-http://www.datacarpentry.org/python-ecology-lesson/
+Author of Python Lesson for Business:  
+Robert J. Brunner (bigdog@illinois.edu)
+Hao Xi (haoxi2@illinois.edu)
+
+The workshop is modified from:  
+
+Azalee Bostroem, Trevor Bekolay, and Valentina Staneva (eds):
+"Software Carpentry: Programming with Python."  Version 2016.06, June
+2016, https://github.com/swcarpentry/python-novice-inflammation,
+10.5281/zenodo.57492.
+
+John Gosset, April Wright (eds): "Data Carpentry Python Ecology lesson."
+Version 2017.04.0, April 2017,
+http://www.datacarpentry.org/python-ecology-lesson/,
+FIXME: Add Zenodo DOI.

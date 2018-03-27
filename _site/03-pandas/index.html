@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2018-03-22 16:07:18 -0500">
+    <meta http-equiv="last-modified" content="2018-03-27 00:12:32 -0500">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -352,7 +352,7 @@ and they can replicate the same analysis.</p>
 
 <p><code class="highlighter-rouge">csv</code> can be opened with Excel. However, Excel has a limit of 1,048,576 rows by 16,384 columns. Our <code class="highlighter-rouge">invoice.csv</code> data contains about 9 million rows of data, almost hitted the Excel limit. (Try to open it with Excel, how long it take to load it?)<br />
 It took me more than a half minute to just open the file (with a 5th gen i5 processor computer). It would be slow and difficult to do further analytics. 
-Excel is not very good at when dealing with scalable data. On the other hand, a huge advantage of using python is that, without graphic interface, the processing of data will be much faster. To deal with table-like data, we usually use a module called Pandas.</p>
+Excel is not very good when dealing with scalable data. Moreover, Excel is not very good at tracing modification records. On the other hand, a huge advantage of using python is that, without graphic interface, the processing of data will be much faster. Since you do your analytics with code, you can easily keep a record of what you have done. To deal with table-like data, we usually use a module called Pandas. In this section, you will learn the basics of Pandas. Since most of you are business students, I will also show you how to perform some frequent used Excel functionalities with Pandas.</p>
 
 <h2 id="black-x6-phantom-white-x6-panda">black x6 phantom, white x6 panda</h2>
 <p><img src="../pic/panda.png" alt="pandas" height="200px" /></p>
@@ -524,7 +524,7 @@ the unique values in the <code class="highlighter-rouge">Category</code> column.
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pd</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">soda</span><span class="p">[</span><span class="s">'Category'</span><span class="p">])</span>
 </code></pre></div></div>
-<p>To see how many unique sodas are there, we can do:</p>
+<p>To see how many unique categories are there, we can do:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>len(pd.unique(soda['Category']))
 </code></pre></div></div>
 <p>The above code returns an array of the unique <code class="highlighter-rouge">Item_Description</code>. <br />

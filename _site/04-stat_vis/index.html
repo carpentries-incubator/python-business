@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2018-03-22 16:07:18 -0500">
+    <meta http-equiv="last-modified" content="2018-03-27 00:12:32 -0500">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -315,6 +315,32 @@ If you restarted your kernel and don’t have slope, intercept variable, run the
 <p>You can do many other kinds of visualization with matplotlib. For example, <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.pie.html">pie chart</a>, <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.bar.html">bar chart</a>, etc. Anything you can draw in Excel, you can do it with matplotlib. Similar as statistical analysis, the most difficult part for visualization is preprocessing. After that, you can just feed your data into the pre-written graphing tool.<br />
 If you are going to big companies, you will probablly learn Tableau later. Tableau can easily create nice graphs but it is a little annoying in preprocessing. We can preprocess with python and feed the data to Tableau. <br /> 
 Last but not the least, there are many other cool visualization modules avaliable. If you have time, you can consider these modules: <a href="https://plot.ly/">plotly</a>, <a href="https://graph-tool.skewed.de">graph-tool</a>. They can draw cool and interactive graphs.</p>
+
+<blockquote class="challenge">
+  <h2 id="challenge">Challenge</h2>
+
+  <p>What are the top three categories in terms of total cost? Visualize it with pie chart. Read the <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.pie.html">documentation</a> yourself and try to figure out how to draw it. 
+Hint: 1. Calculate total cost for each soda (arithmetic)</p>
+  <ol>
+    <li>Calculate total cost for each category (aggregation)</li>
+    <li>Sort the aggregated value</li>
+    <li>draw the graph (what is the x? what is the label?)</li>
+    <li>set autopct parameter to ‘%.0f%%’</li>
+  </ol>
+
+  <blockquote class="solution">
+    <h2 id="solution">Solution</h2>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>inv_soda["Total_Cost"] = inv_soda["Bottle_Cost"] * inv_soda["Bottles_Sold"]  
+temp = inv_soda.groupby(['Category'])["Total_Cost"].agg(["sum"]).reset_index()
+temp = temp.sort_values("sum", ascending = False)
+plt.figure(figsize=(15,15))
+plt.pie(ct["sum"], labels=ct["Category"], autopct='%.0f%%')
+plt.show()
+
+</code></pre></div>    </div>
+  </blockquote>
+</blockquote>
 
 
 
