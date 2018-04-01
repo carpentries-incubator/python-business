@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2018-03-27 14:32:54 -0500">
+    <meta http-equiv="last-modified" content="2018-03-27 14:37:33 -0500">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -353,9 +353,6 @@ and they can replicate the same analysis.</p>
 <p><code class="highlighter-rouge">csv</code> can be opened with Excel. However, Excel has a limit of 1,048,576 rows by 16,384 columns. Our <code class="highlighter-rouge">invoice.csv</code> data contains about 9 million rows of data, almost hitted the Excel limit. (Try to open it with Excel, how long it take to load it?)<br />
 It took me more than a half minute to just open the file (with a 5th gen i5 processor computer). It would be slow and difficult to do further analytics. 
 Excel is not very good when dealing with scalable data. Moreover, Excel is not very good at tracing modification records. On the other hand, a huge advantage of using python is that, without graphic interface, the processing of data will be much faster. Since you do your analytics with code, you can easily keep a record of what you have done. To deal with table-like data, we usually use a module called Pandas. In this section, you will learn the basics of Pandas. Since most of you are business students, I will also show you how to perform some frequent used Excel functionalities with Pandas.</p>
-
-<h2 id="black-x6-phantom-white-x6-panda">black x6 phantom, white x6 panda</h2>
-<p><img src="../pic/panda.png" alt="pandas" height="200px" /></p>
 
 <h2 id="pandas-in-python">Pandas in Python</h2>
 <p>One of the best options for working with tabular data in Python is to use the
