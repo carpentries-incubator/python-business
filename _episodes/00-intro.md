@@ -18,7 +18,14 @@ keypoints:
 ## What is Python?
 [Python](https://www.python.org/doc/essays/blurb/) is an interpreted, object-oriented, high-level programming language with dynamic semantics. Its high-level built in data structures, combined with dynamic typing and dynamic binding, make it very attractive for Rapid Application Development, as well as for use as a scripting or glue language to connect existing components together. Python's simple, easy to learn syntax emphasizes readability and therefore reduces the cost of program maintenance. Python supports modules and packages, which encourages program modularity and code reuse. -- python.org
 
-## Why learning Python as a business student?  
+## Why learning coding as a non-CS student? 
+(you can watch it if you have time) <br>
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/xfBWk4nw440/0.jpg)](https://youtu.be/xfBWk4nw440)
+
+* You can make your work more efficient! The computer can extend you ability.  
+* As business students, especially for future analysts, you will have to deal will massive number of data. Excel can't handle that. 
+* Python is relatively easier to understand than other languages. So it's good for starters.  
+
 
 ## Variables 
 
@@ -46,7 +53,8 @@ print(a)
 ## Datatypes  
 Datatype is to classify the value of variables. 
 In the previous example, you assigned a numerical value to a variable. 
-Here are some common built in datatypes. Thare are a lot of built in datatypes, you can check [here](https://docs.python.org/3/library/stdtypes.html) for details.  
+There are a lot of built in datatypes, you can check [here](https://docs.python.org/3/library/stdtypes.html) for details.  
+Lets briefly review some common built in datatypes. 
  
 #### 1. Boolean 
 `boolean` has only two possible values: True or False. 
@@ -133,13 +141,13 @@ You actually have done this previously. You have successfully converted a list t
 ```
 str(dy)
 ```
-You can convert a float to an interger by: 
+You can convert a float to an integer by: 
 ```
 int(1.7)
 ```
-Note that, int() **always round down**, so you will get 1 if you do `int(1.7)`
+Note that, int() **always rounds down**, so you will get 1 if you do `int(1.7)`
 
-However, this would not always work. Some datatypes are not interchangable. For example, you cannot convert a dictionary to a integer by `int(dt)`. It is kind of intuitive, an integer is a single number, but a dictionary is {key : value} pairs. 
+However, this would not always work. Some datatypes are not interchangeable. For example, you cannot convert a dictionary to a integer by `int(dt)`. It is kind of intuitive, an integer is a single number, but a dictionary is {key : value} pairs. 
 
 ## Arithmetics 
 You can get output from python by typing math into the console:
@@ -161,13 +169,8 @@ we can print several things at once by separating them with commas.
 We can also change a variable's value by assigning it a new one:
 
 ~~~
-volume = 750 * 6
+volume = 250 * 6
 print('volume in litter now:', volume/1000)
 ~~~
 {: .language-python}
-
-While a lot of powerful, general tools are built into languages like Python,
-specialized tools built up from these basic units live in [libraries]({{ page.root }}/reference/#library)
-that can be called upon when needed.
-
 

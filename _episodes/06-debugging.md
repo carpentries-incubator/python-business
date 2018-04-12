@@ -1,5 +1,5 @@
 ---
-title: Debugging
+title: Extra - Debugging
 teaching: 30
 exercises: 0
 questions:

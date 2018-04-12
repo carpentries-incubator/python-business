@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2018-03-27 14:37:33 -0500">
+    <meta http-equiv="last-modified" content="2018-04-11 22:46:47 -0500">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -67,9 +67,9 @@
             
             <li><a href="../04-stat_vis/">Statistical Analysis and Visualization</a></li>
             
-            <li><a href="../05-errors/">Errors and Exceptions</a></li>
+            <li><a href="../05-errors/">Extra - Errors and Exceptions</a></li>
             
-            <li><a href="../06-debugging/">Debugging</a></li>
+            <li><a href="../06-debugging/">Extra - Debugging</a></li>
             
 	    <li role="separator" class="divider"></li>
             <li><a href="../aio/">All in one page (Beta)</a></li>
@@ -214,8 +214,8 @@ You can add a second level of conditional statement like this:</p>
 </code></pre></div></div>
 <p>We determine the level with <a href="https://docs.python.org/2.0/ref/indentation.html">indentation</a>. For example, in the statement above, line 1 will run no matter what. Line 2 and 3 are at the same level, they will run only if line1’s condition is met. Line 4 will run only if line 3’s condition is met. <br /></p>
 <ul>
-  <li>Note that if you are a MAS student, you have probablly learned other programming languages in CS 105 that uses {} braces for conditional statements. In Python, indentations works like the {} in javascript, or java, or c++, etc. <br /></li>
-  <li>Indentation kind of forces you to make conditional statements look nice and clear. But if you printed your code on paper, and the conditional statement takes few pages, you might need a ruler to read it… Anyway, let’s try this: <br /></li>
+  <li>Note that if you are a MAS student, you have probably learned other programming languages in CS 105 that uses {} braces for conditional statements. In Python, indentations works like the {} in javascript, or java, or c++, etc. <br /></li>
+  <li>Indentation kind of forces you to make conditional statements look nice and clear. But if you printed your code on paper, and the conditional statement takes few pages, you might need a ruler to read it… Well, that’s just a rare case. Anyway, let’s try this: <br /></li>
 </ul>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a = 1
@@ -225,8 +225,8 @@ if (a == 1):
     if (b == 2): 
         print ("b is two!")
 </code></pre></div></div>
-<p>One important thing to notice in the code above is that we use a double equals sign <code class="highlighter-rouge">==</code> to test for equality rather than a single equals sign because the latter is used to mean assignment.
-We can also combine tests using <code class="highlighter-rouge">and</code> and <code class="highlighter-rouge">or</code>. <code class="highlighter-rouge">and</code> is only true if both parts are true:</p>
+<p>One important thing to notice in the code above is that we use a double equals sign <code class="highlighter-rouge">==</code> to test for equality rather than a single equals sign because the latter is used for assignment (assigning a value to a variable). 
+We can also combine logical tests using <code class="highlighter-rouge">and</code> and <code class="highlighter-rouge">or</code>. <code class="highlighter-rouge">and</code> is only true if both parts are true:</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
     <span class="k">print</span><span class="p">(</span><span class="s">'both parts are true'</span><span class="p">)</span>
@@ -234,7 +234,7 @@ We can also combine tests using <code class="highlighter-rouge">and</code> and <
     <span class="k">print</span><span class="p">(</span><span class="s">'at least one part is false'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p>You can also add <code class="highlighter-rouge">elif</code> (else if) to add another situations, or add <code class="highlighter-rouge">else</code> to cover the rest of the situations.</p>
+<p>You can also add <code class="highlighter-rouge">elif</code> (else if) to add another condition, or add <code class="highlighter-rouge">else</code> to cover the rest of the situations.</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if BOOLEAN:
     DO THING1
 elif BOOLEAN: 
@@ -273,9 +273,9 @@ but <code class="highlighter-rouge">4 &lt; 5</code> is true.</p>
 </blockquote>
 
 <h2 id="loops">Loops</h2>
-<p>One of the greatest things about programming is that machines can do repititive things for you. We will soon be dealing with 90,000 rows of data, loops will be very helpful for you. 
+<p>One of the greatest advantages of programming is that the machines can do repetitive things for you. We will soon be dealing with 90,000 rows of data, and loops will be very helpful for you. 
 An example task that we might want to repeat is getting every elements in a list.</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">assertions</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Existance"</span><span class="p">,</span><span class="s">"Rights and Obligations"</span><span class="p">,</span><span class="s">"Completeness"</span><span class="p">,</span><span class="s">"Valuation and Allocation"</span><span class="p">]</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">assertions</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Existence"</span><span class="p">,</span><span class="s">"Rights and Obligations"</span><span class="p">,</span><span class="s">"Completeness"</span><span class="p">,</span><span class="s">"Valuation and Allocation"</span><span class="p">]</span>
 </code></pre></div></div>
 
 <p>(Look familiar, accountants?) <br />
@@ -293,7 +293,7 @@ four <code class="highlighter-rouge">print</code> statements:</p>
 
 <p>Here’s a better approach:</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">assertions</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Existance"</span><span class="p">,</span><span class="s">"Rights and Obligations"</span><span class="p">,</span><span class="s">"Completeness"</span><span class="p">,</span><span class="s">"Valuation and Allocation"</span><span class="p">]</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">assertions</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Existence"</span><span class="p">,</span><span class="s">"Rights and Obligations"</span><span class="p">,</span><span class="s">"Completeness"</span><span class="p">,</span><span class="s">"Valuation and Allocation"</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">assertion</span> <span class="ow">in</span> <span class="n">assertions</span><span class="p">:</span>
     <span class="k">print</span><span class="p">(</span><span class="n">assertion</span><span class="p">)</span>
 </code></pre></div></div>
@@ -306,10 +306,10 @@ to repeat an operation — in this case, printing — once for each thing in a s
 The general form of a loop is:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for variable in collection:
-    do things with variable
+    do something
 </code></pre></div></div>
 
-<p>We can call the <a href="../reference/#loop-variable">loop variable</a> anything we like,
+<p>We can call the <a href="../reference/#loop-variable">loop variable</a> anything we want,
 but there must be a colon at the end of the line starting the loop,
 and we must indent anything we want to run inside the loop. Unlike many other languages, there is no
 command to signify the end of the loop body (e.g. <code class="highlighter-rouge">end for</code>); what is indented after the <code class="highlighter-rouge">for</code> statement belongs to the loop.</p>
@@ -320,7 +320,7 @@ command to signify the end of the loop body (e.g. <code class="highlighter-rouge
   <p>In the example above, the loop variable was given the name <code class="highlighter-rouge">assertion</code>.<br />
 We can choose any name we want for variables. We might just as easily have chosen the name <code class="highlighter-rouge">nyan_cat</code> for the loop variable, as long as we use the same name when we invoke the variable inside the loop:</p>
 
-  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">assertions</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Existance"</span><span class="p">,</span><span class="s">"Rights and Obligations"</span><span class="p">,</span><span class="s">"Completeness"</span><span class="p">,</span><span class="s">"Valuation and Allocation"</span><span class="p">]</span>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">assertions</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Existence"</span><span class="p">,</span><span class="s">"Rights and Obligations"</span><span class="p">,</span><span class="s">"Completeness"</span><span class="p">,</span><span class="s">"Valuation and Allocation"</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">nyan_cat</span> <span class="ow">in</span> <span class="n">assertions</span><span class="p">:</span>
     <span class="k">print</span><span class="p">(</span><span class="n">nyan_cat</span><span class="p">)</span>
 </code></pre></div>  </div>
@@ -354,7 +354,7 @@ since there is nothing left in <code class="highlighter-rouge">'PCAOB'</code> fo
 the loop finishes
 and the <code class="highlighter-rouge">print</code> statement on line 4 tells us our final answer.</p>
 
-<p>Note that a loop variable is just a variable that’s being used to record progress in a loop.
+<p>Note that a loop variable is just a variable that’s being used to record the progress in a loop.
 It still exists after the loop is over,
 and we can re-use variables previously defined as loop variables as well:</p>
 
@@ -388,7 +388,7 @@ the first and ends just before the second, incrementing by one.
 For example, <code class="highlighter-rouge">range(2, 5)</code> produces <code class="highlighter-rouge">2, 3, 4</code>.</li>
   <li>If <code class="highlighter-rouge">range</code> is given 3 parameters,
 it starts at the first one, ends just before the second one, and increments by the third one.
-For exmaple <code class="highlighter-rouge">range(3, 10, 2)</code> produces <code class="highlighter-rouge">3, 5, 7, 9</code>.
+For example <code class="highlighter-rouge">range(3, 10, 2)</code> produces <code class="highlighter-rouge">3, 5, 7, 9</code>.
 Using <code class="highlighter-rouge">range</code>, write a loop that uses <code class="highlighter-rouge">range</code> to print the first 3 natural numbers:
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for i in range(1, 4):
   print(i)
@@ -397,7 +397,7 @@ Using <code class="highlighter-rouge">range</code>, write a loop that uses <code
 </ul>
 
 <h4 id="enumerate">Enumerate</h4>
-<p>This is also a useful way to traverse an iterable sequence (for example, go throught everything in a list). 
+<p>This is also a useful way to traverse an iterable sequence (for example, go through everything in a list). 
 The built-in function <code class="highlighter-rouge">enumerate</code> takes a sequence (e.g. a list) and generates a
 new sequence of the same length. Each element of the new sequence is a pair composed of the index
 (0, 1, 2,…) and the value from the original sequence:</p>
@@ -453,17 +453,18 @@ so <code class="highlighter-rouge">'CPA'</code> becomes <code class="highlighter
 <blockquote class="challenge">
   <h2 id="challenge-14">Challenge 1.4</h2>
   <p>You have a list if lists called <code class="highlighter-rouge">a</code>
-Print out the position and elements of the list in <code class="highlighter-rouge">a</code> that contains more than 2 elements AND starts with 1
-Hint: use <code class="highlighter-rouge">len()</code> to get the lenth</p>
-  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]]</span>
+Print out the position and the list in <code class="highlighter-rouge">a</code> that contains more than 2 elements AND starts with 1
+Hint: use <code class="highlighter-rouge">len()</code> to get the length</p>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]]</span>
 </code></pre></div>  </div>
 
   <blockquote class="solution">
     <h2 id="solution-3">Solution</h2>
-    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]]</span>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]]</span>
 <span class="k">for</span> <span class="n">pos</span><span class="p">,</span> <span class="n">lt</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
     <span class="k">if</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lt</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">):</span>
-        <span class="k">print</span> <span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">lt</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">lt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">print</span> <span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">lt</span><span class="p">)</span>
 </code></pre></div>    </div>
   </blockquote>
 </blockquote>

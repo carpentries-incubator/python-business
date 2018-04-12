@@ -39,8 +39,8 @@ if BOOLEAN1:
         DO THING2 
 ``` 
 We determine the level with [indentation](https://docs.python.org/2.0/ref/indentation.html). For example, in the statement above, line 1 will run no matter what. Line 2 and 3 are at the same level, they will run only if line1's condition is met. Line 4 will run only if line 3's condition is met. <br>
-- Note that if you are a MAS student, you have probablly learned other programming languages in CS 105 that uses {} braces for conditional statements. In Python, indentations works like the {} in javascript, or java, or c++, etc. <br>
-- Indentation kind of forces you to make conditional statements look nice and clear. But if you printed your code on paper, and the conditional statement takes few pages, you might need a ruler to read it... Anyway, let's try this: <br>
+- Note that if you are a MAS student, you have probably learned other programming languages in CS 105 that uses {} braces for conditional statements. In Python, indentations works like the {} in javascript, or java, or c++, etc. <br>
+- Indentation kind of forces you to make conditional statements look nice and clear. But if you printed your code on paper, and the conditional statement takes few pages, you might need a ruler to read it... Well, that's just a rare case. Anyway, let's try this: <br>
 
 ```
 a = 1
@@ -50,8 +50,8 @@ if (a == 1):
     if (b == 2): 
         print ("b is two!")
 ```
-One important thing to notice in the code above is that we use a double equals sign `==` to test for equality rather than a single equals sign because the latter is used to mean assignment.
-We can also combine tests using `and` and `or`. `and` is only true if both parts are true:
+One important thing to notice in the code above is that we use a double equals sign `==` to test for equality rather than a single equals sign because the latter is used for assignment (assigning a value to a variable). 
+We can also combine logical tests using `and` and `or`. `and` is only true if both parts are true:
 
 ~~~
 if (1 > 0) and (-1 > 0):
@@ -61,7 +61,7 @@ else:
 ~~~
 {: .language-python}
 
-You can also add `elif` (else if) to add another situations, or add `else` to cover the rest of the situations.
+You can also add `elif` (else if) to add another condition, or add `else` to cover the rest of the situations. 
 ```
 if BOOLEAN:
     DO THING1
@@ -99,10 +99,10 @@ else:
 {: .challenge}
 
 ## Loops 
-One of the greatest things about programming is that machines can do repititive things for you. We will soon be dealing with 90,000 rows of data, loops will be very helpful for you. 
+One of the greatest advantages of programming is that the machines can do repetitive things for you. We will soon be dealing with 90,000 rows of data, and loops will be very helpful for you. 
 An example task that we might want to repeat is getting every elements in a list. 
 ~~~
-assertions = ["Existance","Rights and Obligations","Completeness","Valuation and Allocation"]
+assertions = ["Existence","Rights and Obligations","Completeness","Valuation and Allocation"]
 ~~~
 {: .language-python}
 
@@ -124,7 +124,7 @@ This is a bad approach because it doesn't scale: if we want to print the list th
 Here's a better approach:
 
 ~~~
-assertions = ["Existance","Rights and Obligations","Completeness","Valuation and Allocation"]
+assertions = ["Existence","Rights and Obligations","Completeness","Valuation and Allocation"]
 for assertion in assertions:
     print(assertion)
 ~~~
@@ -139,10 +139,10 @@ The general form of a loop is:
 
 ~~~
 for variable in collection:
-    do things with variable
+    do something
 ~~~
 
-We can call the [loop variable]({{ page.root }}/reference/#loop-variable) anything we like,
+We can call the [loop variable]({{ page.root }}/reference/#loop-variable) anything we want,
 but there must be a colon at the end of the line starting the loop,
 and we must indent anything we want to run inside the loop. Unlike many other languages, there is no
 command to signify the end of the loop body (e.g. `end for`); what is indented after the `for` statement belongs to the loop.
@@ -154,7 +154,7 @@ command to signify the end of the loop body (e.g. `end for`); what is indented a
 > We can choose any name we want for variables. We might just as easily have chosen the name `nyan_cat` for the loop variable, as long as we use the same name when we invoke the variable inside the loop:
 >
 > ~~~
-> assertions = ["Existance","Rights and Obligations","Completeness","Valuation and Allocation"]
+> assertions = ["Existence","Rights and Obligations","Completeness","Valuation and Allocation"]
 > for nyan_cat in assertions:
 >     print(nyan_cat)
 > ~~~
@@ -191,7 +191,7 @@ since there is nothing left in `'PCAOB'` for Python to process,
 the loop finishes
 and the `print` statement on line 4 tells us our final answer.
 
-Note that a loop variable is just a variable that's being used to record progress in a loop.
+Note that a loop variable is just a variable that's being used to record the progress in a loop.
 It still exists after the loop is over,
 and we can re-use variables previously defined as loop variables as well:
 
@@ -228,7 +228,7 @@ the first and ends just before the second, incrementing by one.
 For example, `range(2, 5)` produces `2, 3, 4`.
 * If `range` is given 3 parameters,
 it starts at the first one, ends just before the second one, and increments by the third one.
-For exmaple `range(3, 10, 2)` produces `3, 5, 7, 9`.
+For example `range(3, 10, 2)` produces `3, 5, 7, 9`.
 Using `range`, write a loop that uses `range` to print the first 3 natural numbers:
 ~~~
 for i in range(1, 4):
@@ -237,7 +237,7 @@ for i in range(1, 4):
 {: .language-python}
 
 #### Enumerate  
-This is also a useful way to traverse an iterable sequence (for example, go throught everything in a list). 
+This is also a useful way to traverse an iterable sequence (for example, go through everything in a list). 
 The built-in function `enumerate` takes a sequence (e.g. a list) and generates a
 new sequence of the same length. Each element of the new sequence is a pair composed of the index
 (0, 1, 2,...) and the value from the original sequence:
@@ -299,19 +299,20 @@ for i, x in enumerate(interable_sequence):
 
 > ## Challenge 1.4
 > You have a list if lists called `a`
-> Print out the position and elements of the list in `a` that contains more than 2 elements AND starts with 1
-> Hint: use `len()` to get the lenth  
+> Print out the position and the list in `a` that contains more than 2 elements AND starts with 1
+> Hint: use `len()` to get the length  
 > ~~~
-> a = [[1,2,3],[1,2],[1,2],[1,2],[0,2,4]]
+> a = [[1,2,3],[1,2],[1,2],[0,2,3],[1,2,4]]
 > ~~~
 > {: .language-python}
 >
 > > ## Solution
 > > ~~~
-> > a = [[1,2,3],[1,2],[1,2],[1,2],[1,2,4]]
+> > a = [[1,2,3],[1,2],[1,2],[0,2,3],[1,2,4]]
 > > for pos, lt in enumerate(a):
 > >     if(len(lt)>2):
-> >         print (pos, lt)
+> >         if (lt[0] == 1):
+> >             print (pos, lt)
 > > ~~~
 > > {: .language-python}
 > {: .solution}

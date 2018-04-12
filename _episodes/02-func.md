@@ -94,6 +94,9 @@ This command should call our function, using "string" as the input and return th
 
 ## Modules   
 
+While a lot of powerful, general tools are built into languages like Python,
+specialized tools built up from these basic units live in modules that can be called upon when needed.
+
 A [module](https://docs.python.org/3/tutorial/modules.html) is a file containing Python definitions and statements. A module can contain executable statements as well as function definitions, you can include a module with `import` statement. 
 For example, Python does not provide a built in function for square root. Of course, you can write a function that do square root by yourself. But the good thing is, the function is included in the built in `math` module. You can import the `math` module by:  
 ```

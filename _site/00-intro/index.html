@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2018-03-27 14:37:33 -0500">
+    <meta http-equiv="last-modified" content="2018-04-11 22:46:47 -0500">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -67,9 +67,9 @@
             
             <li><a href="../04-stat_vis/">Statistical Analysis and Visualization</a></li>
             
-            <li><a href="../05-errors/">Errors and Exceptions</a></li>
+            <li><a href="../05-errors/">Extra - Errors and Exceptions</a></li>
             
-            <li><a href="../06-debugging/">Debugging</a></li>
+            <li><a href="../06-debugging/">Extra - Debugging</a></li>
             
 	    <li role="separator" class="divider"></li>
             <li><a href="../aio/">All in one page (Beta)</a></li>
@@ -194,7 +194,15 @@
 <h2 id="what-is-python">What is Python?</h2>
 <p><a href="https://www.python.org/doc/essays/blurb/">Python</a> is an interpreted, object-oriented, high-level programming language with dynamic semantics. Its high-level built in data structures, combined with dynamic typing and dynamic binding, make it very attractive for Rapid Application Development, as well as for use as a scripting or glue language to connect existing components together. Python’s simple, easy to learn syntax emphasizes readability and therefore reduces the cost of program maintenance. Python supports modules and packages, which encourages program modularity and code reuse. – python.org</p>
 
-<h2 id="why-learning-python-as-a-business-student">Why learning Python as a business student?</h2>
+<h2 id="why-learning-coding-as-a-non-cs-student">Why learning coding as a non-CS student?</h2>
+<p>(you can watch it if you have time) <br />
+<a href="https://youtu.be/xfBWk4nw440"><img src="https://img.youtube.com/vi/xfBWk4nw440/0.jpg" alt="IMAGE ALT TEXT HERE" /></a></p>
+
+<ul>
+  <li>You can make your work more efficient! The computer can extend you ability.</li>
+  <li>As business students, especially for future analysts, you will have to deal will massive number of data. Excel can’t handle that.</li>
+  <li>Python is relatively easier to understand than other languages. So it’s good for starters.</li>
+</ul>
 
 <h2 id="variables">Variables</h2>
 
@@ -219,7 +227,8 @@ To see the value in the variable, we can simply do:</p>
 <h2 id="datatypes">Datatypes</h2>
 <p>Datatype is to classify the value of variables. 
 In the previous example, you assigned a numerical value to a variable. 
-Here are some common built in datatypes. Thare are a lot of built in datatypes, you can check <a href="https://docs.python.org/3/library/stdtypes.html">here</a> for details.</p>
+There are a lot of built in datatypes, you can check <a href="https://docs.python.org/3/library/stdtypes.html">here</a> for details.<br />
+Lets briefly review some common built in datatypes.</p>
 
 <h4 id="1-boolean">1. Boolean</h4>
 <p><code class="highlighter-rouge">boolean</code> has only two possible values: True or False.</p>
@@ -303,12 +312,12 @@ print(st)
 <p>You actually have done this previously. You have successfully converted a list to a set. To change datatypes, we can do <code class="highlighter-rouge">desired_datatype(variable)</code>. For example, we can convert the dictionary dt to string by:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>str(dy)
 </code></pre></div></div>
-<p>You can convert a float to an interger by:</p>
+<p>You can convert a float to an integer by:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int(1.7)
 </code></pre></div></div>
-<p>Note that, int() <strong>always round down</strong>, so you will get 1 if you do <code class="highlighter-rouge">int(1.7)</code></p>
+<p>Note that, int() <strong>always rounds down</strong>, so you will get 1 if you do <code class="highlighter-rouge">int(1.7)</code></p>
 
-<p>However, this would not always work. Some datatypes are not interchangable. For example, you cannot convert a dictionary to a integer by <code class="highlighter-rouge">int(dt)</code>. It is kind of intuitive, an integer is a single number, but a dictionary is {key : value} pairs.</p>
+<p>However, this would not always work. Some datatypes are not interchangeable. For example, you cannot convert a dictionary to a integer by <code class="highlighter-rouge">int(dt)</code>. It is kind of intuitive, an integer is a single number, but a dictionary is {key : value} pairs.</p>
 
 <h2 id="arithmetics">Arithmetics</h2>
 <p>You can get output from python by typing math into the console:</p>
@@ -326,13 +335,9 @@ we can print several things at once by separating them with commas.</p>
 
 <p>We can also change a variable’s value by assigning it a new one:</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">volume</span> <span class="o">=</span> <span class="mi">750</span> <span class="o">*</span> <span class="mi">6</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">volume</span> <span class="o">=</span> <span class="mi">250</span> <span class="o">*</span> <span class="mi">6</span>
 <span class="k">print</span><span class="p">(</span><span class="s">'volume in litter now:'</span><span class="p">,</span> <span class="n">volume</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span>
 </code></pre></div></div>
-
-<p>While a lot of powerful, general tools are built into languages like Python,
-specialized tools built up from these basic units live in <a href="../reference/#library">libraries</a>
-that can be called upon when needed.</p>
 
 
 
