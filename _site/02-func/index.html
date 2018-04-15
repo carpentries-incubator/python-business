@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2018-04-11 22:46:47 -0500">
+    <meta http-equiv="last-modified" content="2018-04-15 11:55:09 -0500">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -209,8 +209,7 @@
 <h2 id="function">Function</h2>
 <p>What if we want to use some code again,
 on a different dataset or at a different point in our program?
-Cutting and pasting it is going to make our code get very long and very repetitive,
-very quickly. 
+Cutting and pasting is going to make our code very long, repetitive, and quickly. 
 We’d like a way to package our code so that it is easier to reuse,
 and Python provides for this by letting us define things called ‘functions’ —
 a shorthand way of re-executing longer pieces of code.</p>
@@ -219,7 +218,10 @@ a shorthand way of re-executing longer pieces of code.</p>
 
 <p><img src="../pic/function.png" alt="function" height="300px" /></p>
 
-<p>The function definition opens with the keyword <code class="highlighter-rouge">def</code> followed by the
+<p>Python has some <a href="https://docs.python.org/3/library/functions.html">built in functions</a>. For example, len() is a built in function. <br /></p>
+
+<p>You can also define your own functions. 
+The function definition opens with the keyword <code class="highlighter-rouge">def</code> followed by the
 name of the function and a parenthesized list of parameter names. The
 <a href="../reference/#function-body">body</a> of the function — the
 statements that are executed when it runs — is indented below the
@@ -234,9 +236,7 @@ definition line.</p>
     <span class="k">return</span> <span class="n">newstring</span>
 </code></pre></div></div>
 
-<p>When we call the function,
-the values we pass to it are assigned to those variables
-so that we can use them inside the function.
+<p>When we call the function, the values we pass to it are assigned to those variables, so they will be used inside of the function.
 Inside the function,
 we use a <a href="../reference/#return-statement">return statement</a> to send a result back to whoever asked for it.
 Now you can use it on whatever strings you want like this:</p>
@@ -248,7 +248,7 @@ Now you can use it on whatever strings you want like this:</p>
 <blockquote class="challenge">
   <h2 id="challenge-21">Challenge 2.1</h2>
   <p>Write a function that returns the average of the list <br />
-Hint: use built in functions <code class="highlighter-rouge">sum()</code> to get the sum and <code class="highlighter-rouge">len()</code> to get the lenth</p>
+Hint: use built in functions <code class="highlighter-rouge">sum()</code> to get the sum and <code class="highlighter-rouge">len()</code> to get the length</p>
   <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># you can test your code with the following:  </span>
 <span class="n">lt</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span>
 <span class="n">your_function_name</span><span class="p">(</span><span class="n">lt</span><span class="p">)</span>  
@@ -275,12 +275,12 @@ math.sqrt(7)
 </code></pre></div></div>
 <p>Too see what we can do with the module, we can read its <a href="https://docs.python.org/3/library/math.html">documentation</a>. Modules usually have clearly stated documentations that tells you what functions are included and how to use them. To use the functions, you do <code class="highlighter-rouge">module_name.function_name()</code>.</p>
 
-<p>A cool thing about Python is that there are a lot of modules avaliable for you to perform various kinds of tasks. For example, there are modules that do statistics, graphing, charts, etc. Many useful functions are pre written, and you just have to find the modules and import them. 
-Note that not all modules are included in your Python package in the beginning. Sometimes you have to download the module before importing it. For example, there is a cool graphing module is called <code class="highlighter-rouge">plotly</code>, and if you simply do <code class="highlighter-rouge">import plotly</code>, it will fail because the file is not in your computer yet. You can download it by using the <code class="highlighter-rouge">!pip install</code> statement:</p>
+<p>A cool thing about Python is that there are a lot of modules available for you to perform various kinds of tasks. For example, there are modules that do statistics, graphing, charts, etc. Many useful functions are pre written, and you just have to find the modules and import them. 
+Note that not all modules are included in your Python package in the beginning. Sometimes you have to download the module before importing it. For example, there is a cool graphing module called <code class="highlighter-rouge">plotly</code>. If you simply do <code class="highlighter-rouge">import plotly</code>, it will fail because the file is not in your computer yet. You can download it by using the <code class="highlighter-rouge">!pip install</code> statement:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!pip install plotly
 </code></pre></div></div>
-<p>After that, you will be able to import the module.</p>
+<p>After that, you will be able to import the module. They way to install outside packages varies. <code class="highlighter-rouge">!pip install</code> is just one of the most common ways. You should always check the installation guide in the documentation of the packages.</p>
 
 <blockquote class="challenge">
   <h2 id="challenge-22">Challenge 2.2</h2>
@@ -310,7 +310,7 @@ Hint 2: power of two can be achieved by using <code class="highlighter-rouge">**
 scipy.std(lt)
 </code></pre></div></div>
 <p>So much easier.<br />
-As business students, you don’t really have to actually implement functions such as standard deviation, PCA (demention reduction) and some problistic models at detailed level because they are usually pre written in some modules. Of course, it will never hurt if you are interested in learning them so that you can write your customized function to better fit your tasks (path way to an engineer). However, for most of us, it is more helpful to learn what kind of analysis we need for a certain task, what modules can perform the analysis, and how to use the functions in the modules. To find modules, you can first google your task, and go to the module’s website to read the documentations.</p>
+As business students, you don’t really have to actually implement functions such as standard deviation, PCA (detention reduction) and some probabilistic models at detailed level because they are usually pre written in some modules. Of course, it will never hurt if you are interested in learning them so that you can write your customized function to better fit your tasks (path way to an engineer). However, for most of us, it is more helpful to learn what kind of analysis we need for a certain task, what modules can perform the analysis, and how to use the functions in the modules. To find modules, you can first google your task, and go to the module’s website to read the documentations.</p>
 
 <h2 id="readable-functions">Readable functions</h2>
 
@@ -324,7 +324,7 @@ As business students, you don’t really have to actually implement functions su
     <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
 </code></pre></div></div>
 
-<p>The functions <code class="highlighter-rouge">s</code> actually calculates standard deviation, exactlly the same as the previous exercise. 
+<p>The functions <code class="highlighter-rouge">s</code> actually calculates standard deviation, exactly the same as the previous exercise. 
 But to a human reader, it is difficult to read.</p>
 
 <p>As this example illustrates, both documentation and a programmer’s
@@ -333,7 +333,8 @@ and understand the programmer’s code. Choosing meaningful variable
 names and using blank spaces to break the code into logical “chunks”
 are helpful techniques for producing <em>readable code</em>. This is useful
 not only for sharing code with others, but also for the original
-programmer. If you need to revisit code that you wrote months ago and
+programmer. (Especially for Python, it can get really messy because there are so many short cuts and tricks… So please also keep commenting in your code) 
+If you need to revisit code that you wrote months ago and
 haven’t thought about since then, you will appreciate the value of
 readable code!</p>
 
@@ -348,9 +349,11 @@ then the replacement for a value <code class="highlighter-rouge">v</code> should
   <blockquote class="solution">
     <h2 id="solution-2">Solution</h2>
     <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">rescale</span><span class="p">(</span><span class="n">input_array</span><span class="p">):</span>
-    <span class="n">L</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="nb">min</span><span class="p">(</span><span class="n">input_array</span><span class="p">)</span>
-    <span class="n">H</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="nb">max</span><span class="p">(</span><span class="n">input_array</span><span class="p">)</span>
-    <span class="n">output_array</span> <span class="o">=</span> <span class="p">(</span><span class="n">input_array</span> <span class="o">-</span> <span class="n">L</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">H</span> <span class="o">-</span> <span class="n">L</span><span class="p">)</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">input_array</span><span class="p">)</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">input_array</span><span class="p">)</span>
+    <span class="n">output_array</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">input_array</span><span class="p">:</span> 
+        <span class="n">output_array</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">item</span> <span class="o">-</span> <span class="n">L</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">H</span> <span class="o">-</span> <span class="n">L</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">output_array</span>
 </code></pre></div>    </div>
   </blockquote>
@@ -367,12 +370,12 @@ do the two functions always behave the same way?</p>
   <blockquote class="solution">
     <h2 id="solution-3">Solution</h2>
     <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">rescale</span><span class="p">(</span><span class="n">input_array</span><span class="p">,</span> <span class="n">low_val</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">high_val</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
-    <span class="s">'''rescales input array values to lie between low_val and high_val'''</span>
-    <span class="n">L</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="nb">min</span><span class="p">(</span><span class="n">input_array</span><span class="p">)</span>
-    <span class="n">H</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="nb">max</span><span class="p">(</span><span class="n">input_array</span><span class="p">)</span>
-    <span class="n">intermed_array</span> <span class="o">=</span> <span class="p">(</span><span class="n">input_array</span> <span class="o">-</span> <span class="n">L</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">H</span> <span class="o">-</span> <span class="n">L</span><span class="p">)</span>
-    <span class="n">output_array</span> <span class="o">=</span> <span class="n">intermed_array</span> <span class="o">*</span> <span class="p">(</span><span class="n">high_val</span> <span class="o">-</span> <span class="n">low_val</span><span class="p">)</span> <span class="o">+</span> <span class="n">low_val</span>
-    <span class="k">return</span> <span class="n">output_array</span>
+   <span class="n">L</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">input_array</span><span class="p">)</span>
+   <span class="n">H</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">input_array</span><span class="p">)</span>
+   <span class="n">output_array</span> <span class="o">=</span> <span class="p">[]</span>
+   <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">input_array</span><span class="p">:</span> 
+       <span class="n">output_array</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">item</span> <span class="o">-</span> <span class="n">L</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">H</span> <span class="o">-</span> <span class="n">L</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">high_val</span> <span class="o">-</span> <span class="n">low_val</span><span class="p">)</span><span class="o">+</span> <span class="n">low_val</span><span class="p">)</span>
+   <span class="k">return</span> <span class="n">output_array</span>
 </code></pre></div>    </div>
   </blockquote>
 </blockquote>

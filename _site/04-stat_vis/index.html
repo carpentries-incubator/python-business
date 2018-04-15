@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2018-04-11 22:46:47 -0500">
+    <meta http-equiv="last-modified" content="2018-04-15 11:55:09 -0500">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -209,7 +209,7 @@ Let’s try to perform a linear regression on the “Bottle_Retail_Price” and 
 
 <h3 id="t-test">t-test</h3>
 <p>Let’s try a different kind of statistical analysis. Assume you are interested in selling either energy drink or cola, and you want to know if the two categories has significant difference in average bottle sales. 
-Since we only have data from two cities, we can perform a <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html">t-test</a> assuming different variance. 
+We can perform a <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html">t-test</a> assuming different variance. 
 Firstly we need to use aggregate function to find the total bottle sold for each soda in each category. Remember the groupby function? Try to do it by yourself.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ct</span> <span class="o">=</span> <span class="n">inv_soda</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">'Item_Description'</span><span class="p">,</span><span class="s">'Category'</span><span class="p">])[</span><span class="s">"Bottles_Sold"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s">"sum"</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
@@ -228,12 +228,16 @@ ct_cola = ct[ct["Category"] == "Cola"]
 <p>Well, the p value is not low enough to reject the null.  <br /></p>
 
 <h4 id="takeaways">Takeaways</h4>
-<p>Scipy has a lot of statistical tools. You can perform anything in the Excel Data Analytics Tool with Scipy, yet it is much more powerful. For example, you can do <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chisquare.html#scipy.stats.chisquare">chi-squares</a>, <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f_oneway.html#scipy.stats.f_oneway">ANOVA</a>, <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kstat.html#scipy.stats.kstat">k-stat</a>, etc. You can click the link to see all tools in <a href="https://docs.scipy.org/doc/scipy/reference/stats.html">Scipy.stats</a>. As you can observe above, the most difficult part is to preprocess the data. As soon as the data is prepaired, you can just feed it into the model, very easy.</p>
+<ul>
+  <li>Scipy has a lot of statistical tools. You can perform anything in the Excel Data Analytics Tool with Scipy, yet it is much more powerful. For example, you can do <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chisquare.html#scipy.stats.chisquare">chi-squares</a>, <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f_oneway.html#scipy.stats.f_oneway">ANOVA</a>, <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kstat.html#scipy.stats.kstat">k-stat</a>, etc. You can click the link to see all tools in <a href="https://docs.scipy.org/doc/scipy/reference/stats.html">Scipy.stats</a>.</li>
+  <li>As you can observe above, the most difficult part is to preprocess the data. As soon as the data is prepaired, you can just feed it into the model, very easy.</li>
+  <li>There are many modules that can perform stats tasks in python. For example, <a href="http://scikit-learn.org/stable/">sklearn</a>, <a href="https://www.statsmodels.org/stable/index.html">Statsmodles</a> are also great. You can play with those if you have time.</li>
+</ul>
 
 <h2 id="visualization">Visualization</h2>
 
 <h3 id="basics">Basics</h3>
-<p>Many of you are experts in Excel graphing. You can do similar visualization with python. <a href="https://matplotlib.org/"><code class="highlighter-rouge">matplotlib</code></a> is great module for visualization in python. Firsly, let’s import the module.</p>
+<p>Many of you are experts in Excel graphing. You can do similar visualization with python. <a href="https://matplotlib.org/"><code class="highlighter-rouge">matplotlib</code></a> is a good starter module for visualization in python. Firstly, let’s import the module.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># In majority of cases, you will just use pyplot. So you can just import that.   </span>
 <span class="kn">import</span> <span class="nn">matplolib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
@@ -266,7 +270,7 @@ ct_cola = ct[ct["Category"] == "Cola"]
 <p>You will get something like this:<br />
 <img src="../pic/graph.png" alt="graph" height="400px" /></p>
 
-<p>Without a graphic interface like Excel, it is a little less intuitive. Carefully review the code, and try to understand what each line is doing.  Note that <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html"><code class="highlighter-rouge">pyplot.plot</code></a> has a lot of parameters. Basically, you can customize everything such as color, marker, alpha, etc., you can click to read the documentation.</p>
+<p>Without a graphic interface like Excel, it is a little less intuitive. Carefully review the code, and try to understand what each line is doing.  Note that <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html"><code class="highlighter-rouge">pyplot.plot</code></a> (you can click to read the documentation) has a lot of parameters. Basically, you can customize everything such as color, marker, alpha, etc.</p>
 
 <h3 id="histogram">Histogram</h3>
 <p>Let’s go back to our data.<br />
@@ -294,7 +298,7 @@ If you restarted your kernel and don’t have slope, intercept variable, run the
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># set figure size  </span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
-<span class="c"># Plot the scatter 'o' means use circle marker  </span>
+<span class="c"># Plot the scatter, 'o' means to use circle marker  </span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s">'o'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Data'</span><span class="p">)</span>
 <span class="c"># Plot the line  </span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">intercept</span> <span class="o">+</span> <span class="n">slope</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="s">'r'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'fitted line'</span><span class="p">)</span>
@@ -312,14 +316,17 @@ If you restarted your kernel and don’t have slope, intercept variable, run the
 <p><img src="../pic/sc.png" alt="sc" height="400px" /></p>
 
 <h4 id="takeaways-1">Takeaways</h4>
-<p>You can do many other kinds of visualization with matplotlib. For example, <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.pie.html">pie chart</a>, <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.bar.html">bar chart</a>, etc. Anything you can draw in Excel, you can do it with matplotlib. Similar as statistical analysis, the most difficult part for visualization is preprocessing. After that, you can just feed your data into the pre-written graphing tool.<br />
-If you are going to big companies, you will probablly learn Tableau later. Tableau can easily create nice graphs but it is a little annoying in preprocessing. We can preprocess with python and feed the data to Tableau. <br /> 
-Last but not the least, there are many other cool visualization modules avaliable. If you have time, you can consider these modules: <a href="https://plot.ly/">plotly</a>, <a href="https://graph-tool.skewed.de">graph-tool</a>. They can draw cool and interactive graphs.</p>
+<ul>
+  <li>You can do many other kinds of visualizations with matplotlib. For example, <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.pie.html">pie chart</a>, <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.bar.html">bar chart</a>, etc.</li>
+  <li>Anything you can draw in Excel, you can do it with matplotlib. Similar as statistical analysis, the most difficult part for visualization is preprocessing. After that, you can just feed your data into the pre-written graphing tool.</li>
+  <li>If you are going to big companies, you will probablly learn Tableau later. Tableau can easily create nice graphs but it is a little annoying in preprocessing. We can preprocess with python and feed the data to Tableau. <br /></li>
+  <li>Last but not the least, there are many other cool visualization modules avaliable. If you have time, you can consider these modules: <a href="https://plot.ly/">plotly</a>, <a href="https://graph-tool.skewed.de">graph-tool</a>. They can draw cool and interactive graphs.</li>
+</ul>
 
 <blockquote class="challenge">
   <h2 id="challenge">Challenge</h2>
-
-  <p>What are the top three categories in terms of total cost? Visualize it with pie chart. Read the <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.pie.html">documentation</a> yourself and try to figure out how to draw it. 
+  <p>Assume you just opened a new convenience store. You want to see what categories of soda did other stores spend the most money on in their inventory. <br />
+What are the top three categories in terms of total cost? Visualize it with pie chart. Read the <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.pie.html">documentation</a> yourself and try to figure out how to draw it. 
 Hint: 1. Calculate total cost for each soda (arithmetic)</p>
   <ol>
     <li>Calculate total cost for each category (aggregation)</li>

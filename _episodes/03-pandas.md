@@ -65,10 +65,12 @@ Our database is about soda sales from the vendors to stores. Here is all types o
 
 
 `csv` can be opened with Excel. However, Excel has a limit of 1,048,576 rows by 16,384 columns. Our `invoice.csv` data contains about 9 million rows of data, almost hitted the Excel limit. (Try to open it with Excel, how long it take to load it?)  
-It took me more than a half minute to just open the file (with a 5th gen i5 processor computer). It would be slow and difficult to do further analytics. 
-Excel is not very good when dealing with scalable data. Moreover, Excel is not very good at tracing modification records. On the other hand, a huge advantage of using python is that, without graphic interface, the processing of data will be much faster. Since you do your analytics with code, you can easily keep a record of what you have done. To deal with table-like data, we usually use a module called Pandas. In this section, you will learn the basics of Pandas. Since most of you are business students, I will also show you how to perform some frequent used Excel functionalities with Pandas.   
+It took me more than a half minute to just open the file (with a 5th gen i5 processor computer). It would be even slower and more difficult to do further analytics. 
+Excel is not very good when dealing with large amount of data. Moreover, Excel is not very good at tracing modification records. On the other hand, a huge advantage of using python is that, without graphic interface, the processing of data will be much faster. Also since you do your analytics with code, you can easily keep a record of what you have done. To deal with table-like data, we usually use a module called Pandas. In this section, you will learn the basics of Pandas. Since most of you are business students, I will also show you how to perform some frequent used Excel functionalities with Pandas.   
 
 ## Pandas in Python  
+
+![panda](../pic/panda1.gif){:height="130px"} ![panda](../pic/panda2.gif){:height="130px"} ![panda](../pic/panda3.gif){:height="130px"}<br>  
 One of the best options for working with tabular data in Python is to use the
 [Python Data Analysis Library](http://pandas.pydata.org/) (a.k.a. Pandas). The
 Pandas library provides data structures, produces high quality plots with
@@ -86,11 +88,11 @@ Each time we call a function that's in a library, we use the syntax
 `LibraryName.FunctionName`. Adding the library name with a `.` before the
 function name tells Python where to find the function. In the example above, we
 have imported Pandas as `pd`. This means we don't have to type out `pandas` each
-time we call a Pandas function.
+time we call a Pandas function.   
 
 ## Reading CSV Data Using Pandas
 
-We will begin by locating and reading our survey data which are in CSV format. CSV stands for Comma-Separated Values and is a common way store formatted data. Other symbols my also be used, so you might see tab-separated, colon-separated or space separated files. It is quite easy to replace one separator with another, to match your application. The first line in the file often has headers to explain what is in each column. CSV (and other separators) make it easy to share data, and can be imported and exported from many applications, including Microsoft Excel. 
+We will begin by locating and reading our survey data which are in CSV format. CSV stands for Comma-Separated Values and is a common way store formatted data. Other symbols may also be used, so you might see tab-separated, colon-separated or space separated files. It is quite easy to replace one separator with another, to match your application. The first line in the file often has headers to explain what is in each column. CSV (and other separators) make it easy to share data, and can be imported and exported from many applications, including Microsoft Excel. 
 We can use Pandas' `read_csv` function to pull the file directly into a [DataFrame](http://pandas.pydata.org/pandas-docs/stable/dsintro.html#dataframe).
 
 ## So What's a DataFrame?
@@ -99,23 +101,23 @@ A DataFrame is a 2-dimensional data structure that can store data of different
 types (including characters, integers, floating point values, factors and more)
 in columns. It is similar to a spreadsheet or an SQL table or the `data.frame` in
 R. A DataFrame always has an index (0-based). An index refers to the position of
-an element in the data structure.
+an element in the data structure.   
 
 ```python
 # Note that pd.read_csv is used because we imported pandas as pd
-pd.read_csv("soda.csv")
+pd.read_csv("item.csv")
 ```
 
-The above command yields 930508 rows × 19 columns. The first column is the index of the DataFrame (which is not included in the 19 columns). The index is used to identify the position of the data, but it is not an actual column of the DataFrame.
-It looks like  the `read_csv` function in Pandas  read our file properly. However,
-we haven't saved any data to memory so we can work with it.We need to assign the
+The above command yields 4166 rows × 7 columns. The first column is the index of the DataFrame (which is not included in the 7 columns). The index is used to identify the position of the data, but it is not an actual column of the DataFrame.  
+It looks like  the `read_csv` function in Pandas read our file properly. However,
+we haven't saved any data to memory so we can't work with it. We need to assign the
 DataFrame to a variable. Remember that a variable is a name for a value, such as `x`,
 or  `data`. We can create a new  object with a variable name by assigning a value to it using `=`.
 
 Let's call the imported data into two DataFrames `soda` and `inv`:
 
 ```python
-soda = pd.read_csv("soda.csv")
+soda = pd.read_csv("item.csv")
 inv = pd.read_csv("invoice.csv")
 ```
 
@@ -133,13 +135,13 @@ Note: if the output is too wide to print on your narrow terminal window, you may
 slightly different as the large set of data scrolls past. 
 Never fear, all the data is there, if you scroll up. Selecting just a few rows, so it is
 easier to fit on one window, you can see that pandas has neatly formatted the data to fit
-our screen/ 
-You can also use the `head(n)` function displays the first n lines of a file. It will defaultly show the first 5 rows of the dataframe if you don't fill in any numbers: 
+our screen.
+You can also use the `head(n)` function displays the first n lines of a file. It will by default show the first 5 rows of the dataframe if you don't fill in any numbers:   
 ```python
-soda.head() 
+soda.head()   
 ```
 
-## Exploring Our Data
+## Exploring Our Data   
 
 Again, we can use the `type` function to see what kind of thing `soda` is:
 
@@ -149,7 +151,7 @@ Again, we can use the `type` function to see what kind of thing `soda` is:
 ```
 
 As expected, it's a DataFrame (or, to use the full name that Python uses to refer
-to it internally, a `pandas.core.frame.DataFrame`).
+to it internally, a `pandas.core.frame.DataFrame`).   
 
 What kind of things does `soda` and `inv` contain? DataFrames have an attribute
 called `dtypes` that answers this:
@@ -184,7 +186,7 @@ dtype: object
 ```
 
 All the values in a column have the same type. For example, Bottles_Sold have type
-`int64`, which is a kind of integer.  Bottle_Cost has decimals and it have type `float64`. 
+`int64`, which is a kind of integer. Bottle_Cost has decimals and it have type `float64`. 
 The `object` type doesn't have a very helpful name, but in
 this case it represents strings.   
 
@@ -200,8 +202,7 @@ with `soda.columns`.
 
 Methods are called in a similar fashion using the syntax `df_object.method()`.
 As an example, `soda.head()` gets the first few rows in the DataFrame
-`soda` using **the `head()` method**. With a method, we can supply extra
-information in the parens to control behaviour.
+`soda` using **the `head()` method**. It will return 5 rows by default, but you can specify how many rows you want by adding a number between the parentheses. 
 
 Let's look at the data using these.
 
@@ -252,7 +253,7 @@ soda.drop_duplicates("Category")
 This will return a DataFrame of unique values, and it will return you all the other columns besides `Category`. 
 
 ## Sorting and Filtering values in DataFrame  
-Now you have a glance of how Pandas works. For us business students, we probablly interested in how to perform Excel tasks with python, so that we can deal with more scalable data.   
+Now you have a glance of how Pandas works. For us business students, we probably interested in how to perform Excel tasks with python, so that we can deal with more scalable data.   
 Firstly, sorting is very frequently used in Excel. Pandas has the same functionality: 
 ```python
 # sort by one column: 
@@ -278,7 +279,7 @@ soda[soda["Bottle_Cost"]<= 3]["Item_Description"]
 ```
 > ## Challenge - Summary Data
 >
-> If we need multiple criterias, we can put parentheses over each criterias and use `&` (and) or `|` (or) to combine the criterias. For example, let's select sodas that are at least 500ml and cheaper than $3.     
+> If we need multiple criteria, we can put parentheses over each criteria and use `&` (and) or `|` (or) to combine the criterias. For example, let's select sodas that are at least 500ml and cheaper than $3.     
 >  
 >> ## Solution
 >> ```
@@ -317,9 +318,7 @@ Very important, the `.drop()` will not change anything in the original DataFrame
 # Basic Statistics with Pandas  
 
 Excel has "descriptive statistics" function in the built in data analytics tools. We can do similar things with Pandas. 
-Let's perform some quick summary statistics to learn more about the data that we're working with. We can perform summary stats quickly using groups. But first we need to figure out what we want to group by.
-
-We often want to calculate summary statistics grouped by subsets or attributes
+Let's perform some quick summary statistics to learn more about the data that we're working with. We can perform summary stats quickly using groups. We often want to calculate summary statistics grouped by subsets or attributes
 within fields of our data. For example, we might want to calculate the average
 cost of each soda.
 
@@ -358,7 +357,7 @@ For example, we have two tables below:
 ![vlookup1](../pic/vlookup1.png){:height="130px"} <br>
 And we want to merge them together: <br>
 ![vlookup1](../pic/vlookup2.png){:height="130px"} <br>
-Many people probablly know how to do this in Excel. You can just use vlookup function. (you will probablly use it a lot in your future jobs)
+Many people probably know how to do this in Excel. You can just use vlookup function. (you will probably use it a lot in your future jobs)
 ```Excel
 =VLOOKUP(A3,$E$3:$F$5,2,FALSE)  
 ```
@@ -370,7 +369,7 @@ DataFrame.merge(Another_DataFrame, how='inner, outer, left or right', left_on="L
 "how" determines the join type. The following chart shows the difference between each kinds of joins, assume column "J" is the join column:  
 ![join](../pic/join.png){:height="400px"} <br>
 
-Let's have a quick demostration of the merges performed in the charts above. 
+Let's have a quick demonstration of the merges performed in the charts above. 
 ```python  
 # firstly, load in the tables
 table1 = pd.DataFrame({'J': ['A', 'B', 'D'], 'X': [1, 2, 3]})
@@ -424,9 +423,9 @@ Let's go back to our data. We have two DataFrames, `soda` and `invoice`. In the 
 ## Aggregate Function  
 
 But if we want to summarize by one or more variables, for example, if we want to find out how many bottles has each soda been sold. 
-In Excel, we will probablly use pivot table. In Pandas, we can use **Pandas' `.groupby` method**. Once we've created a groupby DataFrame, we
-can quickly calculate summary statistics by a group of our choice. <br>
-Note that Pandas has pivot table too, we will cover later. 
+In Excel, we will probably use pivot table. In Pandas, we can use **Pandas' `.groupby` method**. Once we've created a groupby DataFrame, we
+can quickly calculate summary statistics by a group of our choice. <br>   
+Note that Pandas has pivot table too, we will cover later.   
 
 ```python
 # Group data by Item_Description 
@@ -445,8 +444,8 @@ Akame's Energy        80
 ```
 Note that "Item_Description" and "count" are not at the same level. This is because the groupby function automatically made "Item_Description" the index. If we do `grouped_df.columns`, we will only see the `count` column. To avoid problems when using the aggregated result, we might want to: 
 ```python
-grouped_df = inv_soda.groupby('Item_Description')["Invoice_id"].agg(["count"]).reset_index()
-grouped_df 
+grouped_df = inv_soda.groupby('Item_Description')["Invoice_id"].agg(["count"]).reset_index()  
+grouped_df  
 ```
 The columns are at the same level now. 
 ```
@@ -485,13 +484,13 @@ A basic pivot table contains the following parameters:
 pandas.pivot_table(DataFrame, values, index, columns, aggfunc)
 # values: columns to aggregate (just like choosing the field to report in Excel pivot table)
 # index: keys to group by on the pivot table index (just like dragging into the row box in Excel pivot table) 
-# columns: keys to group by on the pivot table column, (just like dragging into the column box in Excel pivot table) 
+# columns: keys to group by on the pivot table column (just like dragging into the column box in Excel pivot table) 
 # aggfunc: aggregate function, for example, mean, sum, min, etc. (just like setting the values box in Excel pivot table)
 ```
 For example you want to see the total bottles sold for each soda in each city, you can:  
 ```
 pd.pivot_table(inv_soda, values="Bottles_Sold", index = ["Item_Description"],\
-            columns = ["City_Name"], aggfunc="sum")
+            columns = ["City_Name"], aggfunc="sum")   
 
 ```
 You will get something like this:  

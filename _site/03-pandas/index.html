@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2018-04-11 22:46:47 -0500">
+    <meta http-equiv="last-modified" content="2018-04-15 11:55:09 -0500">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -351,11 +351,13 @@ and they can replicate the same analysis.</p>
 </table>
 
 <p><code class="highlighter-rouge">csv</code> can be opened with Excel. However, Excel has a limit of 1,048,576 rows by 16,384 columns. Our <code class="highlighter-rouge">invoice.csv</code> data contains about 9 million rows of data, almost hitted the Excel limit. (Try to open it with Excel, how long it take to load it?)<br />
-It took me more than a half minute to just open the file (with a 5th gen i5 processor computer). It would be slow and difficult to do further analytics. 
-Excel is not very good when dealing with scalable data. Moreover, Excel is not very good at tracing modification records. On the other hand, a huge advantage of using python is that, without graphic interface, the processing of data will be much faster. Since you do your analytics with code, you can easily keep a record of what you have done. To deal with table-like data, we usually use a module called Pandas. In this section, you will learn the basics of Pandas. Since most of you are business students, I will also show you how to perform some frequent used Excel functionalities with Pandas.</p>
+It took me more than a half minute to just open the file (with a 5th gen i5 processor computer). It would be even slower and more difficult to do further analytics. 
+Excel is not very good when dealing with large amount of data. Moreover, Excel is not very good at tracing modification records. On the other hand, a huge advantage of using python is that, without graphic interface, the processing of data will be much faster. Also since you do your analytics with code, you can easily keep a record of what you have done. To deal with table-like data, we usually use a module called Pandas. In this section, you will learn the basics of Pandas. Since most of you are business students, I will also show you how to perform some frequent used Excel functionalities with Pandas.</p>
 
 <h2 id="pandas-in-python">Pandas in Python</h2>
-<p>One of the best options for working with tabular data in Python is to use the
+
+<p><img src="../pic/panda1.gif" alt="panda" height="130px" /> <img src="../pic/panda2.gif" alt="panda" height="130px" /> <img src="../pic/panda3.gif" alt="panda" height="130px" /><br /><br />
+One of the best options for working with tabular data in Python is to use the
 <a href="http://pandas.pydata.org/">Python Data Analysis Library</a> (a.k.a. Pandas). The
 Pandas library provides data structures, produces high quality plots with
 <a href="http://matplotlib.org/">matplotlib</a> and integrates nicely with other libraries
@@ -375,7 +377,7 @@ time we call a Pandas function.</p>
 
 <h2 id="reading-csv-data-using-pandas">Reading CSV Data Using Pandas</h2>
 
-<p>We will begin by locating and reading our survey data which are in CSV format. CSV stands for Comma-Separated Values and is a common way store formatted data. Other symbols my also be used, so you might see tab-separated, colon-separated or space separated files. It is quite easy to replace one separator with another, to match your application. The first line in the file often has headers to explain what is in each column. CSV (and other separators) make it easy to share data, and can be imported and exported from many applications, including Microsoft Excel. 
+<p>We will begin by locating and reading our survey data which are in CSV format. CSV stands for Comma-Separated Values and is a common way store formatted data. Other symbols may also be used, so you might see tab-separated, colon-separated or space separated files. It is quite easy to replace one separator with another, to match your application. The first line in the file often has headers to explain what is in each column. CSV (and other separators) make it easy to share data, and can be imported and exported from many applications, including Microsoft Excel. 
 We can use Pandas’ <code class="highlighter-rouge">read_csv</code> function to pull the file directly into a <a href="http://pandas.pydata.org/pandas-docs/stable/dsintro.html#dataframe">DataFrame</a>.</p>
 
 <h2 id="so-whats-a-dataframe">So What’s a DataFrame?</h2>
@@ -387,18 +389,18 @@ R. A DataFrame always has an index (0-based). An index refers to the position of
 an element in the data structure.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Note that pd.read_csv is used because we imported pandas as pd</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">"soda.csv"</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">"item.csv"</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p>The above command yields 930508 rows × 19 columns. The first column is the index of the DataFrame (which is not included in the 19 columns). The index is used to identify the position of the data, but it is not an actual column of the DataFrame.
-It looks like  the <code class="highlighter-rouge">read_csv</code> function in Pandas  read our file properly. However,
-we haven’t saved any data to memory so we can work with it.We need to assign the
+<p>The above command yields 4166 rows × 7 columns. The first column is the index of the DataFrame (which is not included in the 7 columns). The index is used to identify the position of the data, but it is not an actual column of the DataFrame.<br />
+It looks like  the <code class="highlighter-rouge">read_csv</code> function in Pandas read our file properly. However,
+we haven’t saved any data to memory so we can’t work with it. We need to assign the
 DataFrame to a variable. Remember that a variable is a name for a value, such as <code class="highlighter-rouge">x</code>,
 or  <code class="highlighter-rouge">data</code>. We can create a new  object with a variable name by assigning a value to it using <code class="highlighter-rouge">=</code>.</p>
 
 <p>Let’s call the imported data into two DataFrames <code class="highlighter-rouge">soda</code> and <code class="highlighter-rouge">inv</code>:</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">soda</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">"soda.csv"</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">soda</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">"item.csv"</span><span class="p">)</span>
 <span class="n">inv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">"invoice.csv"</span><span class="p">)</span>
 </code></pre></div></div>
 
@@ -415,9 +417,9 @@ object by typing its name into the Python command prompt.</p>
 slightly different as the large set of data scrolls past. 
 Never fear, all the data is there, if you scroll up. Selecting just a few rows, so it is
 easier to fit on one window, you can see that pandas has neatly formatted the data to fit
-our screen/ 
-You can also use the <code class="highlighter-rouge">head(n)</code> function displays the first n lines of a file. It will defaultly show the first 5 rows of the dataframe if you don’t fill in any numbers:</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">soda</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> 
+our screen.
+You can also use the <code class="highlighter-rouge">head(n)</code> function displays the first n lines of a file. It will by default show the first 5 rows of the dataframe if you don’t fill in any numbers:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">soda</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>   
 </code></pre></div></div>
 
 <h2 id="exploring-our-data">Exploring Our Data</h2>
@@ -463,7 +465,7 @@ called <code class="highlighter-rouge">dtypes</code> that answers this:</p>
 </code></pre></div></div>
 
 <p>All the values in a column have the same type. For example, Bottles_Sold have type
-<code class="highlighter-rouge">int64</code>, which is a kind of integer.  Bottle_Cost has decimals and it have type <code class="highlighter-rouge">float64</code>. 
+<code class="highlighter-rouge">int64</code>, which is a kind of integer. Bottle_Cost has decimals and it have type <code class="highlighter-rouge">float64</code>. 
 The <code class="highlighter-rouge">object</code> type doesn’t have a very helpful name, but in
 this case it represents strings.</p>
 
@@ -479,8 +481,7 @@ with <code class="highlighter-rouge">soda.columns</code>.</p>
 
 <p>Methods are called in a similar fashion using the syntax <code class="highlighter-rouge">df_object.method()</code>.
 As an example, <code class="highlighter-rouge">soda.head()</code> gets the first few rows in the DataFrame
-<code class="highlighter-rouge">soda</code> using <strong>the <code class="highlighter-rouge">head()</code> method</strong>. With a method, we can supply extra
-information in the parens to control behaviour.</p>
+<code class="highlighter-rouge">soda</code> using <strong>the <code class="highlighter-rouge">head()</code> method</strong>. It will return 5 rows by default, but you can specify how many rows you want by adding a number between the parentheses.</p>
 
 <p>Let’s look at the data using these.</p>
 
@@ -531,7 +532,7 @@ You can also:</p>
 <p>This will return a DataFrame of unique values, and it will return you all the other columns besides <code class="highlighter-rouge">Category</code>.</p>
 
 <h2 id="sorting-and-filtering-values-in-dataframe">Sorting and Filtering values in DataFrame</h2>
-<p>Now you have a glance of how Pandas works. For us business students, we probablly interested in how to perform Excel tasks with python, so that we can deal with more scalable data. <br />
+<p>Now you have a glance of how Pandas works. For us business students, we probably interested in how to perform Excel tasks with python, so that we can deal with more scalable data. <br />
 Firstly, sorting is very frequently used in Excel. Pandas has the same functionality:</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># sort by one column: </span>
 <span class="n">df_object</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s">"column_name"</span><span class="p">)</span>
@@ -554,7 +555,7 @@ Firstly, sorting is very frequently used in Excel. Pandas has the same functiona
 <blockquote class="challenge">
   <h2 id="challenge---summary-data">Challenge - Summary Data</h2>
 
-  <p>If we need multiple criterias, we can put parentheses over each criterias and use <code class="highlighter-rouge">&amp;</code> (and) or <code class="highlighter-rouge">|</code> (or) to combine the criterias. For example, let’s select sodas that are at least 500ml and cheaper than $3.</p>
+  <p>If we need multiple criteria, we can put parentheses over each criteria and use <code class="highlighter-rouge">&amp;</code> (and) or <code class="highlighter-rouge">|</code> (or) to combine the criterias. For example, let’s select sodas that are at least 500ml and cheaper than $3.</p>
 
   <blockquote class="solution">
     <h2 id="solution">Solution</h2>
@@ -591,9 +592,7 @@ For example, if you want to calculate the pack price of each soda (Pack * Bottle
 <h1 id="basic-statistics-with-pandas">Basic Statistics with Pandas</h1>
 
 <p>Excel has “descriptive statistics” function in the built in data analytics tools. We can do similar things with Pandas. 
-Let’s perform some quick summary statistics to learn more about the data that we’re working with. We can perform summary stats quickly using groups. But first we need to figure out what we want to group by.</p>
-
-<p>We often want to calculate summary statistics grouped by subsets or attributes
+Let’s perform some quick summary statistics to learn more about the data that we’re working with. We can perform summary stats quickly using groups. We often want to calculate summary statistics grouped by subsets or attributes
 within fields of our data. For example, we might want to calculate the average
 cost of each soda.</p>
 
@@ -629,7 +628,7 @@ For example, we have two tables below:<br />
 <img src="../pic/vlookup1.png" alt="vlookup1" height="130px" /> <br />
 And we want to merge them together: <br />
 <img src="../pic/vlookup2.png" alt="vlookup1" height="130px" /> <br />
-Many people probablly know how to do this in Excel. You can just use vlookup function. (you will probablly use it a lot in your future jobs)</p>
+Many people probably know how to do this in Excel. You can just use vlookup function. (you will probably use it a lot in your future jobs)</p>
 <pre><code class="language-Excel">=VLOOKUP(A3,$E$3:$F$5,2,FALSE)  
 </code></pre>
 <p>We can also do this in Pandas with <a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.merge.html"><code class="highlighter-rouge">pandas.DataFrame.merge</code></a> (you can click to see documentation).</p>
@@ -639,7 +638,7 @@ Many people probablly know how to do this in Excel. You can just use vlookup fun
 <p>“how” determines the join type. The following chart shows the difference between each kinds of joins, assume column “J” is the join column:<br />
 <img src="../pic/join.png" alt="join" height="400px" /> <br /></p>
 
-<p>Let’s have a quick demostration of the merges performed in the charts above.</p>
+<p>Let’s have a quick demonstration of the merges performed in the charts above.</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># firstly, load in the tables</span>
 <span class="n">table1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s">'J'</span><span class="p">:</span> <span class="p">[</span><span class="s">'A'</span><span class="p">,</span> <span class="s">'B'</span><span class="p">,</span> <span class="s">'D'</span><span class="p">],</span> <span class="s">'X'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]})</span>
 <span class="n">table2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s">'J'</span><span class="p">:</span> <span class="p">[</span><span class="s">'B'</span><span class="p">,</span> <span class="s">'C'</span><span class="p">,</span> <span class="s">'D'</span><span class="p">],</span> <span class="s">'Y'</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]})</span> 
@@ -692,8 +691,8 @@ Let’s find out what is it:</p>
 <h2 id="aggregate-function">Aggregate Function</h2>
 
 <p>But if we want to summarize by one or more variables, for example, if we want to find out how many bottles has each soda been sold. 
-In Excel, we will probablly use pivot table. In Pandas, we can use <strong>Pandas’ <code class="highlighter-rouge">.groupby</code> method</strong>. Once we’ve created a groupby DataFrame, we
-can quickly calculate summary statistics by a group of our choice. <br />
+In Excel, we will probably use pivot table. In Pandas, we can use <strong>Pandas’ <code class="highlighter-rouge">.groupby</code> method</strong>. Once we’ve created a groupby DataFrame, we
+can quickly calculate summary statistics by a group of our choice. <br /> <br />
 Note that Pandas has pivot table too, we will cover later.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Group data by Item_Description </span>
@@ -710,8 +709,8 @@ Akame's Energy        80
 ...
 </code></pre></div></div>
 <p>Note that “Item_Description” and “count” are not at the same level. This is because the groupby function automatically made “Item_Description” the index. If we do <code class="highlighter-rouge">grouped_df.columns</code>, we will only see the <code class="highlighter-rouge">count</code> column. To avoid problems when using the aggregated result, we might want to:</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">grouped_df</span> <span class="o">=</span> <span class="n">inv_soda</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">'Item_Description'</span><span class="p">)[</span><span class="s">"Invoice_id"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s">"count"</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="n">grouped_df</span> 
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">grouped_df</span> <span class="o">=</span> <span class="n">inv_soda</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">'Item_Description'</span><span class="p">)[</span><span class="s">"Invoice_id"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s">"count"</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>  
+<span class="n">grouped_df</span>  
 </code></pre></div></div>
 <p>The columns are at the same level now.</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Item_Description        count
@@ -748,12 +747,12 @@ Note that the input in <code class="highlighter-rouge">.agg()</code> is a list. 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pandas</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">aggfunc</span><span class="p">)</span>
 <span class="c"># values: columns to aggregate (just like choosing the field to report in Excel pivot table)</span>
 <span class="c"># index: keys to group by on the pivot table index (just like dragging into the row box in Excel pivot table) </span>
-<span class="c"># columns: keys to group by on the pivot table column, (just like dragging into the column box in Excel pivot table) </span>
+<span class="c"># columns: keys to group by on the pivot table column (just like dragging into the column box in Excel pivot table) </span>
 <span class="c"># aggfunc: aggregate function, for example, mean, sum, min, etc. (just like setting the values box in Excel pivot table)</span>
 </code></pre></div></div>
 <p>For example you want to see the total bottles sold for each soda in each city, you can:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pd.pivot_table(inv_soda, values="Bottles_Sold", index = ["Item_Description"],\
-            columns = ["City_Name"], aggfunc="sum")
+            columns = ["City_Name"], aggfunc="sum")   
 
 </code></pre></div></div>
 <p>You will get something like this:<br />
