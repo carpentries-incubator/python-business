@@ -6,7 +6,7 @@ The '[Python Lessons for Business](https://github.com/data-lessons/python-busine
 
 ## Background
 
-Python Lessons for Business is a software skills training programme aimed at business students. It helps business students learn about basics of programming and how to perform Excel-like tasks with python. It builds on the work of [Data Carpentry](http://www.datacarpentry.org/). It used [python novice inflammation](https://github.com/swcarpentry/python-novice-inflammation) and [SQL for Ecology](http://www.datacarpentry.org/sql-ecology-lesson/) as basis. 
+Python Lessons for Business is a software skills training programme aimed at business students. It helps business students learn about basics of programming and how to perform Excel-like tasks with python. It builds on the work of [Data Carpentry](http://www.datacarpentry.org/). It used [python novice inflammation](https://github.com/swcarpentry/python-novice-inflammation) and [python for Ecology](https://github.com/datacarpentry/python-ecology-lesson/) as basis. 
 
 ## Code of Conduct
 
