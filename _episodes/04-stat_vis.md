@@ -26,6 +26,7 @@ Let's start with linear regression. [scipy.stats.linregress](https://docs.scipy.
 Let's try to perform a linear regression on the "Bottle_Retail_Price" and the "Bottle_Cost".  
 
 ```python  
+from scipy import stats
 # Get the two columns, note that you cannot have any NULL value in the input  
 c_p = soda[["Bottle_Cost", "Bottle_Retail_Price"]].dropna()
 
