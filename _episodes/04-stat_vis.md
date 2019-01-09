@@ -75,6 +75,7 @@ Well, the p value is not low enough to reject the null.  <br>
 Many of you are experts in Excel graphing. You can do similar visualization with python. [`matplotlib`](https://matplotlib.org/) is a good starter module for visualization in python. Firstly, let's import the module.  
 
 ```python
+%matplotlib inline
 # In majority of cases, you will just use pyplot. So you can just import that.   
 import matplolib.pyplot as plt
 ```
