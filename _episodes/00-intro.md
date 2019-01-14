@@ -114,7 +114,7 @@ Only one "2" is left. You can also do `st = set((1,2,3))` or `st = set(tp)`, bas
 #### 4. Dictionary
 - `dict`: unordered {key: value} pairs, indexed by keys. Keys cannot be mutable, so tuples can be keys but lists cannot be keys. It sounds confusing, lets see an example:  
 ```
-dt = {"a":1, "b", 2}
+dt = {"a":1, "b":2}
 ```
 In this dictionary dt, "a" and "b" are keys, 1 and 2 are values. Keys are unique, so you can quickly get the value behind the key by:
 ```
