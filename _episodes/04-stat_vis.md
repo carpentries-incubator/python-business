@@ -26,6 +26,7 @@ Let's start with linear regression. [scipy.stats.linregress](https://docs.scipy.
 Let's try to perform a linear regression on the "Bottle_Retail_Price" and the "Bottle_Cost".  
 
 ```python  
+from scipy import stats
 # Get the two columns, note that you cannot have any NULL value in the input  
 c_p = soda[["Bottle_Cost", "Bottle_Retail_Price"]].dropna()
 
@@ -74,6 +75,7 @@ Well, the p value is not low enough to reject the null.  <br>
 Many of you are experts in Excel graphing. You can do similar visualization with python. [`matplotlib`](https://matplotlib.org/) is a good starter module for visualization in python. Firstly, let's import the module.  
 
 ```python
+%matplotlib inline
 # In majority of cases, you will just use pyplot. So you can just import that.   
 import matplolib.pyplot as plt
 ```
