@@ -6,7 +6,7 @@ permalink: /setup/
 
 > ## Software
 > 
-> dWe will use jupyter notebook to run python. If you have not installed jupyter notebooks, please follow the instructions to install. For both windows and Mac, the easiest way is to install [ANACODA](https://www.anaconda.com/download) (recomend download and install the python 3.6 version). ANACODA will automatically install python, jupyter and few packages that are frequently used in data analytics to your computer. You can also choose to use `python -m pip install jupyter` command to install if you already have python in your computer. 
+> We will use jupyter notebook to run python. If you have not installed jupyter notebooks, please follow the instructions to install. For both windows and Mac, the easiest way is to install [ANACODA](https://www.anaconda.com/download) (recomend download and install the python 3.6 version). ANACODA will automatically install python, jupyter and few packages that are frequently used in data analytics to your computer. You can also choose to use `python -m pip install jupyter` command to install if you already have python in your computer. 
 > 
 > After installing anacoda, 
 > ### Windows 
