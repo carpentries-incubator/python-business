@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="last-modified" content="2019-04-28 11:11:53 -0500">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- meta "search-domain" used for google site search function google_search() -->
+    <meta name="search-domain" value="">
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/lesson.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/syntax.css" />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon-swc.ico" />
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+    <title>Python for Business: Data Preparation techniques</title>
+  </head>
+  <body>
+    <div class="container">
+      
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      
+      
+
+      
+      <a class="navbar-brand" href="../">Home</a>
+
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+	
+        <li><a href="../conduct/">Code of Conduct</a></li>
+
+        
+	
+        <li><a href="../setup/">Setup</a></li>
+
+        
+        <li class="dropdown">
+          <a href="../" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Episodes <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            
+            <li><a href="../00-intro_notebook/">Introduction to Jupyter Notebook</a></li>
+            
+            <li><a href="../01-intro/">Python basics 1 - Intro to Python</a></li>
+            
+            <li><a href="../02-conditional_loop/">Python basics 2 - Conditional statements and Loops</a></li>
+            
+            <li><a href="../03-func/">Python basics 3 - Functions and Modules</a></li>
+            
+            <li><a href="../04-pandas/">Intro to Pandas</a></li>
+            
+            <li><a href="../05-stat_vis/">Statistical Analysis and Visualization</a></li>
+            
+            <li><a href="../06-errors/">Extra - Errors and Exceptions</a></li>
+            
+            <li><a href="../07-debugging/">Extra - Debugging</a></li>
+            
+            <li><a href="../08-crisp/">Introduction to CRISP-DM</a></li>
+            
+            <li><a href="../09-data_prep/">Data Preparation techniques</a></li>
+            
+            <li><a href="../10-linear_regression/">Linear regression</a></li>
+            
+            <li><a href="../11-case_study/">Case Study</a></li>
+            
+	    <li role="separator" class="divider"></li>
+            <li><a href="../aio/">All in one page (Beta)</a></li>
+          </ul>
+        </li>
+	
+
+	
+	
+        <li class="dropdown">
+          <a href="../" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Extras <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="../reference/">Reference</a></li>
+            
+            <li><a href="../about/">About</a></li>
+            
+            <li><a href="../discuss/">Discussion</a></li>
+            
+            <li><a href="../extras/figures.html">Figures</a></li>
+            
+            <li><a href="../guide/">Instructor Notes</a></li>
+            
+          </ul>
+        </li>
+	
+
+	
+        <li><a href="../LICENSE.html">License</a></li>
+	
+	<li><a href="/edit/gh-pages/_episodes/09-data_prep.md">Improve this page <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></li>
+	
+      </ul>
+      <form class="navbar-form navbar-right" role="search" id="search" onsubmit="google_search(); return false;">
+        <div class="form-group">
+          <input type="text" id="google-search" placeholder="Search..." aria-label="Google site search">
+        </div>
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+<div class="row">
+  <div class="col-xs-1">
+    <h3 class="text-left">
+      
+      <a href="../08-crisp/"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
+      
+    </h3>
+  </div>
+  <div class="col-xs-10">
+    
+    <h3 class="maintitle"><a href="../">Python for Business</a></h3>
+    
+  </div>
+  <div class="col-xs-1">
+    <h3 class="text-right">
+      
+      <a href="../10-linear_regression/"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      
+    </h3>
+  </div>
+</div>
+
+<article>
+<div class="row">
+  <div class="col-md-1">
+  </div>
+  <div class="col-md-10">
+    <h1 class="maintitle">Data Preparation techniques</h1>
+  </div>
+  <div class="col-md-1">
+  </div>
+</div>
+
+
+<blockquote class="objectives">
+  <h2>Overview</h2>
+
+  <div class="row">
+    <div class="col-md-3">
+      <strong>Teaching:</strong> 60 min
+      <br/>
+      <strong>Exercises:</strong> 0 min
+    </div>
+    <div class="col-md-9">
+      <strong>Questions</strong>
+      <ul>
+	
+	<li><p>How do I load data to python?</p>
+</li>
+	
+	<li><p>How to clean up data?</p>
+</li>
+	
+	<li><p>How to handle missing values?</p>
+</li>
+	
+	<li><p>How to create new features?</p>
+</li>
+	
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-9">
+      <strong>Objectives</strong>
+      <ul>
+	
+	<li><p>Demonstrate common techniques in data Preparation.</p>
+</li>
+	
+      </ul>
+    </div>
+  </div>
+
+</blockquote>
+
+<p>Survey of data analysts found that they spend most of their time massaging rather than mining or modeling data. Data preparation accounts for 60-80% of the work of data analysts. In this section we will introduce some common techniques in data preparation. Mastering these techniques may save you a lot time and trouble. In this lesson, we will introduce some commonly used python data preparation techniques, which include:</p>
+<ul>
+  <li>Load Data</li>
+  <li>Change Column Name</li>
+  <li>Handle Missing Data</li>
+  <li>Manipulate String Values</li>
+  <li>Transform Datetime</li>
+  <li>Lambda Function</li>
+</ul>
+
+<h2 id="load-data">Load Data</h2>
+
+<p>A dataset can be one of several different types. Dataset type is distinguished on the basis of data storage and structure. In this lesson, we will briefly introduce how to load <strong>structured</strong> data from various storage type, CSV file, Excel file and relational database, using <code class="highlighter-rouge">pandas</code> functions. We first need to import the pandas module:</p>
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<h4 id="from-csv-file">From CSV File</h4>
+
+<p>Comma separated values or CSV file, is one of the most popular way to store structured data. We call <code class="highlighter-rouge">pandas</code> function <code class="highlighter-rouge">read_csv()</code> to load a dataset from CSV files to <code class="highlighter-rouge">pandas</code> <code class="highlighter-rouge">DataFrame</code>.</p>
+
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'filename.csv'</span><span class="p">)</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<p><code class="highlighter-rouge">read_csv()</code> have many other arguments in addition to file name. For example, following code loads a CSV file which uses ‘|’ as delimiter, skips the first 5 rows in the file, sets the first column as dataframe index:</p>
+
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'filename.csv'</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s">'|'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<p>To learn the detail of the function, check out the functions doc string:</p>
+
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#display function doc string
+</span><span class="n">help</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">)</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<h4 id="from-spreadsheet">From Spreadsheet</h4>
+
+<p>To load a dataset from an Excel file, we will use <code class="highlighter-rouge">pandas</code> function <code class="highlighter-rouge">read_excel()</code>. Following code load a dataset from sheet “sheet1” of an excel file “filename.xlsx”:</p>
+
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s">'filename.xlsx'</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s">'sheet1'</span><span class="p">)</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<p>As <code class="highlighter-rouge">read_csv()</code>, <code class="highlighter-rouge">read_excel()</code> takes many other arguments. Please refer to the doc string of the function (<code class="highlighter-rouge">help(pd.read_excel)</code>) for more detail.</p>
+
+<h4 id="from-relational-database">From Relational database</h4>
+
+<p><code class="highlighter-rouge">pandas</code> function <code class="highlighter-rouge">read_sql()</code> can be used to load data from a relational database. We need to provide a database connection to the function, we also need to provide a query which will be used to retrieve values from the database. In following code, we assume there’s a sqlite database “mydb” in current folder, and there’s a table with name tblCustomer. We will load all rows from tblCustomer table to a DataFrame. The column names of tblCustomer will be the column names of the resulting DataFrame.</p>
+
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span> <span class="k">as</span> <span class="n">sql</span>
+<span class="k">with</span> <span class="n">sql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">'mydb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+    <span class="n">df_customer</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s">'select * from tblCustomer'</span><span class="p">,</span> <span class="n">con</span><span class="p">)</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<p>Using <code class="highlighter-rouge">with</code> clause to create a database connection ensures that the connection will be closed after the block is executed.</p>
+
+<h2 id="change-column-name">Change Column Name</h2>
+
+<p>When a dataset is loaded to a DataFrame. It may or may not have column names. If there’s no column names, we usually need to assign meaningful column names based on data understanding. When the DataFrame does have column names, we may still need to modify them to make following work easier. Industry practice suggests column names should:</p>
+<ul>
+  <li><strong>not</strong> contain spaces. Instead of <code class="highlighter-rouge">Last Name</code> as column name, it should be <code class="highlighter-rouge">LastName</code> or <code class="highlighter-rouge">last_name</code></li>
+  <li><strong>not</strong> contain special characters(e.g. $, &amp;, %, -, all punctuations)</li>
+  <li>be descriptive and provide some information in the field</li>
+</ul>
+
+<p>DataFrame has <code class="highlighter-rouge">columns</code> property, you can reset all column names with:</p>
+
+<p><code class="highlighter-rouge">df.columns = [col_name1, col_name2...]</code></p>
+
+<p>You can also change a perticular column name with function <code class="highlighter-rouge">rename()</code>:</p>
+
+<p><code class="highlighter-rouge">df.rename(columns={orignial_name:new_name}, inplace=True)</code></p>
+
+<p>Notice that <code class="highlighter-rouge">df.rename()</code> will return a renamed DataFrame by default. If you want to rename <code class="highlighter-rouge">df</code> in place, you need to set the function argument <code class="highlighter-rouge">inplace=True</code>. For more details of the function, check out the doc string with <code class="highlighter-rouge">help(df.rename)</code>.</p>
+
+<h2 id="handle-missing-data">Handle Missing Data</h2>
+
+<p>Dataset can have missing values for various reasons such as observations not recorded or data corruption. Handling missing data is very important as many analytic algorithms do not support data with missing values.</p>
+
+<p>Missing data is represented as <code class="highlighter-rouge">NaN</code> which stands for “Not a Number” in pandas DataFrame. We will demonstrate common techniques to handling missing values in a DataFrame which include:</p>
+<ul>
+  <li>Find general information about missing values in the DataFrame</li>
+  <li>Simply drop rows with missing value</li>
+  <li>Fill missing value
+    <ul>
+      <li>with constant</li>
+      <li>with mode(for categorical features)</li>
+      <li>with mean/median(for continuous features)</li>
+      <li>with estimated values generated from other columns</li>
+    </ul>
+  </li>
+</ul>
+
+<p>First, we will create a DataFrame with missing values.</p>
+
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s">'LastName'</span><span class="p">:[</span><span class="s">'Mend'</span><span class="p">,</span> <span class="s">'Brun'</span><span class="p">,</span> <span class="s">'Lu'</span><span class="p">,</span> <span class="s">'Guy'</span><span class="p">],</span>
+                    <span class="s">'FirstName'</span><span class="p">:[</span><span class="s">'Kim'</span><span class="p">,</span> <span class="s">'Rob'</span><span class="p">,</span> <span class="s">'Lin'</span><span class="p">,</span> <span class="s">'Ron'</span><span class="p">],</span>
+                    <span class="s">'Gender'</span><span class="p">:[</span><span class="s">'F'</span><span class="p">,</span> <span class="s">'M'</span><span class="p">,</span> <span class="s">'M'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">],</span>
+                    <span class="s">'Age'</span><span class="p">:[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span> <span class="mi">22</span><span class="p">]})</span>
+<span class="n">df1</span>
+</code></pre></div>  </div>
+  <p><img src="../pic/df1.png" alt="pt" height="140px" /></p>
+</blockquote>
+
+<h4 id="general-information-about-missing-values">General information about missing values</h4>
+
+<p>Pandas DataFrame has a function <code class="highlighter-rouge">info()</code> which will print out general DataFrame information including number of rows, number of columns, each column’s data type, and number of not null values in all columns. Below cell shows that df1 has 3 rows, 4 columns, LastName and FirstName have 3 non-null values, or no missing values, Gender and Age have 2 non-null values or each has one missing value.</p>
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df1</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</code></pre></div>  </div>
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 4 entries, 0 to 3
+Data columns (total 4 columns):
+LastName     4 non-null object
+FirstName    4 non-null object
+Gender       3 non-null object
+Age          3 non-null float64
+dtypes: float64(1), object(3)
+</code></pre></div>  </div>
+</blockquote>
+
+<h4 id="simply-drop-rows-with-missing-values">Simply Drop Rows with Missing Values</h4>
+
+<p>The simplest way to handle missing value is simply dropping rows that have missing values in particular columns with DataFrame function <code class="highlighter-rouge">dropna()</code>. The function by default will return a new DataFrame with missing value dropped. If you want to modify the DataFrame in place, you’ll have to set <code class="highlighter-rouge">inplace=True</code>. Try <code class="highlighter-rouge">help(df2.dropna)</code> to see details of this function.</p>
+
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#drop rows that miss Age
+</span><span class="n">df1_1</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s">'Age'</span><span class="p">])</span>
+<span class="n">df1_1</span>
+</code></pre></div>  </div>
+  <p><img src="../pic/df1_1.png" alt="pt" height="120px" /></p>
+</blockquote>
+
+<h4 id="fill-missing-values">Fill Missing Values</h4>
+
+<p>We can also fill missing values with <code class="highlighter-rouge">fillna()</code> function. We will set function argument <code class="highlighter-rouge">inplace=True</code> to fill missing values in place.</p>
+
+<p>We will demonstrate 3 ways to fill missing values:</p>
+
+<ul>
+  <li>Fill with constant</li>
+  <li>Fill with mean/mode</li>
+  <li>Fill with values calculated based on other column</li>
+</ul>
+
+<h5 id="fill-with-constant">Fill with constant</h5>
+<p>Fill missing Age with 20.</p>
+
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#fill missing age with 20
+#first make a copy of df1
+</span><span class="n">df1_2</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df1_2</span><span class="o">.</span><span class="n">Age</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">df1_2</span>
+</code></pre></div>  </div>
+  <p><img src="../pic/df1_2.png" alt="pt" height="140px" /></p>
+</blockquote>
+
+<h5 id="fill-with-meanmode">Fill with mean/mode</h5>
+
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#fill missing age with mean age
+</span><span class="n">df1_3</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df1_3</span><span class="o">.</span><span class="n">Age</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">df1_3</span><span class="o">.</span><span class="n">Age</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">df1_3</span>
+</code></pre></div>  </div>
+  <p><img src="../pic/df1_3.png" alt="pt" height="140px" /></p>
+</blockquote>
+
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#fill missing Gender with mode
+</span><span class="n">df1_4</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df1_4</span><span class="o">.</span><span class="n">Gender</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">df1_4</span><span class="o">.</span><span class="n">Gender</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">df1_4</span>
+</code></pre></div>  </div>
+  <p><img src="../pic/df1_4.png" alt="pt" height="140px" /></p>
+</blockquote>
+
+<h5 id="fill-with-values-calculated-based-on-other-column">Fill with values calculated based on other column</h5>
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#fill missing Age with average age based on gender
+</span><span class="n">df1_5</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df1_5</span><span class="o">.</span><span class="n">Age</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">df1_5</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">'Gender'</span><span class="p">)</span><span class="o">.</span><span class="n">Age</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s">'mean'</span><span class="p">),</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">df1_5</span>
+</code></pre></div>  </div>
+  <p><img src="../pic/df1_5.png" alt="pt" height="140px" /></p>
+</blockquote>
+
+<h2 id="manipulate-string-values">Manipulate String Values</h2>
+
+<p>There are countless ways you might want to transform string values. We will introduce some common manipulations. We will mostly use pandas Series attribute <code class="highlighter-rouge">str</code> to invoke string functions.</p>
+
+<ul>
+  <li>Strip leading/trailing white spaces</li>
+  <li>Unify string case(this is especially critical if you need to compare or group by the values in the column)</li>
+  <li>Replace certain characters in string(ie. dealing with currency values)</li>
+  <li>convert datetime string to datetime data type.</li>
+</ul>
+
+<p>First, we will create a DataFrame to demo above string manipulations. We will:</p>
+<ul>
+  <li>strip leading/trailing white spaces in Gender column and convert values to all upper case,</li>
+  <li>remove ‘$’ and ‘,’ from Tuition column and convert the column to float data type</li>
+  <li>create Firstname and Lastname column from Name.</li>
+</ul>
+
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s">'Name'</span><span class="p">:[</span><span class="s">'Kim Mend'</span><span class="p">,</span> <span class="s">'Rob Brun'</span><span class="p">,</span> <span class="s">'Lin Lu'</span><span class="p">,</span> <span class="s">'Ron Guy'</span><span class="p">],</span>
+                  <span class="s">'Gender'</span><span class="p">:[</span><span class="s">'Femal  '</span><span class="p">,</span> <span class="s">'  Male  '</span><span class="p">,</span> <span class="s">'male'</span><span class="p">,</span> <span class="s">'Male'</span><span class="p">],</span>
+                   <span class="s">'Birthday'</span><span class="p">:[</span><span class="s">'3/31/1998'</span><span class="p">,</span> <span class="s">'Jan 15, 1999'</span><span class="p">,</span> <span class="s">'20/1/1998'</span><span class="p">,</span> <span class="s">'5/6/1997'</span><span class="p">],</span>
+                  <span class="s">'Tuition'</span><span class="p">:[</span><span class="s">'$10,125'</span><span class="p">,</span> <span class="s">'$9999'</span><span class="p">,</span> <span class="s">'0'</span><span class="p">,</span> <span class="s">'$2000'</span><span class="p">]})</span>
+<span class="n">df2</span>
+</code></pre></div>  </div>
+  <p><img src="../pic/df2.png" alt="pt" height="140px" /></p>
+</blockquote>
+
+<h4 id="strip-leadingtrailing-white-spaces-and-unify-string-case">Strip leading/trailing white spaces and unify string case</h4>
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#Strip leading/trailing spaces in Gender column
+</span><span class="n">df2</span><span class="p">[</span><span class="s">'Gender'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df3</span><span class="o">.</span><span class="n">Gender</span><span class="o">.</span><span class="nb">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="c1">#Convert to all upper case
+</span><span class="n">df2</span><span class="p">[</span><span class="s">'Gender'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df3</span><span class="o">.</span><span class="n">Gender</span><span class="o">.</span><span class="nb">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+<span class="n">df2</span>
+</code></pre></div>  </div>
+  <p><img src="../pic/df2_1.png" alt="pt" height="140px" /></p>
+</blockquote>
+
+<h4 id="replace-substring">Replace substring</h4>
+
+<p>Currency values some times are stored as strings like $12,345.99. We need to strip dollar sign and comma from the values and then convert to float for further operations. Following code achieves 3 tasks in one line. Notice that you will need to involve attribute <code class="highlighter-rouge">str</code> for both call of string function <code class="highlighter-rouge">replace()</code>.</p>
+
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#Remove $ and , in Tuition, convert to float
+</span><span class="n">df2</span><span class="p">[</span><span class="s">'Tuition'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df3</span><span class="o">.</span><span class="n">Tuition</span><span class="o">.</span><span class="nb">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'$'</span><span class="p">,</span> <span class="s">''</span><span class="p">)</span><span class="o">.</span><span class="nb">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">','</span><span class="p">,</span><span class="s">''</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">df2</span>
+</code></pre></div>  </div>
+  <p><img src="../pic/df2_2.png" alt="pt" height="140px" /></p>
+</blockquote>
+
+<h2 id="transform-datetime">Transform Datetime</h2>
+
+<p>Date and time are very common in business related datasets. We always want to convert date time information from string to datetime data type. We sometimes need to create datetime related columns for datetime related analysis, ie. sales in different day of week.</p>
+
+<h4 id="convert-datetime-string-to-datetime-object">Convert Datetime String to Datetime Object</h4>
+
+<p>Pandas has a function <code class="highlighter-rouge">to_datetime()</code> will convert date time string to datetime datatype. This function can deal with various date time format. In following code we will create a new column <strong>Birthday_clean</strong> out of <strong>Birthday</strong>.</p>
+
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df2</span><span class="p">[</span><span class="s">'Birthday_clean'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">Birthday</span><span class="p">)</span>
+<span class="n">df2</span>
+</code></pre></div>  </div>
+  <p><img src="../pic/df2_3.png" alt="pt" height="140px" /></p>
+</blockquote>
+
+<p>We need to be very careful when dealing with datetime values, for example, for ‘5/6/1998’, it’s unclear whether it’s May 6 or Jun 5. <code class="highlighter-rouge">pd.to_datetime()</code> by default will assume ‘5’ is month and ‘6’ is date. But this may not be the case. You may pass datetime format to the function to eliminate the ambiguity like following example shows. But if you want to apply a format to a DataFrame column, this column has to have same datetime format. For dataset that has very messy datetime format, you need more advanced techniques to clean them up which is out of the scope of this lesson.</p>
+
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#set datetime format
+</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s">'5/6/1997'</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s">'</span><span class="si">%</span><span class="s">d/</span><span class="si">%</span><span class="s">m/</span><span class="si">%</span><span class="s">Y'</span><span class="p">)</span>
+</code></pre></div>  </div>
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Timestamp('1997-06-05 00:00:00')
+</code></pre></div>  </div>
+</blockquote>
+
+<h4 id="create-new-columns-from-datetime-column">Create New Columns from Datetime Column</h4>
+
+<p>Pandas datetime object has functions to get datetime part like year, month, day, day of week, hour etc. Similar to string functions, we need to use datetime attribute <code class="highlighter-rouge">dt</code> when invoke datetime functions. In following cells, we will add new datetime related columns into the DataFrame created above.</p>
+
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df2</span><span class="p">[</span><span class="s">'Year'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">Birthday_clean</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+<span class="n">df2</span><span class="p">[</span><span class="s">'Month'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">Birthday_clean</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span>
+<span class="n">df2</span><span class="p">[</span><span class="s">'Day'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">Birthday_clean</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day</span>
+<span class="n">df2</span><span class="p">[</span><span class="s">'DayOfWeek'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">Birthday_clean</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">dayofweek</span>
+<span class="n">df2</span><span class="p">[</span><span class="s">'Hour'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">Birthday_clean</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span>
+<span class="n">df2</span>
+</code></pre></div>  </div>
+  <p><img src="../pic/df2_4.png" alt="pt" height="140px" /></p>
+</blockquote>
+
+<h2 id="lambda-function">Lambda Function</h2>
+
+<p>Python lambda functions, also known as anonymous functions, are inline functions that do not have a name. They are created with the lambda keyword. The syntax is <code class="highlighter-rouge">lambda arguments : expression</code>. The following cell defines a lambda function that adds up 2 numbers.</p>
+
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="n">x</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+</code></pre></div>  </div>
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>7
+</code></pre></div>  </div>
+</blockquote>
+
+<p>Lambda function is very handy in DataFrame manipulations. We will use 2 examples to demonstrate this. The first one is split one column to two columns with lambda function. The second one is to create datetime column from multiple columns.</p>
+
+<h4 id="apply-lambda-function-on-one-column">Apply Lambda Function on One Column</h4>
+
+<p>The syntax to apply lambda function on a column is <code class="highlighter-rouge">df.column.apply(lambda x:expression(x))</code>. <code class="highlighter-rouge">apply</code> function will apply the lambda function on each value in the column, then return a pandas Series with return value of the lambda function. We will create FirstName and Lastname column by applying lambda function on Name column in following example.</p>
+
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#create last name and first name from Name
+</span><span class="n">df2</span><span class="p">[</span><span class="s">'Firstname'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">df2</span><span class="p">[</span><span class="s">'Lastname'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">df2</span>
+</code></pre></div>  </div>
+  <p><img src="../pic/df2_5.png" alt="pt" height="140px" /></p>
+</blockquote>
+
+<p>In above example, lambda function <code class="highlighter-rouge">lambda x:x.split()[0]</code> takes one string argument, x, <code class="highlighter-rouge">x.split()[0]</code> will first call split function on x which splits x with whitespace, then take the first word, which is first name. Similarly, the second word is lastname.</p>
+
+<h4 id="apply-lambda-function-on-rowscolumns">Apply Lambda Function on rows/columns</h4>
+
+<p>You may also apply lambda function on the DataFrame rows or columns with syntax <code class="highlighter-rouge">df.apply(lambda x: expression(x), axis=1)</code>. Notice that there’s a new argument <code class="highlighter-rouge">axis</code>. This is because when call apply() on a DataFrame, x will be either a column or a row of the DataFrame. <code class="highlighter-rouge">axis=0</code> means x will be a column of the DataFrame. In most cases, we’d apply lambda function on each row, which means <code class="highlighter-rouge">axis=1</code>. In Following example, we will create a new datetime column based on year, month and day column.</p>
+
+<blockquote>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="n">df2</span><span class="p">[</span><span class="s">'Birthday_created'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">datetime</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">Year</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">Month</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">Day</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df2</span>
+</code></pre></div>  </div>
+  <p><img src="../pic/df2_6.png" alt="pt" height="140px" /></p>
+</blockquote>
+
+
+<blockquote class="keypoints">
+  <h2>Key Points</h2>
+  <ul>
+    
+    <li><p>One word column name(without whitespaces) is recommended.</p>
+</li>
+    
+    <li><p>Be very careful with date time values.</p>
+</li>
+    
+  </ul>
+</blockquote>
+
+</article>
+
+<div class="row">
+  <div class="col-xs-1">
+    <h3 class="text-left">
+      
+      <a href="../08-crisp/"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
+      
+    </h3>
+  </div>
+  <div class="col-xs-10">
+    
+  </div>
+  <div class="col-xs-1">
+    <h3 class="text-right">
+      
+      <a href="../10-linear_regression/"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      
+    </h3>
+  </div>
+</div>
+
+
+      
+      
+<footer>
+  <div class="row">
+    <div class="col-md-6" align="left">
+      <h4>
+	Copyright &copy; 2016–2019
+	
+	<a href="https://software-carpentry.org">Software Carpentry Foundation</a>
+	
+      </h4>
+    </div>
+    <div class="col-md-6" align="right">
+      <h4>
+	
+	<a href="/edit/gh-pages/_episodes/09-data_prep.md">Edit on GitHub</a>
+	
+	/
+	<a href="/blob/gh-pages/CONTRIBUTING.md">Contributing</a>
+	/
+	<a href="/">Source</a>
+	/
+	<a href="/blob/gh-pages/CITATION">Cite</a>
+	/
+	<a href="lessons@software-carpentry.org">Contact</a>
+      </h4>
+    </div>
+  </div>
+</footer>
+
+      
+    </div>
+    
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/lesson.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-37305346-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  </body>
+</html>
