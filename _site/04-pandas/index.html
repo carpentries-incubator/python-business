@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-04-28 11:11:53 -0500">
+    <meta http-equiv="last-modified" content="2019-05-01 12:48:12 -0500">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -720,32 +720,45 @@ Note that Pandas has pivot table too, we will cover later.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Group data by Item_Description
 # The code below counts the number of invoice_id associated with each Item_Description. You can have other
-</span><span class="n">grouped_df</span> <span class="o">=</span> <span class="n">inv_soda</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">'Item_Description'</span><span class="p">)[</span><span class="s">"Invoice_id"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s">"count"</span><span class="p">])</span>
+</span><span class="n">grouped_df</span> <span class="o">=</span> <span class="n">inv_soda</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">'Item_Description'</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s">"Invoice_id"</span><span class="p">:</span><span class="s">"count"</span><span class="p">})</span>
 <span class="n">grouped_df</span>
 </code></pre></div></div>
 <p>You will get something like this:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                      count
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                      Invoice_id
 Item_Description  
 Ace's Energy          262
 Ace's Energy Booster  64
 Akame's Energy        80
 ...
 </code></pre></div></div>
-<p>Note that “Item_Description” and “count” are not at the same level. This is because the groupby function automatically made “Item_Description” the index. If we do <code class="highlighter-rouge">grouped_df.columns</code>, we will only see the <code class="highlighter-rouge">count</code> column. To avoid problems when using the aggregated result, we might want to:</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">grouped_df</span> <span class="o">=</span> <span class="n">inv_soda</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">'Item_Description'</span><span class="p">)[</span><span class="s">"Invoice_id"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s">"count"</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>  
+<p>Note that “Item_Description” and “Invoice_id” are not at the same level. This is because the groupby function automatically made “Item_Description” the index. If we do <code class="highlighter-rouge">grouped_df.columns</code>, we will only see the <code class="highlighter-rouge">Invoice_id</code> column. To avoid problems when using the aggregated result, we might want to:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">grouped_df</span> <span class="o">=</span> <span class="n">inv_soda</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">'Item_Description'</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s">"Invoice_id"</span><span class="p">:</span><span class="s">"count"</span><span class="p">})</span>  
 <span class="n">grouped_df</span>  
 </code></pre></div></div>
 <p>The columns are at the same level now.</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Item_Description        count
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Item_Description        Invoice_id
 0 Ace's Energy            262
 1 Ace's Energy Booster    64
 2 Akame's Energy          80
 ...
 </code></pre></div></div>
-<p>Now if you do <code class="highlighter-rouge">grouped_df.columns</code>, both “Item_Description” and “count” will show up.
-Note that the input in <code class="highlighter-rouge">.agg()</code> is a list. Because we can generate multiple aggregate columns at the same time. For example:</p>
+<p>Now if you do <code class="highlighter-rouge">grouped_df.columns</code>, both “Item_Description” and “Invoice_id” will show up.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">inv_soda</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">'Item_Description'</span><span class="p">)[</span><span class="s">"Bottle_Cost"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s">"count"</span><span class="p">,</span> <span class="s">"sum"</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<p>The column of count has the name of the counted column, or Invoice_id. You may change it to a more descriptive name with <code class="highlighter-rouge">rename()</code> function.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">inv_soda</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">'Item_Description'</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s">'Invoice_id'</span><span class="p">:</span><span class="s">'count'</span><span class="p">})</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s">'Invoice_id'</span><span class="p">:</span><span class="s">'Count'</span><span class="p">})</span>
+</code></pre></div></div>
+<p>The output now is:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Item_Description        Count
+0 Ace's Energy            262
+1 Ace's Energy Booster    64
+2 Akame's Energy          80
+...
+</code></pre></div></div>
+
+<p>Note that the input in <code class="highlighter-rouge">.agg()</code> is a dictionary. Because we can generate multiple aggregate columns at the same time. For example:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">inv_soda</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">'Item_Description'</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s">"Invoice_id"</span><span class="p">:</span><span class="s">"count"</span><span class="p">,</span> <span class="s">"Bottle_Cost"</span><span class="p">:</span><span class="s">"mean"</span><span class="p">})</span>
 <span class="c1"># think about this, what does it return?   
 </span></code></pre></div></div>
 
@@ -757,7 +770,7 @@ Note that the input in <code class="highlighter-rouge">.agg()</code> is a list. 
   <blockquote class="solution">
     <h2 id="solution-4">Solution</h2>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>inv_soda.groupby('Category')["Bottle_Cost","Bottle_Retail_Price"].agg(["mean"]).reset_index()
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>inv_soda.groupby('Category', as_index=False).agg({"Bottle_Cost":"mean","Bottle_Retail_Price":"mean"})
 
 </code></pre></div>    </div>
   </blockquote>
@@ -822,7 +835,7 @@ Note that the input in <code class="highlighter-rouge">.agg()</code> is a list. 
     <li><p>use df1.merge(df2) to merge two DataFrames.</p>
 </li>
     
-    <li><p>use df_object.groupby(column_list1)[column_list2].agg(list_of_aggregate_function) to apply aggregation on data group by column_list1.</p>
+    <li><p>use df_object.groupby(column_list1).agg({column1:agg_function1, column2:agg_function2…}) to apply aggregation on data group.</p>
 </li>
     
     <li><p>Create pivot table with pandas.pivot_table</p>

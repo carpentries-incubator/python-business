@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-04-28 11:11:53 -0500">
+    <meta http-equiv="last-modified" content="2019-05-01 12:48:12 -0500">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -287,7 +287,7 @@
         <li><p>use df1.merge(df2) to merge two DataFrames.</p>
 </li>
         
-        <li><p>use df_object.groupby(column_list1)[column_list2].agg(list_of_aggregate_function) to apply aggregation on data group by column_list1.</p>
+        <li><p>use df_object.groupby(column_list1).agg({column1:agg_function1, column2:agg_function2…}) to apply aggregation on data group.</p>
 </li>
         
         <li><p>Create pivot table with pandas.pivot_table</p>
@@ -306,19 +306,10 @@
       <td class="col-md-9">
         <ul>
         
-        <li><p>Use <code class="highlighter-rouge">scipy.stats.linregress</code> for linear regression</p>
-</li>
-        
         <li><p>Use <code class="highlighter-rouge">scipy.stats.ttest_ind</code> for t-test</p>
 </li>
         
         <li><p>There are many other statistical tools in scipy, you can read the documentation for more details</p>
-</li>
-        
-        <li><p>Use <code class="highlighter-rouge">pyplot.plot</code> to draw graph</p>
-</li>
-        
-        <li><p>Use <code class="highlighter-rouge">pyplot.hist</code> to draw histogram</p>
 </li>
         
         <li><p>You can customize many parameters in your graph, you can read the documentation for more details</p>

@@ -9,11 +9,8 @@ objectives:
 - "Learn to perform statistical analysis with Scipy.stats module"
 - "Learn to visualize data with matplotlib"
 keypoints:
-- "Use `scipy.stats.linregress` for linear regression"
 - "Use `scipy.stats.ttest_ind` for t-test"
 - "There are many other statistical tools in scipy, you can read the documentation for more details"
-- "Use `pyplot.plot` to draw graph"
-- "Use `pyplot.hist` to draw histogram"
 - "You can customize many parameters in your graph, you can read the documentation for more details"
 - "For both Scipy and matplotlib, the most difficult part is to preprocess your data. After that, you can just find the right function and feed your data into it."   
 ---
@@ -21,31 +18,17 @@ keypoints:
 ## Statistical Analysis with Scipy
 Similar as the Dada Analytics Tools in Excel, python can perform many statistic analysis as well. [`scipy`](https://www.scipy.org/) module has many useful statistic tools. (more than Excel).
 
-### Simple Linear Regression  
-Let's start with linear regression. [scipy.stats.linregress](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.linregress.html) is a very handy tool for linear regression.   
-Let's try to perform a linear regression on the "Bottle_Retail_Price" and the "Bottle_Cost".  
-
-```python  
-from scipy import stats
-# Get the two columns, note that you cannot have any NULL value in the input  
-c_p = soda[["Bottle_Cost", "Bottle_Retail_Price"]].dropna()
-
-# set dependent and independent variables  
-x = c_p["Bottle_Cost"]
-y = c_p["Bottle_Retail_Price"]
-
-# perform linear regression
-slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
-```
-That's it, you get the slope and intercept of your regression model. You can check the reliability of your regression model with r_value, p_value and std_err.
-
 ### t-test
-Let's try a different kind of statistical analysis. Assume you are interested in selling either energy drink or cola, and you want to know if the two categories has significant difference in average bottle sales.
-We can perform a [t-test](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html) assuming different variance.
-Firstly we need to use aggregate function to find the total bottle sold for each soda in each category. Remember the groupby function? Try to do it by yourself.  
+Assume you are interested in selling either energy drink or cola, and you want to know if the two categories has significant difference in average bottle sales.
+We can perform a [t-test](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html) assuming different variance.  
+Firstly we need to import the stats module.
+```python
+from scipy import stats
+```
+Then we need to use aggregate function to find the total bottle sold for each soda in each category. Remember the groupby function? Try to do it by yourself.  
 
 ```python
-ct = inv_soda.groupby(['Item_Description','Category'])["Bottles_Sold"].agg(["sum"]).reset_index()
+ct = inv_soda.groupby(['Item_Description','Category'], as_index=False).agg({"Bottles_Sold":"sum"})
 ```
 
 Then, you get the total bottles sold for the two categories.
@@ -55,7 +38,7 @@ ct_cola = ct[ct["Category"] == "Cola"]
 ```
 Finally, you perform the t-test.
 ```
-stats.ttest_ind(ct_eng['sum'],ct_cola['sum'], equal_var=False)
+stats.ttest_ind(ct_eng['Bottles_Sold'],ct_cola['Bottles_Sold'], equal_var=False)
 ```
 Then you get
 ```
@@ -77,7 +60,7 @@ Many of you are experts in Excel graphing. You can do similar visualization with
 ```python
 %matplotlib inline
 # In majority of cases, you will just use pyplot. So you can just import that.   
-import matplolib.pyplot as plt
+import matplotlib.pyplot as plt
 ```
 Similar as Excel, you just need to feed in the values in x-axis and y-axis. Let's start with a very basic example:   
 ```python
@@ -131,18 +114,14 @@ plt.show()
 This is a very basic example. You can customize a lot more parameters such as colors, bins, etc.
 
 ### Scatter plot  
-We have previously ran an regression on our data. Let's plot it! (Assume we are interested in the soda that cost less than $5) <br>
-If you restarted your kernel and don't have slope, intercept variable, run the regression again  
-![ker](../pic/kernel.jpg)
+
+A scatter plot is a two-dimensional data visualization that uses dots to represent the values obtained for two different variables.
 
 ```python
 # set figure size  
-plt.figure(figsize=(10,7))
-# Plot the scatter, 'o' means to use circle marker  
-plt.plot(x, y, 'o', label='Data')
-# Plot the line  
-plt.plot(x, intercept + slope*x, 'r', label='fitted line')
-# Set x, y label  
+fig, ax = plt.subplots(figsize=(10,7))
+# Plot data
+ax.scatter(soda['Bottle_Cost'], soda['Bottle_Retail_Price'])
 plt.xlabel("Bottle_Cost")
 plt.ylabel("Bottle_Retail_Price")
 # Set title  
@@ -174,8 +153,8 @@ plt.show()
 >>
 >> ```
 >> inv_soda["Total_Cost"] = inv_soda["Bottle_Cost"] * inv_soda["Bottles_Sold"]  
->> temp = inv_soda.groupby(['Category'])["Total_Cost"].agg(["sum"]).reset_index()
->> temp = temp.sort_values("sum", ascending = False)
+>> ct = inv_soda.groupby(['Category'])["Total_Cost"].agg(["sum"]).reset_index()
+>> ct = temp.sort_values("sum", ascending = False)
 >> plt.figure(figsize=(15,15))
 >> plt.pie(ct["sum"], labels=ct["Category"], autopct='%.0f%%')
 >> plt.show()

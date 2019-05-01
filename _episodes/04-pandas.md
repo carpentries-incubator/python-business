@@ -23,7 +23,7 @@ keypoints:
 - "use df_object[condition] to filter data. For example, df_object[df_object[column_name] == value]."  
 - "use .describe() to get descriptive statistics of one column."    
 - "use df1.merge(df2) to merge two DataFrames."  
-- "use df_object.groupby(column_list1)[column_list2].agg(list_of_aggregate_function) to apply aggregation on data group by column_list1."
+- "use df_object.groupby(column_list1).agg({column1:agg_function1, column2:agg_function2...}) to apply aggregation on data group."
 - "Create pivot table with pandas.pivot_table"  
 ---
 
@@ -447,36 +447,51 @@ Note that Pandas has pivot table too, we will cover later.
 ```python
 # Group data by Item_Description
 # The code below counts the number of invoice_id associated with each Item_Description. You can have other
-grouped_df = inv_soda.groupby('Item_Description')["Invoice_id"].agg(["count"])
+grouped_df = inv_soda.groupby('Item_Description').agg({"Invoice_id":"count"})
 grouped_df
 ```
 You will get something like this:
 ```
-                      count
+                      Invoice_id
 Item_Description  
 Ace's Energy          262
 Ace's Energy Booster  64
 Akame's Energy        80
 ...
 ```
-Note that "Item_Description" and "count" are not at the same level. This is because the groupby function automatically made "Item_Description" the index. If we do `grouped_df.columns`, we will only see the `count` column. To avoid problems when using the aggregated result, we might want to:
+Note that "Item_Description" and "Invoice_id" are not at the same level. This is because the groupby function automatically made "Item_Description" the index. If we do `grouped_df.columns`, we will only see the `Invoice_id` column. To avoid problems when using the aggregated result, we might want to:
 ```python
-grouped_df = inv_soda.groupby('Item_Description')["Invoice_id"].agg(["count"]).reset_index()  
+grouped_df = inv_soda.groupby('Item_Description', as_index=False).agg({"Invoice_id":"count"})  
 grouped_df  
 ```
 The columns are at the same level now.
 ```
-  Item_Description        count
+  Item_Description        Invoice_id
 0 Ace's Energy            262
 1 Ace's Energy Booster    64
 2 Akame's Energy          80
 ...
 ```
-Now if you do `grouped_df.columns`, both "Item_Description" and "count" will show up.
-Note that the input in `.agg()` is a list. Because we can generate multiple aggregate columns at the same time. For example:  
+Now if you do `grouped_df.columns`, both "Item_Description" and "Invoice_id" will show up.  
+
+The column of count has the name of the counted column, or Invoice_id. You may change it to a more descriptive name with `rename()` function.  
 
 ```python
-inv_soda.groupby('Item_Description')["Bottle_Cost"].agg(["count", "sum"]).reset_index()
+inv_soda.groupby('Item_Description', as_index=False).agg({'Invoice_id':'count'}).rename(columns={'Invoice_id':'Count'})
+```
+The output now is:
+```
+  Item_Description        Count
+0 Ace's Energy            262
+1 Ace's Energy Booster    64
+2 Akame's Energy          80
+...
+```
+
+Note that the input in `.agg()` is a dictionary. Because we can generate multiple aggregate columns at the same time. For example:  
+
+```python
+inv_soda.groupby('Item_Description', as_index=False).agg({"Invoice_id":"count", "Bottle_Cost":"mean"})
 # think about this, what does it return?   
 ```
 
@@ -487,7 +502,7 @@ inv_soda.groupby('Item_Description')["Bottle_Cost"].agg(["count", "sum"]).reset_
 >> ## Solution
 >>
 >> ```
->> inv_soda.groupby('Category')["Bottle_Cost","Bottle_Retail_Price"].agg(["mean"]).reset_index()
+>> inv_soda.groupby('Category', as_index=False).agg({"Bottle_Cost":"mean","Bottle_Retail_Price":"mean"})
 >>
 >> ```
 > {: .solution}
