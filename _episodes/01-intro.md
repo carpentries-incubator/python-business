@@ -139,7 +139,7 @@ type(dt)
 #### changing datatypes
 You actually have done this previously. You have successfully converted a list to a set. To change datatypes, we can do `desired_datatype(variable)`. For example, we can convert the dictionary dt to string by:
 ```
-str(dy)
+str(dt)
 ```
 You can convert a float to an integer by:
 ```
