@@ -6,12 +6,12 @@ permalink: /setup/
 
 > ## Software
 > 
-> We will use jupyter notebook to run python. If you have not installed jupyter notebooks, please follow the instructions to install. For both windows and Mac, the easiest way is to install [ANACODA](https://www.anaconda.com/download) (recomend download and install the python 3.6 version). ANACODA will automatically install python, jupyter and few packages that are frequently used in data analytics to your computer. You can also choose to use `python -m pip install jupyter` command to install if you already have python in your computer. 
+> We will use jupyter notebook to run python. If you have not installed jupyter notebooks, please follow the instructions to install. For both windows and Mac, the easiest way is to install [ANACONDA](https://www.anaconda.com/download) (recomend download and install the python 3.6 version). ANACONDA will automatically install python, jupyter and few packages that are frequently used in data analytics to your computer. You can also choose to use `python -m pip install jupyter` command to install if you already have python in your computer. 
 > 
-> After installing anacoda, 
+> After installing anaconda, 
 > ### Windows 
 > - Create a new folder on your desktop called "python_workshop"   
-> - go to "Start" or the windows button on your desktop, type "anacoda prompt" in your search bar, click "anacoda prompt".
+> - go to "Start" or the windows button on your desktop, type "anaconda prompt" in your search bar, click "anaconda prompt".
 > - Type `cd desktop` and hit enter (this will go to your desktop. You can use other directory as well)
 > - Type `cd python_workshop` and hit enter to go to the folder you just created  
 > - Type `jupyter notebook` to open the notebook! It will automatically open your browser. If not, copy the link that shows up on the terminal and paste it into your browser. 
@@ -42,9 +42,3 @@ permalink: /setup/
 > *   perform arithmetic calculation, aggregation and analytics with the data
 > *   plot the result  
 {: .prereq}
-
-
-
-
-
-

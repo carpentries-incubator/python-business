@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2018-06-30 14:37:56 +0800">
+    <meta http-equiv="last-modified" content="2019-05-01 12:48:12 -0500">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -57,19 +57,29 @@
           <a href="../" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Episodes <span class="caret"></span></a>
           <ul class="dropdown-menu">
             
-            <li><a href="../00-intro/">Python basics 1 - Intro to Python</a></li>
+            <li><a href="../00-intro_notebook/">Introduction to Jupyter Notebook</a></li>
             
-            <li><a href="../01-conditional_loop/">Python basics 2 - Conditional statements and Loops</a></li>
+            <li><a href="../01-intro/">Python basics 1 - Intro to Python</a></li>
             
-            <li><a href="../02-func/">Python basics 3 - Functions and Modules</a></li>
+            <li><a href="../02-conditional_loop/">Python basics 2 - Conditional statements and Loops</a></li>
             
-            <li><a href="../03-pandas/">Intro to Pandas</a></li>
+            <li><a href="../03-func/">Python basics 3 - Functions and Modules</a></li>
             
-            <li><a href="../04-stat_vis/">Statistical Analysis and Visualization</a></li>
+            <li><a href="../04-pandas/">Intro to Pandas</a></li>
             
-            <li><a href="../05-errors/">Extra - Errors and Exceptions</a></li>
+            <li><a href="../05-stat_vis/">Statistical Analysis and Visualization</a></li>
             
-            <li><a href="../06-debugging/">Extra - Debugging</a></li>
+            <li><a href="../06-errors/">Extra - Errors and Exceptions</a></li>
+            
+            <li><a href="../07-debugging/">Extra - Debugging</a></li>
+            
+            <li><a href="../08-crisp/">Introduction to CRISP-DM</a></li>
+            
+            <li><a href="../09-data_prep/">Data Preparation techniques</a></li>
+            
+            <li><a href="../10-linear_regression/">Linear regression</a></li>
+            
+            <li><a href="../11-case_study/">Case Study</a></li>
             
 	    <li role="separator" class="divider"></li>
             <li><a href="../aio/">All in one page (Beta)</a></li>
@@ -117,51 +127,45 @@
 <blockquote class="prereq">
   <h2 id="software">Software</h2>
 
-  <p>We will use jupyter notebook to run python. If you have not installed jupyter notebooks, please follow the <a href="http://jupyter.&gt; org/install">instructions</a> to install. For both windows and Mac, the easiest way is to install <a href="https://www.anaconda.com/download">ANACODA</a> (recomend download and install the python 3.6 version). ANACODA will automatically install python, jupyter and few packages that are frequently used in data analytics to your computer. You can also choose to use <code class="highlighter-rouge">python3 -m pip install jupyter</code> command to install if you already have python in your computer.</p>
+  <p>We will use Jupyter notebook to run python. If you have not installed Jupyter notebook, please follow the instructions to install. For both windows and Mac, the easiest way is to install <a href="https://www.anaconda.com/download">ANACONDA</a> (recommend download and install the python 3.7 version). ANACONDA will automatically install python, Jupyter and few packages that are frequently used in data analytics to your computer. You can also choose to use <code class="highlighter-rouge">python -m pip install Jupyter</code> command to install if you already have python in your computer.</p>
 
-  <p>After installing anacoda or jupyter notebook,</p>
+  <p>After installing anaconda,</p>
   <h3 id="windows">Windows</h3>
   <ul>
-    <li>go to “Start” or the windows button on your desktop, type “cmd” in your search bar, click “command prompt”.</li>
-    <li>Now we will make a folder for the workshop:</li>
-    <li>Type <code class="highlighter-rouge">cd Desktop</code> and hit enter (this will go to your desktop. You can use other directory as well)</li>
-    <li>Type <code class="highlighter-rouge">mkdir sql_workshop</code> and hit enter (this will create an folder named “sql_workshop” on your desktop, you can change the name if you want)</li>
-    <li>Type <code class="highlighter-rouge">cd sql_workshop</code> and hit enter to go to the folder you just created</li>
-    <li>Type <code class="highlighter-rouge">jupyter notebook</code> to open the notebook! It will automatically open your browser. If not, copy the link that shows up on the terminal and paste it into your browser.</li>
+    <li>Create a new folder on your desktop called “python_workshop”</li>
+    <li>Start Anaconda Navigator.</li>
+    <li>Launch Jupyter Notebook from Anaconda Navigator. It will automatically open your browser.</li>
+    <li>Click into python_workshop folder under Files tab.
+      <h3 id="macs">Macs</h3>
+    </li>
+    <li>Create a new folder “python_workshop” on your user home folder.</li>
+    <li>Start Anaconda Navigator. Search “Anaconda” in Launchpad to find Anaconda Navigator icon.</li>
+    <li>Launch Jupyter Notebook from Anaconda Navigator. It will automatically open your browser.</li>
+    <li>Click into python_workshop folder under Files tab.<br />
+<strong>Now you successfully have the notebook open!</strong></li>
   </ul>
-
-  <h3 id="macs">Macs</h3>
-  <ul>
-    <li>go to “Go” -&gt; “Utilities” -&gt; “Terminal”</li>
-    <li>Now we will make a folder for the workshop:</li>
-    <li>Type <code class="highlighter-rouge">cd Desktop</code> and hit enter (this will go to your desktop. You can use other directory as well)</li>
-    <li>Type <code class="highlighter-rouge">mkdir sql_workshop</code> and hit enter (this will create an folder named “sql_workshop” on your desktop, you can change the name if you want)</li>
-    <li>Type <code class="highlighter-rouge">cd sql_workshop</code> and hit enter to go to the folder you just created</li>
-    <li>Type <code class="highlighter-rouge">jupyter notebook</code> to open the notebook! It will automatically open your browser. If not, copy the link that shows up on the terminal and paste it into your browser.</li>
-  </ul>
-
-  <p><strong>Now you successfully have the notebook open!</strong></p>
 </blockquote>
 
 <blockquote class="prereq">
   <h2 id="data">Data</h2>
-  <p><strong>Download</strong> this data to your computer: <a href="https://github.com/data-lessons/python-business/tree/gh-pages/data">tbd</a></p>
-
+  <p><strong>Download</strong> this <a href="../data/data_code.zip">data</a> to your computer:   <br />
+Unzip the data file and copy all files to your python_workshop folder.</p>
   <h4 id="about-the-data">About the data</h4>
-  <p>The data for this lesson is a part of the Data Carpentry Business workshop. 
-The original data for this lesson and the workshop are collected from the 
-<a href="https://data.iowa.gov/browse?category=Economy">State of Iowa</a> 
-It is open for public use, we have modified the data for the workshop</p>
+  <p>The data for this lesson is a part of the Data Carpentry Business workshop.
+The soda data is collected from the
+<a href="https://data.iowa.gov/browse?category=Economy">State of Iowa</a>.
+The titanic data is collected from <a href="https://www.kaggle.com/c/titanic">Kaggle</a>.
+Both data are open for public use, we have modified the data for the workshop</p>
 
-  <p>The data sets are stored in <a href="../reference/#comma-separated-values">comma-separated values</a> (CSV) format. 
+  <p>The data sets are stored in <a href="../reference/#comma-separated-values">comma-separated values</a> (CSV) format.
 We will learn:</p>
   <ul>
     <li>load that data into memory</li>
     <li>perform arithmetic calculation, aggregation and analytics with the data</li>
-    <li>plot the result</li>
+    <li>visualize the dataset</li>
+    <li>construct linear regression.</li>
   </ul>
 </blockquote>
-
 
 
       
@@ -170,7 +174,7 @@ We will learn:</p>
   <div class="row">
     <div class="col-md-6" align="left">
       <h4>
-	Copyright &copy; 2016–2018
+	Copyright &copy; 2016–2019
 	
 	<a href="https://software-carpentry.org">Software Carpentry Foundation</a>
 	

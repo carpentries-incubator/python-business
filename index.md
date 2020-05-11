@@ -4,7 +4,7 @@ root: .
 ---
 
 <p align="center">
-  <img src="../pic/nyan.gif" height="100px" title="cat">
+  <img src="./pic/nyan.gif" height="100px" title="cat">
 </p>
 
 ### Welcome
