@@ -3,34 +3,93 @@ title: Introduction to Jupyter Notebook
 teaching: 30
 exercises: 0
 questions:
-- "What is Jupyter notebook?"
-- "How to create new notebook?"
-- "How to open a notebook?"
-- "How to execute notebook cells"
+- "What is a Jupyter notebook and how does one access a notebook?"
+- "How does one create a new notebook?"
+- "How does one open an existing notebook?"
+- "How does one execute programs using a notebook?"
 objectives:
-- "Navigate folders and files in Jupyter notebook."
-- "Create and open files."
-- "Understand markdown and code cells"
-- "Execute python code in notebook."
+- "Navigate folders and files (the filesystem) using the Jupyter notebook interface."
+- "Create and open files using the Jupyter notebook interface."
+- "Distinguish Markdown and code cells."
+- "Execute Python code snippets using the Jupyter notebook interface."
 keypoints:
-- Remember basic keyboard shortcuts
-- Be careful with command mode and edit mode
+- Remember basic keyboard shortcuts.
+- Distinguish command mode and edit mode.
 ---
 
-## What is Jupyter Notebook?
-The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations and narrative text.
+## What is a Jupyter Notebook?
 
-The Jupyter team has provided a nice [introduction to working](http://jupyter-notebook.readthedocs.io/en/latest/examples/Notebook/Notebook%20Basics.html) in an Jupyter Notebook, including how to use the menu commands, toolbar, and keyboard shortcuts.
+When one runs any program on a computer or a smartphone, one has to interact using an _interface_.  Most of the time, this just means the app menu (a table of icons), the Windows Start menu, or the like.  When one writes one's own code, however, the choice of how to execute that code is much broader.  We will use a _notebook_, which acts like a web page which lets you write and run code from within your browser.
+
+When you run a Jupyter notebook, what you see is a web page with text, images, equations, videos, and executable code.  There are a few working parts that you need to get familiar with to use the notebook effectively, though.
+
+<div class="alert alert-success">
+The Jupyter team has provided a helpful <a href="http://jupyter-notebook.readthedocs.io/en/latest/examples/Notebook/Notebook%20Basics.html">introduction to working with notebooks</a>, including how to use the menu commands, toolbar, and keyboard shortcuts.
+</div>
+
+
+##  Getting Started
+
+Depending on your machine, you may have several ways to access the Jupyter notebook server.  We assume that you have already [downloaded and installed Anaconda Python](https://www.anaconda.com/products/individual), which includes Jupyter notebook already.
+
+1. Open the [Anaconda Navigator](https://docs.anaconda.com/anaconda/navigator/) by searching for it at the Start Menu or by double-clicking it on your Desktop.
+
+    ![](https://docs.anaconda.com/_images/nav-defaults.png)
+
+2. Open the Jupyter Notebook option (not JupyterLab, which is a related tool).  _After a moment, your browser should open with the Jupyter dashboard._
+
+<div class="alert alert-warning">
+If you do not have Anaconda Python installed, on macOS or Linux you should be able to access the Terminal and execute <code>jupyter notebook</code> to get started.  If you use this approach, be sure to keep the Terminal open the entire time you are working on the notebook.
+</div>
+
 
 ## The Dashboard
 
-When the notebook server is first started, a browser will be opened to the notebook dashboard. The dashboard serves as a home page for the notebook. Its main purpose is to display the portion of the filesystem accessible by the user, and to provide an overview of the running kernels, terminals.
+When your browser opens to the Jupyter dashboard, you will see a listing of files and folders, presumably (but not always) your home directory.  The dashboard serves as a home page for Jupyter.  The tabs located across the tyop indicate the modes of access you have, and typically include `Files`, `Running`, and `Clusters`.  From `Files` you are able to access notebooks located in folders throughout your home folder.  From `Running` you can check on the status of active notebooks.
 
-There are multiple tabs in the Dashboard, Files, Running, Clusters and others depending on the configuration. We will only be using Files and Running in this course. To enter the dashboard from within a notebook, click the icon(Jupyter by default) on the top left corner of the notebook, or click `File->Open...` in the menu bar.
 
-### Files Tab
+### Your First Notebook
 
-The files tab provides an interactive view of the portion of the filesystem which is accessible by the user. This is typically rooted by the directory in which the notebook server was started.
+We would like to start working on a new notebook, and for simplicity we will start one in a new folder.
+
+1. Click the `New` button at top right.
+2. Select the `Folder` option.
+3. Name the folder `workshop` and confirm.
+
+    _A new folder named `workshop` appears._
+
+4. Click into the new folder, where we will create a new notebook.
+5. Click the `New` button at top right.
+6. Select the `Python 3` notebook option.
+
+    _A new notebook starts in the current folder.  A new browser tab opens and shows you a clean-slate notebook._
+
+The new notebook has a menu bar across the top and a toolbar for common actions.  The main thing that interests us is the cell, the gray bar which you can click in and type.
+
+There are several kinds of cells, but the default cell is a _code cell_.
+
+7. Click in the cell so that you see a cursor blinking.
+8. Type `1+1` and press `Ctrl`+`Enter`.
+
+    _The code you typed evaluates, produces the output `2`, and Jupyter inserts a new code cell below._
+
+Your basic working pattern when using a notebook will be to enter code into a gray code cell, then execute the code using `Ctrl`+`Enter` (or the `Run` button on the toolbar).  You may then click back into the cell, edit the code, and run it again as necessary.
+
+At this point, you can use the code cells like a calculator.  Try some of the following inputs in separate code cells:
+
+-   `5 * 5`
+-   `5 ** 2`  (what does this do?)
+-   `25 ** 0.5`  (what does this do?)
+
+The Python computing language, which we'll talk about in detail later, acts a lot like a graphing calculator for basic mathematical calculations.
+
+Let's circle back around and talk a bit more about the Jupyter interface before diving into Python.
+
+TODO
+
+### `Files` Tab
+
+The `Files` tab provides an interactive view of the portion of the filesystem which is accessible by the user.
 
 The top of the files list displays clickable breadcrumbs of the current directory. It is possible to navigate the filesystem by clicking on these breadcrumbs or on the directories displayed in the notebook list.
 
@@ -190,3 +249,6 @@ The simplest of these capabilities to demonstrate is developing and running code
 Hello World!
 > ~~~
 > {: .output}
+
+
+Finally, to return to the dashboard, you can select the browser tab which contains it.  If you have closed the browser tab, you may access the dashboard from within a notebook by clicking the Jupyter icon at top left.
