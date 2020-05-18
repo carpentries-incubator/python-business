@@ -85,7 +85,7 @@ The Python computing language, which we'll talk about in detail later, acts a lo
 
 Let's circle back around and talk a bit more about the Jupyter interface before diving into Python.
 
-TODO
+<!-- TODO  -->
 
 ### `Files` Tab
 
