@@ -1,7 +1,7 @@
 ---
 title: Introduction to Jupyter Notebook
-teaching: 30
-exercises: 0
+teaching: 20
+exercises: 5
 questions:
 - "What is a Jupyter notebook and how does one access a notebook?"
 - "How does one create a new notebook?"
@@ -81,174 +81,117 @@ At this point, you can use the code cells like a calculator.  Try some of the fo
 -   `5 ** 2`  (what does this do?)
 -   `25 ** 0.5`  (what does this do?)
 
+You can also write longer blocks of code in a cell.  Copy and paste the following into a single cell and evaluate it:
+
+```
+from math import sin,pi
+sin(pi/4)
+```
+
 The Python computing language, which we'll talk about in detail later, acts a lot like a graphing calculator for basic mathematical calculations.
 
-Let's circle back around and talk a bit more about the Jupyter interface before diving into Python.
+Let's circle back around and talk a bit more about the Jupyter interface before diving into Python.  Save your notebook using the `File` menu in Jupyter and then close the browser tab.
 
-<!-- TODO  -->
 
-### `Files` Tab
+### Jupyter Tabs
 
-The `Files` tab provides an interactive view of the portion of the filesystem which is accessible by the user.
-
-The top of the files list displays clickable breadcrumbs of the current directory. It is possible to navigate the filesystem by clicking on these breadcrumbs or on the directories displayed in the notebook list.
-
-To create a new folder, click the **`New`** dropdown button and select Folder. New folder will be named `Untitled Folder`. Check the checkbox of the folder and click `Rename` button to rename folder.
-
-A new python notebook can be created by clicking on the **`New`** dropdown button at the top of the list, and selecting Python 3 kernel.
-
-Notebooks can also be uploaded to the current directory by clicking the **`Upload`** button at the top of the list.
+On the main Jupyter page, `Files` tab, you should see a new `Untitled.ipynb` notebook, which is the one you just created.  If you select it, you can `Rename` it to a more helpful name, such as `My First Notebook`.
 
 ![files-tab](../pic/dashboard_notebooks_tab_5_0.png){:height="500px"}
 
-### Running Tab
-
-The running tab displays the currently running notebooks which are known to the server. This view provides a convenient way to track notebooks that have been started during a long running notebook server session.
-
-Each running notebook will have an orange **`Shutdown`** button which can be used to shutdown its associated kernel. Closing the notebook's page is not sufficient to shutdown a kernel.
-
-Running terminals are also listed, provided that the notebook server is running on an operating system which supports PTY(Unix, Linux, Mac, but not Windows).
-
-When there are too many running notebooks, you could encounter "Too many open files" error and all open notebooks will stop working properly. You can either restart the Jupyter server or click "shutdown" buttons in Running tab to reduce number of open notebooks. Just closing the notebook page won't fix the issue.
+Click over to the `Running` tab.  You should see the notebook you just created listed there, because it's still running even though you closed the tab.  You can select it and stop it from running, or you can click it and it will open up again where you left it.  (As a general rule, you should close and halt a notebook when you are done with it, else it eats up computer memory and processing power later on.)
 
 ![running-tab](../pic/dashboard_running_tab_4_0.png){:height="330px"}
 
-## The Notebook
 
-When a notebook is opened, a new browser tab will be created which presents the notebook user interface (UI). This UI allows for interactively editing and running the notebook document.  
+### Your First Notebook, Revisited
 
-A new notebook can be created from the dashboard by clicking on the Files tab, followed by the New dropdown button, and then selecting the language of choice(Python 3 for this course) for the notebook. From within a notebook, one can create a new python notebook by clicking **`File -> New Notebook -> Python 3`** from the notebook menu bar.
+Click back into your first notebook using any of the means we've seen before.  A new browser tab should open again and you can see your content.
 
-### Header
+Let's talk about what the various options on the toolbar represent.
 
-At the top of the notebook document is a header which contains the notebook title, a menubar, and toolbar. This header remains fixed at the top of the screen, even as the body of the notebook is scrolled. The menubar and toolbar contain a variety of actions which control notebook navigation and document structure.
+![cell-toolbar](../pic/cell-toolbar.png)
 
-When a new notebook is created, the title will be **Untitled**. By clicking the title, it can be edited in-place (which renames the notebook file).
+You can save (and should do so frequently).
 
-![notebook-header](../pic/notebook_header_4_0.png){:height="100px"}
+`+` adds a new cell.
 
-### Body
+You can cut, copy, and paste entire cells, or move them around.
 
-The body of a notebook is composed of cells. Each cell contains either markdown, code input, code output, or raw text. Cells can be included in any order and edited at-will, allowing for a large amount of flexibility for constructing a narrative. We will only be using **Code** and **Markdown** cells in this course.
+You can run a cell, or stop it if it is taking too long to run.
 
-- **Markdown cells** - These are used to build a nicely formatted narrative around the code in the document. The majority of this notebook is composed of markdown cells.
+The `Code` drop-down is interesting.  Click into it.
 
-- **Code cells** - These are used to define the computational code in the document. They come in two forms: the *input cell* where the user types the code to be executed, and the *output cell* which is the representation of the executed code. Depending on the code, this representation may be a simple scalar value, or something more complex like a plot or an interactive widget.
+![cell-type](../pic/cell-type.png)
+
+The body of a notebook is composed of cells.  Each cell can contain different kinds of data, such as code input, code output, or Markdown (descriptive text).  Cells can be included in any order and edited at-will, allowing for a large amount of flexibility for telling the story of your data analysis.
+
+- **Markdown cells** are used to display text.  Copy and paste the following into a cell, set its type to `Markdown`, and `Ctrl`+`Enter` to evaluate it.
+
+    ```
+    Steps in data analysis include:
+    1. Data entry or ingest
+    2. Data cleaning
+    3. Data integrity check
+    4. Data analysis
+    5. Data visualization
+
+    [This is a link.](https://www.audubon.org/field-guide/bird/belted-kingfisher)
+
+    ![This is an image of a kingfisher.](https://www.audubon.org/sites/default/files/styles/hero_cover_bird_page/public/web_belted-kingfisher_02-20-2013-200-adult-female.jpg)
+    ```
+
+    [Markdown][df] is a particularly way of writing text consistently so that it can be turned into a well-formatted document later.
+
+- **Code cells** specify your calculations, whether entry, analysis, or reporting.  The *input cells* are where you, the user, type the code to be executed, while the *output cells* display what results from executed code.
 
 ![notebook-cells](../pic/notebook_cells.png){:height="150px"}
 
-### Cell Mode
-
-The notebook user interface is *modal*. This means that the keyboard behaves differently depending upon the current mode of the notebook. A notebook cell has two modes: **edit** and **command**.
-
-**Edit mode** is indicated by a green cell border and a prompt showing in the editor area. When a cell is in edit mode, you can type into the cell, like a normal text editor.
+<div class="alert alert-warning">
+One thing to be careful about, though:  if you start typing when a cell isn't in the editing mode, Jupyter may interpret your keystrokes as command shortcuts.  Surprising things—like deleting cells or undoing intentional changes—may occur as a result.
+</div>
 
 ![edit-mode](../pic/edit_mode.png){:height="70px"}
 
-**Command mode** is indicated by a grey cell border. When in command mode, the structure of the notebook can be modified as a whole, but the text in individual cells cannot be changed. Most importantly, the keyboard is mapped to a set of shortcuts for efficiently performing notebook and cell actions. For example, pressing **`b`** when in command mode, will create a new cell below current cell.
-
-![command-mode](../pic/command_mode.png){:height="70px"}
-
-
-<br>
-<div class="alert alert-success">
-Enter edit mode by pressing `Enter` or using the mouse to click on a cell's editor area.
-</div>
-<div class="alert alert-success">
-Enter command mode by pressing `Esc` or using the mouse to click *outside* a cell's editor area.
-</div>
-<div class="alert alert-warning">
-Do not attempt to type into a cell when in command mode; unexpected things will happen!
-</div>
-
-## Basic Workflow
-### Mouse Navigation
-
-The first concept to understand in mouse-based navigation is that **cells can be selected by clicking on them.** The currently selected cell is indicated with a grey or green border depending on whether the notebook is in edit or command mode. Clicking inside a code cell's editor area or double clicking a command cell will enter edit mode. Clicking on the prompt or the output area of a cell will enter command mode.
-
-The second concept to understand in mouse-based navigation is that **cell actions usually apply to the currently selected cell**. For example, to run a code cell, select it and then click the <button class='btn btn-default btn-xs'><i class="fa fa-play icon-play">| Run</i></button> button in the toolbar or the **`Cell -> Run`** menu item. Similarly, to change a code cell to markdown cell, click the drop down list in the tool bar and select Markdown or the **`Cell->Cell Type->Markdown`**. With this simple pattern, it should be possible to perform nearly every action with the mouse.
-
-Markdown cells have one other state which can be modified with the mouse. These cells can either be rendered or unrendered. When they are rendered, a nice formatted representation of the cell's contents will be presented. When they are unrendered, the raw text source of the cell will be presented. To render the selected cell with the mouse, click the <button class='btn btn-default btn-xs'><i class="fa fa-play icon-play">| Run</i></button> button in the toolbar or the **`Cell -> Run`** menu item. To unrender the selected cell, double click on the cell.
-
-### Keyboard Navigation
-
-All actions in the notebook can be performed with the mouse, but keyboard shortcuts are also available for the most common ones. This is made possible by having two different sets of keyboard shortcuts: one set that is active in edit mode and another in command mode. Click <button class='btn btn-default btn-xs'><i class="fa fa-keyboard-o" aria-hidden="true"></i></button> button in the tool bar for all keyboard shortcuts. The essential shortcuts to remember are the following:
-
-- **Esc**: Command mode
-- **Enter**: Edit mode
-- **Ctrl-Enter**: Run cell
-- **Shift-Enter**: Run cell and go to next cell
-- **Alt-Enter**: Run cell and insert a new code cell below
-- **Under command mode**
-  - **a**: Insert a new cell above
-  - **b**: Insert a new cell below
-  - **dd**: Delete cell. *Caution:cannot undo delete*
-  - **y**: Change cell to Code cell
-  - **m**: Change cell to Markdown cell
-
-  ## Magics
-
-  Jupyter provides specific commands, known as magics, that you can execute within a Code cell to provide enhanced functionality to the current notebook. Magics are not part of the Python programming language but can often make programming easier, especially within the notebook, and some magics can be used to improve your data processing work flow. Magics come in two types:
-
-  1. line magics and
-  2. cell magics.
-
-  To see the list of currently available magics, execute the following cell.
-
-`%lsmagic`
+> ## Markdown Exercise
+>
+> Since you will document your work using Markdown cells in notebooks, it behooves us to work a bit more with them directly.
+>
+> Consider this Markdown cell:
+>
 > ~~~
-> Available line magics:
-> %alias  %alias_magic  %autoawait  %autocall  %automagic  %autosave  %bookmark  %cat  %cd  %clear  %colors  %config  %connect_info  %cp  %debug  %dhist  %dirs  %doctest_mode  %ed  %edit  %env  %gui  %hist  %history  %killbgscripts  %ldir  %less  %lf  %lk  %ll  %load  %load_ext  %loadpy  %logoff  %logon  %logstart  %logstate  %logstop  %ls  %lsmagic  %lx  %macro  %magic  %man  %matplotlib  %mkdir  %more  %mv  %notebook  %page  %pastebin  %pdb  %pdef  %pdoc  %pfile  %pinfo  %pinfo2  %popd  %pprint  %precision  %prun  %psearch  %psource  %pushd  %pwd  %pycat  %pylab  %qtconsole  %quickref  %recall  %rehashx  %reload_ext  %rep  %rerun  %reset  %reset_selective  %rm  %rmdir  %run  %save  %sc  %set_env  %store  %sx  %system  %tb  %time  %timeit  %unalias  %unload_ext  %who  %who_ls  %whos  %xdel  %xmode
-> Available cell magics:
-> %%!  %%HTML  %%SVG  %%bash  %%capture  %%debug  %%file  %%html  %%javascript  %%js  %%latex  %%markdown  %%perl  %%prun  %%pypy  %%python  %%python2  %%python3  %%ruby  %%script  %%sh  %%svg  %%sx  %%system  %%time  %%timeit  %%writefile
-Automagic is ON, % prefix IS NOT needed for line magics.
+> The lifecycle of a business includes the following stages:
+> - seed funding and development
+> - startup
+> - growth and establishment
+> - expansion
+> - maturity and possible exit
+>
+> [The small business lifecycle](https://cdn.business2community.com/wp-content/uploads/2014/03/Small-Business-Lifecycle5.jpg)
+>
 > ~~~
-> {: .output}
-
-### Line magic
-
-A line magic is prepended by a single `%` character and will have any arguments specified all on the same line. Some useful line magics include:
-
-- `%lsmagic`, which lists all currently defined line and cell magics for the current notebook,
-- `%matplotlib`, which allows inline plotting to be enabled,
-- `%autosave`, which sets the default autosave frequency in seconds, and
-- `%timeit`, which in line mode times the execution of a single line of code.
-
-### Cell magics
-
-A cell magic is prepended by two `%` characters and they can have arguments that include both the current line and the remaining lines in the current cell. Thus, cell magics must be placed on the first line of a cell, and in general you can only have one cell magic per cell. Some useful line magics include:
-
-- '%%timeit', which can be used to time a multi-line Python statement,
-- '%%writefile' writes the contents of the cell into the named file,
-
-If you are uncertain how to use a particular magic, you can always obtain help from the notebook kernel by entering the magic by itself in a cell, adding a `?` character at the end, and executing the cell to bring up the notebook help window.
-
-## Writing Markdown Document
-
-Markdown is a plain text formatting syntax that you can easily use to write text that can be converted to formatted text, for example, HTML. Markdown was developed by John Gruber, who runs the popular [Daring Fireball][df] blog.
-
-You can view the source of a markdown cell by double clicking on it, or while the cell is selected in command mode, press Enter to edit it. Use Shift-Enter to re-render a markdown cell when it is in edit mode. We will introduce markdown in more details in next lesson.
-
-## Writing and Executing Code
-
-Of course, the reason we are using Jupyter Notebook is that it allows for in place development and execution of Python code. There are a number of direct benefits you accrue by developing and executing code in an Jupyter Notebook:
-
-1. Run code in place with the output displayed in the notebook,  
-2. Display visualizations inline,  
-3. Run code in the background, while you edit or run code in other cells,  
-4. Clean restarts of the notebook kernel, and  
-5. Built-in support for parallelization.
-
-The simplest of these capabilities to demonstrate is developing and running code in the notebook. The code can be a single line or multiple lines. Code cells can be executed by using one of three key combinations: CONTROL-return, which executes the cell in place, SHIFT-return, which executes the code and advances to the next cell, or ALT-return, which executes the code and insert a new code cell below. For example, as shown below, we have a single line of Python code that can be executed with the output directly shown.
-
+> {: .language-markdown}
+>
+> Take a moment and alter this input so that the list is numbered and the image is displayed in-place rather than linked.  You can check the [Markdown rules][df] if you need to, or ask your instructor or helpers.
+>
+> > ## Solution
 > ~~~
->print("Hello World!")
+> The lifecycle of a business includes the following stages:
+> 1. seed funding and development
+> 2. startup
+> 3. growth and establishment
+> 4. expansion
+> 5. maturity and possible exit
+>
+> ![The small business lifecycle](https://cdn.business2community.com/wp-content/uploads/2014/03/Small-Business-Lifecycle5.jpg)
+>
 > ~~~
-> {: .language-python}
-> ~~~
-Hello World!
-> ~~~
-> {: .output}
+> {: .language-markdown}
+> {: .solution}
+{: .challenge}
 
+As a best practice, we recommend that you use Markdown to document everything you need to understand your work:  explanations, images, documentation, equations, everything.
+
+Code cells are for your process, the actual realization of your intent.  Markdown cells are for your documentation, the explanation of every stage of your process.  Done properly, a notebook becomes its own report.
 
 Finally, to return to the dashboard, you can select the browser tab which contains it.  If you have closed the browser tab, you may access the dashboard from within a notebook by clicking the Jupyter icon at top left.
