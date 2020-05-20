@@ -153,7 +153,7 @@ One thing to be careful about, though:  if you start typing when a cell isn't in
 
 ![edit-mode](../pic/edit_mode.png){:height="70px"}
 
-> ## Markdown Exercise
+> ## Using Markdown
 >
 > Since you will document your work using Markdown cells in notebooks, it behooves us to work a bit more with them directly.
 >

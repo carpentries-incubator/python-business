@@ -1,54 +1,156 @@
 ---
-title: Python basics 1 - Intro to Python
+title: Introduction to Python
 teaching: 30
-exercises: 0
+exercises: 15
 questions:
+- "What is a program and why do we write programs?"
 - "What is Python?"
-- "What are variables?"
+- "How are variables used in programming?"
+- "What are the basic data types and containers used in Python?"
 objectives:
-- "Assign values to variables."
-- "Select individual values and subsections from data."
-- "Convert datatypes"
+- "Enumerate six benefits of writing programs to analyze data."
+- "Employ variables to name and hold values for subsequent use."
+- "Distinguish basic data types one from another."
+- "Convert values from one data type to another."
+- "Select individual values and subsections from data using indexing and slicing."
 keypoints:
 - "Use `variable = value` to assign a value to a variable in order to record it in memory."
 - "Variables are created on demand whenever a value is assigned to them."
 - "Use `print(something)` to display the value of `something`."
 ---
 
+## What is a program?
+
+To begin, what do we mean by programming?  A computer program is a set of instructions that define a procedure, but that's a rather dry way of saying it.  
+
+At the highest level of understanding, a programming language is a way of writing down a set of steps to consistently produce a particular result.  (Think of a "program" as in a play, or the stage directions.)  At the lowest level, it's a way of moving and changing values in memory.  Whenever you carry out a task on a computer, particularly an involved one like data analysis, you should carefully record the process as a program.  This has the following benefits:
+
+1.  The program makes the process _repeatable_.
+2.  The program can remove human error by making the process _automatic_.
+3.  The program can be tested (_testable_) and corrected if errors are found.
+4.  The program can be shared with others (_sharable_).
+
+These four characteristics—repeatability, automation, testing, and sharing—will be emphasized throughout these lessons.
+
+
 ## What is Python?
-[Python](https://www.python.org/doc/essays/blurb/) is an interpreted, object-oriented, high-level programming language with dynamic semantics. Its high-level built in data structures, combined with dynamic typing and dynamic binding, make it very attractive for Rapid Application Development, as well as for use as a scripting or glue language to connect existing components together. Python's simple, easy to learn syntax emphasizes readability and therefore reduces the cost of program maintenance. Python supports modules and packages, which encourages program modularity and code reuse. -- python.org
 
-## Why learning coding as a non-CS student?
-(you can watch it if you have time) <br>
-[![IMAGE ALT TEXT](https://img.youtube.com/vi/xfBWk4nw440/0.jpg)](https://youtu.be/xfBWk4nw440)
+When you write a program, you have many choices of programming languages available.  A language is a particular way of writing down the steps of your analysis, and like human languages they offer different benefits and costs.  We will introduce Python in this workshop because it embodies the four characteristics we just introduced and because it is considered fairly readable.  The most valuable language is the one that you can understand, particularly as your analyses become more sophisticated, so don't hesitate to ask questions about every aspect as we delve into Python.
 
-* You can make your work more efficient! The computer can extend you ability.  
-* As business students, especially for future analysts, you will have to deal will massive number of data. Excel can't handle that.
-* Python is relatively easier to understand than other languages. So it's good for starters.  
+Python prefers English-language words and statements that are reasonably close to mathematics as you have seen previously.  Many programmers like it because it can be written quickly, it works well with many other languages, and it is highly portable.  For you, this means that code you write using Python can be shared with others and run on either Windows or macOS.  Python's popularity has led to a positive feedback loop in which many new code libraries and analysis programs have been published using it.
+
+There are a couple more reasons to employ programming that are worth mentioning, specific to your business studies:
+
+5.  An automatic, repeatable program is more _efficient_; in the end, it will extend your ability to complete analysis more rapidly once your programs are written.
+6.  Python is more _scalable_ than many graphical programs, such as Excel.  Spreadsheets have built-in limits on the number of rows and columns which can be reached when processing transactions or event records; Python has only the limits of computer memory.
+
+All together, we hope that you find the benefits of repeatability, automation, testing, sharing, efficiency, and scaling to far outweigh the initial investment you'll make in learning Python-based analysis.
 
 
-## Variables
+## Your First Python Program
 
-Lets start by learning about variables. A variable is a name for a value, you can name it whatever you want.
-Python's variables must begin with a letter and are case sensitive.
-We can create a new variable by assigning a value to it using `=`.
-When we are finished typing and press Shift+Enter,
-the notebook runs our command.
+Open the Jupyter notebook dashboard.  We should complete all of our work for a given project in the same directory, so go ahead and use the `New` button to create a new folder on your Desktop named `dcb` (for Data Carpentry for Business).  Click into that folder and start a new Python notebook.  Name it `Lesson 1` and save it immediately.
 
-This is how you assign a value to a variable:  
+When we wrote code earlier as short mathematical statements, we were able to express basic arithmetic and algebraic relationships.  For instance, try the following:
 
-```
-a = 1
-```
-Ok, now you have successfully assigned value 1 to a variable called `a`.  
-To see the value in the variable, we can simply do:  
-```
-a
-```
-or
-```
-print(a)
-```
+    (-2 + (2**2-4*1*-3)**0.5)/(2*1)
+
+Does this look familiar?  This is an expression for the quadratic equation,
+
+$$
+x
+=
+\frac{-b\pm\sqrt{b^2-4ac}}{2a}
+$$
+
+with $a=1$, $b=2$, and $c=-3$.  It's a bit inconvenient though:  to change the expression to use the values $a=2$, $b=6$, and $c=-4$ requires changing a number of values manually.  (Take a moment to do it, so you can see the tedium.)
+
+If we are relying on the computer to automate our tasks, then surely there must be an easier way.  Just as we use markers when we refer to the mathematical statement
+
+$$
+x
+=
+\frac{-b\pm\sqrt{b^2-4ac}}{2a}
+$$
+
+with $a$, $b$, and $c$, we can set the same values in Python.  In Python, we call such values _variables_.  One implementation looks like this:
+
+    a = 1
+    b = 2
+    c = -3
+    x = (-b + (b**2-4*a*c)**0.5)/(2*a)
+
+Since it doesn't show us the output anymore, we need to prompt Python to show us the result.  Add the following line to the end of the cell and run it again:
+
+    print(x)
+
+Take a moment and copy this to a new cell altogether and execute it.
+
+Next, copy the entire block of code to a new Jupyter cell and change the values to $a=2$, $b=6$, and $c=-4$.  The relative ease and clarity of variables makes their use more straightforward than mucking around directly inside of expressions.
+
+Any time you see a `=` used by itself, it takes whatever the result is on the right and assigns it to the name on the left.  This means that some expressions which are mathematically valid may require alteration to work in Python.
+
+For instance, this fails:
+
+    x - 2 = 4
+
+while this works:
+
+    x = 4 + 2
+
+Keep your basic algebra in mind so you can get a single value on the left-hand side.
+
+> ## Writing Expression with Variables
+>
+> Consider the equation for an amortized loan payment:
+>
+> $$
+> I
+> =
+> P\,r\,t
+> $$
+>
+> Write some Python code which implements this equation using variable names and the arithmetic operator `*` for multiplication.  You may use the values $P=1,000$, $r=5\%$, and $n=12$.
+>
+> > ## Solution
+> ~~~
+> P = 1000
+> r = 0.05
+> t = 12
+> R = P*r*t
+>
+> ~~~
+> {: .language-python}
+>
+> You'll notice that writing expressions including commas to separate thousands or percentage signs to represent percents don't work quite the way you may expect.  Python in general expects you to write numbers in a very consistent format—it's rather the sort of pedantry you'll have to get used to.  Most programming languages have quite strict rules regarding how to write numbers and other values.
+> {: .solution}
+{: .challenge}
+
+> ## Writing Complicated Expressions
+>
+> Consider the equation for an amortized loan payment:
+>
+> $$
+> R
+> =
+> \frac{P\,i}{1-(1+i)^{-n}}
+> $$
+>
+> Write some Python code which implements this equation using variable names and the arithmetic operators `+`, `-`, `*`, `/`, and `**`.  Parentheses can organize your terms.  You may use the values $P=1000$, $i=0.034$, and $n=60$.
+>
+> > ## Solution
+> ~~~
+> P = 1000
+> i = 0.034
+> n = 60
+> R = (P*i) / (1-(1+i)**-n)
+>
+> ~~~
+> {: .language-python}
+> {: .solution}
+{: .challenge}
+
+<!-- TODO -->
 
 ## Datatypes  
 Datatype is to classify the value of variables.
