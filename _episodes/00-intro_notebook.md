@@ -1,5 +1,5 @@
 ---
-title: Introduction to Jupyter Notebook
+title: Introduction to Jupyter Notebooks
 teaching: 20
 exercises: 5
 questions:
@@ -99,7 +99,7 @@ On the main Jupyter page, `Files` tab, you should see a new `Untitled.ipynb` not
 
 ![files-tab](../pic/dashboard_notebooks_tab_5_0.png){:height="500px"}
 
-Click over to the `Running` tab.  You should see the notebook you just created listed there, because it's still running even though you closed the tab.  You can select it and stop it from running, or you can click it and it will open up again where you left it.  (As a general rule, you should close and halt a notebook when you are done with it, else it eats up computer memory and processing power later on.)
+Click over to the `Running` tab.  You should see the notebook you just created listed there, because it's still running even though you closed the tab.  You can select it and stop it from running (`Shutdown`), or you can click it and it will open up again where you left it.  (As a general rule, you should close and halt a notebook when you are done with it, else it eats up computer memory and processing power later on.)
 
 ![running-tab](../pic/dashboard_running_tab_4_0.png){:height="330px"}
 
