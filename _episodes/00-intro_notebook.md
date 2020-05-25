@@ -168,7 +168,6 @@ One thing to be careful about, though:  if you start typing when a cell isn't in
 > - maturity and possible exit
 >
 > [The small business lifecycle](https://cdn.business2community.com/wp-content/uploads/2014/03/Small-Business-Lifecycle5.jpg)
->
 > ~~~
 > {: .language-markdown}
 >
@@ -184,7 +183,6 @@ One thing to be careful about, though:  if you start typing when a cell isn't in
 > 5. maturity and possible exit
 >
 > ![The small business lifecycle](https://cdn.business2community.com/wp-content/uploads/2014/03/Small-Business-Lifecycle5.jpg)
->
 > ~~~
 > {: .language-markdown}
 > {: .solution}
