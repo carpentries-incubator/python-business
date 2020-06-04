@@ -290,8 +290,21 @@ For instance, select all soft drinks that have a `Bottle_Cost` less than $3:
 
 ```python
 soda[soda["Bottle_Cost"]<= 3]["Item_Description"]
-
 ```
+
+`soda['Bottle_Cost']` by itself produces a `Series` of `True`/`False` values.  These are then used to select _only_ the `True` values from `soda`, thus those meeting the filter criterion.
+
+> ## Filtering Data
+>
+> Select all of the sodas with a volume greater than 750 mL.    
+>  
+> > ## Solution
+> > ```python
+> > soda[soda["Bottle_Volume_ml"] > 750]
+> > ```
+> {: .solution}
+{: .challenge}
+
 > ## Combining Filters
 >
 > If we need multiple criteria, we can put parentheses over each criteria and use `&` (and) or `|` (or) to combine the criterias. For example, let's select sodas that are at least 500ml and cheaper than $3.     
@@ -304,39 +317,55 @@ soda[soda["Bottle_Cost"]<= 3]["Item_Description"]
 {: .challenge}
 
 
-# Basic Arithmetics with Pandas  
-Similar as Excel, Pandas allows you to do basic arithmetics with the numbers in the DataFrame.  
-For example, if you want to calculate the pack price of each soda (Pack * Bottle_Retail_Price):
-```
+## Table Formulas
+
+A very common process in spreadsheet-based analysis is to add new relationships between existing fields.  When you add a new formula in a spreadsheet, typically you type it in as a function of other cells:  `=SUM(A2:D2)/E2`.  This format obscures the intent of a such a formula and makes it difficult to detect errors.
+
+In Pandas, we will explicity express the relationships between fields using field names:
+
+```python
+# calculate the pack price of soft drinks
 soda['Pack'] * soda['Bottle_Retail_Price']  
 ```
-To assign a new column in `soda` DataFrame to store this result, we can:
-```
+
+This by itself yields a `Series`.  If we want to add this relationship as a new field in the `DataFrame`, we need to create a new column name and assign the values to it:
+
+```python
 soda['Pack_Price'] = soda['Pack'] * soda['Bottle_Retail_Price']  
 ```
-If you don't want this column, you can delete it by:  
-```
+
+Later on, if you decide that you don't want this column anymore, you can delete it:
+
+```python
 soda = soda.drop(['Pack_Price'], axis = 1)
 ```
-Very important, the `.drop()` will not change anything in the original DataFrame. Instead, it will return a new dataframe with the "Pack_Price" column removed. You have to assign the new DataFrame to the variable `soda` with `soda =`.
 
-> ## Challenge  
+> ## Calculating Markup
 >
-> Create an column in the `soda` dataframe that shows the profit margin ((price-cost)/cost) of each soda.      
->  
->> ## Solution
->> ```
->> soda['Profit_Margin'] = (soda['Bottle_Retail_Price'] - soda['Bottle_Cost']) / soda['Bottle_Cost']
->> ```
+> Create a column in the `soda` `DataFrame` that shows the markup per bottle (price-cost) of each soda.
+>
+> > ## Solution
+> > ```python
+> > soda['Markup'] = (soda['Bottle_Retail_Price'] - soda['Bottle_Cost'])
+> > ```
 > {: .solution}
 {: .challenge}
 
-# Basic Statistics with Pandas  
+> ## Calculating Profit Margin
+>
+> Create a column in the `soda` `DataFrame` that shows the profit margin ((price-cost)/cost) of each soda.
+>
+> > ## Solution
+> > ```python
+> > soda['Profit_Margin'] = (soda['Bottle_Retail_Price'] - soda['Bottle_Cost']) / soda['Bottle_Cost']
+> > soda['Profit_Margin'] = soda['Markup'] / soda['Bottle_Cost']
+> > ```
+> {: .solution}
+{: .challenge}
 
-Excel has "descriptive statistics" function in the built in data analytics tools. We can do similar things with Pandas.
-Let's perform some quick summary statistics to learn more about the data that we're working with. We can perform summary stats quickly using groups. We often want to calculate summary statistics grouped by subsets or attributes
-within fields of our data. For example, we might want to calculate the average
-cost of each soda.
+### Descriptive Statistics  
+
+Let's carry out some summary statistics to learn more about the data that we're working with.  We often want to calculate summary statistics grouped by subsets or attributes within fields of our data. For example, we might want to calculate the average cost of each soda, or the average volume of each soda which costs more than $4.
 
 We can calculate basic statistics for all records in a single column using the
 syntax below:
@@ -344,9 +373,10 @@ syntax below:
 ```python
 soda['Bottle_Cost'].describe()
 ```
-gives **output**
 
-```python
+yields the output
+
+```
 count    4166.000000
 mean        3.648721
 std         9.348512
@@ -366,177 +396,35 @@ soda['Bottle_Cost'].max()
 # We can do many other statistic measures such as .std(), .count(), .sum() ... etc
 ```
 
-## Merge database  
-
-Sometimes we need data from many different tables.
-For example, we have two tables below:  
-![vlookup1](../pic/vlookup1.png){:height="130px"} <br>
-And we want to merge them together: <br>
-![vlookup1](../pic/vlookup2.png){:height="130px"} <br>
-Many people probably know how to do this in Excel. You can just use vlookup function. (you will probably use it a lot in your future jobs)
-```Excel
-=VLOOKUP(A3,$E$3:$F$5,2,FALSE)  
-```
-We can also do this in Pandas with [`pandas.DataFrame.merge`](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.merge.html) (you can click to see documentation).  
-```python
-# I only listed some frequently used parameters. You can see all parameters in the documentation.  
-DataFrame.merge(Another_DataFrame, how='inner, outer, left or right', left_on="Left_Join_Column_Name", right_on="Right_Join_Column_Name")
-```
-"how" determines the join type. The following chart shows the difference between each kinds of joins, assume column "J" is the join column:  
-![join](../pic/join.png){:height="400px"} <br>
-
-Let's have a quick demonstration of the merges performed in the charts above.
-```python  
-# firstly, load in the tables
-table1 = pd.DataFrame({'J': ['A', 'B', 'D'], 'X': [1, 2, 3]})
-table2 = pd.DataFrame({'J': ['B', 'C', 'D'], 'Y': [4, 5, 6]})
-```
-```python
-# inner join
-table1.merge(table2, how="inner", right_on="J", left_on="J")
-# outer join
-table1.merge(table2, how="outer", right_on="J", left_on="J")
-# left join
-table1.merge(table2, how="left", right_on="J", left_on="J")
-# right join
-table1.merge(table2, how="right", right_on="J", left_on="J")
-```
-
-Let's go back to our data. We have two DataFrames, `soda` and `invoice`. In the `invoice` DataFrame, the only information about soda is the "Item_id" column. If we want to see details of the soda associated with each invoice, we need to join the two tables together. Since `soda` DataFrame also has "Item_id" column, "Item_id" column can be used as join column.   
-> ## Challenge
+> ## Calculating the Average
 >
-> Merge `soda` and `inv` tables, call it **inv_soda**.
-> Not all kinds of soda will appear in the invoice (some were never sold). If we want to keep everything in the `soda` dataframe, what kinds of join should we use?
+> Calculate the mean volume of all sodas.
 >
->> ## Solution
->> ```
->> inv_soda = inv.merge(soda, how="left", right_on="Item_id", left_on="Item_id")  
->> ```
->>  
+> > ## Solution
+> > ```python
+> > soda['Bottle_Volume_ml'].mean()
+> > ```
 > {: .solution}
 {: .challenge}
 
-> ## Challenge
+> ## Calculating the Mode
 >
-> Check how many rows are there in the joined table. Is it the same as the invoice table (930508 rows)?  
-> If they are different, find the exact problem child/children that caused the difference.  
-> Hint: to find which value is empty, you can do `df[df["column_name"].isnull()]`  
+> Calculate the mode of volume of all sodas.
 >
->> ## Solution
->> ```python
->> len(inv_soda)
->> ```
->> The result is 93509 rows. This is because one kind of soda was never sold.  
->> Let's find out what is it:  
->> ```
->> inv_soda[inv_soda["Invoice_id"].isnull()]  
->> ```
->> Yummy Surstromming Juice. Try it, its good.    
->>
+> > ## Solution
+> > ```python
+> > soda['Bottle_Volume_ml'].mode()
+> > ```
 > {: .solution}
 {: .challenge}
 
-## Aggregate Function  
-
-But if we want to summarize by one or more variables, for example, if we want to find out how many bottles has each soda been sold.
-In Excel, we will probably use pivot table. In Pandas, we can use **Pandas' `.groupby` method**. Once we've created a groupby DataFrame, we
-can quickly calculate summary statistics by a group of our choice. <br>   
-Note that Pandas has pivot table too, we will cover later.   
-
-```python
-# Group data by Item_Description
-# The code below counts the number of invoice_id associated with each Item_Description. You can have other
-grouped_df = inv_soda.groupby('Item_Description').agg({"Invoice_id":"count"})
-grouped_df
-```
-You will get something like this:
-```
-                      Invoice_id
-Item_Description  
-Ace's Energy          262
-Ace's Energy Booster  64
-Akame's Energy        80
-...
-```
-Note that "Item_Description" and "Invoice_id" are not at the same level. This is because the groupby function automatically made "Item_Description" the index. If we do `grouped_df.columns`, we will only see the `Invoice_id` column. To avoid problems when using the aggregated result, we might want to:
-```python
-grouped_df = inv_soda.groupby('Item_Description', as_index=False).agg({"Invoice_id":"count"})  
-grouped_df  
-```
-The columns are at the same level now.
-```
-  Item_Description        Invoice_id
-0 Ace's Energy            262
-1 Ace's Energy Booster    64
-2 Akame's Energy          80
-...
-```
-Now if you do `grouped_df.columns`, both "Item_Description" and "Invoice_id" will show up.  
-
-The column of count has the name of the counted column, or Invoice_id. You may change it to a more descriptive name with `rename()` function.  
-
-```python
-inv_soda.groupby('Item_Description', as_index=False).agg({'Invoice_id':'count'}).rename(columns={'Invoice_id':'Count'})
-```
-The output now is:
-```
-  Item_Description        Count
-0 Ace's Energy            262
-1 Ace's Energy Booster    64
-2 Akame's Energy          80
-...
-```
-
-Note that the input in `.agg()` is a dictionary. Because we can generate multiple aggregate columns at the same time. For example:  
-
-```python
-inv_soda.groupby('Item_Description', as_index=False).agg({"Invoice_id":"count", "Bottle_Cost":"mean"})
-# think about this, what does it return?   
-```
-
-> ## Challenge
+> ## Calculating the Average with a Filter
 >
-> Find the average `Bottle_Cost` and `Bottle_Retail_Price` for each category
+> Calculate the mean volume of all sodas which cost more than $4.
 >
->> ## Solution
->>
->> ```
->> inv_soda.groupby('Category', as_index=False).agg({"Bottle_Cost":"mean","Bottle_Retail_Price":"mean"})
->>
->> ```
-> {: .solution}
-{: .challenge}
-
-## Pivot Table  
-One of the most useful functionalities in Excel is pivot table. You can also create [pivot table](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.pivot_table.html#pandas-pivot-table) with Pandas!
-
-A basic pivot table contains the following parameters:  
-```python
-pandas.pivot_table(DataFrame, values, index, columns, aggfunc)
-# values: columns to aggregate (just like choosing the field to report in Excel pivot table)
-# index: keys to group by on the pivot table index (just like dragging into the row box in Excel pivot table)
-# columns: keys to group by on the pivot table column (just like dragging into the column box in Excel pivot table)
-# aggfunc: aggregate function, for example, mean, sum, min, etc. (just like setting the values box in Excel pivot table)
-```
-For example you want to see the total bottles sold for each soda in each city, you can:  
-```
-pd.pivot_table(inv_soda, values="Bottles_Sold", index = ["Item_Description"],\
-            columns = ["City_Name"], aggfunc="sum")   
-
-```
-You will get something like this:  
-![pt](../pic/pivot.png){:height="300px"}
-
-> ## Challenge
->
-> Create a pivot table that shows the total bottle sold for from each vendor in each category. Set Vendor_Name as index and Category as columns.
->
->> ## Solution
->>
->> ```
->> pd.pivot_table(inv_soda, values="Bottles_Sold", index = ["Vendor_Name"],\
-            columns = ["Category"], aggfunc="sum")
->>
->> ```
+> > ## Solution
+> > ```python
+> > soda[soda['Bottle_Retail_Price']>4]['Bottle_Volume_ml'].mean()
+> > ```
 > {: .solution}
 {: .challenge}
