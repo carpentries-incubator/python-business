@@ -53,7 +53,7 @@ Open the Jupyter notebook dashboard.  We should complete all of our work for a g
 
 When we wrote code earlier as short mathematical statements, we were able to express basic arithmetic and algebraic relationships.  For instance, try the following:
 
-```
+```python
 (-2 + (2**2-4*1*-3)**0.5)/(2*1)
 ```
 
@@ -77,10 +77,12 @@ $$
 
 with $a$, $b$, and $c$, we can set the same values in Python.  In Python, we call such values _variables_.  One implementation looks like this:
 
-    a = 1
-    b = 2
-    c = -3
-    x = (-b + (b**2-4*a*c)**0.5)/(2*a)
+```python
+a = 1
+b = 2
+c = -3
+x = (-b + (b**2-4*a*c)**0.5)/(2*a)
+```
 
 Since it doesn't show us the output anymore, we need to prompt Python to show us the result.  Add the following line to the end of the cell and run it again:
 
@@ -115,16 +117,15 @@ Keep your basic algebra in mind so you can get a single value on the left-hand s
 > Write some Python code which implements this equation using variable names and the arithmetic operator `*` for multiplication.  You may use the values $P=1,000$, $r=5\%$, and $n=12$.
 >
 > > ## Solution
-> ~~~
-> P = 1000
-> r = 0.05
-> t = 12
-> R = P*r*t
->
-> ~~~
-> {: .language-python}
->
-> You'll notice that writing expressions including commas to separate thousands or percentage signs to represent percents don't work quite the way you may expect.  Python in general expects you to write numbers in a very consistent format—it's rather the sort of pedantry you'll have to get used to.  Most programming languages have quite strict rules regarding how to write numbers and other values.
+> > ~~~
+> > P = 1000
+> > r = 0.05
+> > t = 12
+> > R = P*r*t
+> > ~~~
+> > {: .language-python}
+> >
+> > You'll notice that writing expressions including commas to separate thousands or percentage signs to represent percents don't work quite the way you may expect.  Python in general expects you to write numbers in a very consistent format—it's rather the sort of pedantry you'll have to get used to.  Most programming languages have quite strict rules regarding how to write numbers and other values.
 > {: .solution}
 {: .challenge}
 
@@ -141,14 +142,13 @@ Keep your basic algebra in mind so you can get a single value on the left-hand s
 > Write some Python code which implements this equation using variable names and the arithmetic operators `+`, `-`, `*`, `/`, and `**`.  Parentheses can organize your terms.  You may use the values $P=1000$, $i=0.034$, and $n=60$.
 >
 > > ## Solution
-> ~~~
-> P = 1000
-> i = 0.034
-> n = 60
-> R = (P*i) / (1-(1+i)**-n)
->
-> ~~~
-> {: .language-python}
+> > ~~~
+> > P = 1000
+> > i = 0.034
+> > n = 60
+> > R = (P*i) / (1-(1+i)**-n)
+> > ~~~
+> > {: .language-python}
 > {: .solution}
 {: .challenge}
 
