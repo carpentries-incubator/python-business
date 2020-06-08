@@ -6,7 +6,7 @@ questions:
 - "How do I read a file"
 - "What is pandas"
 - "How to work with table-like data in Python like Excel"
-objectives:  
+objectives:
 - "Describe what the Python Data Analysis Library (Pandas) is."
 - "Load the Python Data Analysis Library (Pandas)."
 - "What's in our data?"
@@ -20,11 +20,11 @@ keypoints:
 - "use sort_values([columns]) to sort the dataframe."
 - "use df_object.column_name or df_object[column_name] to select one column."
 - "use df_object[list_of_column_names] to select multiple columns."
-- "use df_object[condition] to filter data. For example, df_object[df_object[column_name] == value]."  
-- "use .describe() to get descriptive statistics of one column."    
-- "use df1.merge(df2) to merge two DataFrames."  
+- "use df_object[condition] to filter data. For example, df_object[df_object[column_name] == value]."
+- "use .describe() to get descriptive statistics of one column."
+- "use df1.merge(df2) to merge two DataFrames."
 - "use df_object.groupby(column_list1).agg({column1:agg_function1, column2:agg_function2...}) to apply aggregation on data group."
-- "Create pivot table with pandas.pivot_table"  
+- "Create pivot table with pandas.pivot_table"
 ---
 
 ## Working with Tabular Data
@@ -150,7 +150,7 @@ soda
 to see the table.  It is quite large, and a bit complicated to wrap our heads around.  We can see the approximate ranges of values for each field as we scan up and down the records, but displaying the entire table at once is cumbersome.  Instead, we can use
 
 ```python
-soda.head()   
+soda.head()
 ```
 
 to show us only the first few rows of data.  Often this is enough to get an idea of the data set.
@@ -296,8 +296,8 @@ soda[soda["Bottle_Cost"]<= 3]["Item_Description"]
 
 > ## Filtering Data
 >
-> Select all of the sodas with a volume greater than 750 mL.    
->  
+> Select all of the sodas with a volume greater than 750 mL.
+>
 > > ## Solution
 > > ```python
 > > soda[soda["Bottle_Volume_ml"] > 750]
@@ -307,8 +307,8 @@ soda[soda["Bottle_Cost"]<= 3]["Item_Description"]
 
 > ## Combining Filters
 >
-> If we need multiple criteria, we can put parentheses over each criteria and use `&` (and) or `|` (or) to combine the criterias. For example, let's select sodas that are at least 500ml and cheaper than $3.     
->  
+> If we need multiple criteria, we can put parentheses over each criteria and use `&` (and) or `|` (or) to combine the criterias. For example, let's select sodas that are at least 500ml and cheaper than $3.
+>
 > > ## Solution
 > > ```python
 > > soda[(soda["Bottle_Volume_ml"] >= 500) & (soda["Bottle_Cost"]<= 3)]["Item_Description"]
@@ -325,13 +325,13 @@ In Pandas, we will explicity express the relationships between fields using fiel
 
 ```python
 # calculate the pack price of soft drinks
-soda['Pack'] * soda['Bottle_Retail_Price']  
+soda['Pack'] * soda['Bottle_Retail_Price']
 ```
 
 This by itself yields a `Series`.  If we want to add this relationship as a new field in the `DataFrame`, we need to create a new column name and assign the values to it:
 
 ```python
-soda['Pack_Price'] = soda['Pack'] * soda['Bottle_Retail_Price']  
+soda['Pack_Price'] = soda['Pack'] * soda['Bottle_Retail_Price']
 ```
 
 Later on, if you decide that you don't want this column anymore, you can delete it:
@@ -363,7 +363,7 @@ soda = soda.drop(['Pack_Price'], axis = 1)
 > {: .solution}
 {: .challenge}
 
-### Descriptive Statistics  
+### Descriptive Statistics
 
 Let's carry out some summary statistics to learn more about the data that we're working with.  We often want to calculate summary statistics grouped by subsets or attributes within fields of our data. For example, we might want to calculate the average cost of each soda, or the average volume of each soda which costs more than $4.
 

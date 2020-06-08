@@ -14,7 +14,9 @@ keypoints:
 ---
 
 ## CRISP-DM
-Cross-industry standard process for data mining, known as CRISP-DM, is an open standard process model that describes common approaches used by data mining experts. It is one of the most widely-used analytics models. The CRISP-DM model consists of six steps:
+
+There are lot of proceduralizations of data analytics and data mining which have been devised; of these we consider one of the most useful standards to be CRISP-DM.  The CRISP-DM is a cross-industry process model which describes common approaches used by data mining experts.
+
 - **Business Understanding**
 - **Data Understanding**
 - **Data Preparation**
@@ -22,13 +24,14 @@ Cross-industry standard process for data mining, known as CRISP-DM, is an open s
 - **Evaluation**
 - **Deployment**
 
-As shown in below figure, these steps are generally performed in sequence but it will be often necessary to backtrack to previous steps and repeat certain tasks.
-
+These steps are generally performed in sequence, but it is often necessary to backtrack to previous steps and repeat certain tasks.
 
 ![crisp-dm](../pic/CRISP-DM_Process_Diagram.png){:height="500px"}
 
 ### Business understanding
+
 All projects start with business understanding. This initial phase focuses on:
+
 - Understanding the business
 - understanding the project objectives and requirements from a business perspective,
 - converting this knowledge into a data analytics problem definition, and

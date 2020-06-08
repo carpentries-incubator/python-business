@@ -25,112 +25,288 @@ keypoints:
 - "Specify default values for parameters when defining a function using `name=value` in the parameter list."
 - "Parameters can be passed by matching based on name, by position, or by omitting them (in which case the default value is used)."
 - "Put code whose parameters change frequently in a function, then call it with different parameter values to customize its behavior."
-- "import a module with `import` statement. Download a module with `!pip install` statement."  
+- "import a module with `import` statement. Download a module with `!pip install` statement."
 - "For us business students, it is more important to learn what a module can do and how to use the functions in the module than actually implement the functions by ourselves."
 ---
 
-## Function 
-What if we want to use some code again,
-on a different dataset or at a different point in our program?
-Cutting and pasting is going to make our code very long, repetitive, and quickly. 
-We'd like a way to package our code so that it is easier to reuse,
-and Python provides for this by letting us define things called 'functions' ---
-a shorthand way of re-executing longer pieces of code.
+## Reusing Code
 
-A function is reusable code that performs a certain action. 
+Let's take a break from tabular data for a moment and think about how much code you've written so far.  Most of the code from the exercises has only required small changes from the previous examples you've seen.  In fact, as a rule of thumb, if you ever need to do something on a computer more than twice, you should find a way to make the computer do the job for you.  That is, after all, why we developed them.
 
-![function](../pic/function.png){:height="300px"} 
+If we copy and paste code, there are two problems:
 
-Python has some [built in functions](https://docs.python.org/3/library/functions.html). For example, len() is a built in function. <br>
+1. Code clarity.  Copying and pasting takes up a lot of room and can be hard to read.
+2. Code correctness.  If we make a mistake somewhere, we may have to correct it in many places if we have copied that code around.
 
-You can also define your own functions. 
-The function definition opens with the keyword `def` followed by the
-name of the function and a parenthesized list of parameter names. The
-[body]({{ page.root }}/reference/#function-body) of the function --- the
-statements that are executed when it runs --- is indented below the
-definition line.
+Loops are one way of repeating code again and again, but they only work for certain kinds of repetitive processing of a list or data set.
 
-Foe example, in the exercise, you wrote some code to reverse a string. If you want to use it on other strings, you don't have to copy and paste the code. All you have to do is to add a few lines to make it a function: 
-~~~
-def rev(oldstring):
+A more general solution is to "wrap up" the useful code as a _function_.  Functions let you reuse the same code again and again, perhaps with slightly different values as you work through the data.
+
+You have already encountered many of Python's [built-in functions](https://docs.python.org/3/library/functions.html), such as `len()`.  You have also loaded functions from a library, such as `statistics.mean`.
+
+On top of these, however, real power is unleashed by creating your own functions.  For instance, this is a new short function which calculates the median of a data set:
+
+```python
+def median(data):
+    data = sorted(data)
+    midpoint = len(data)/2
+    if len(data) % 2 == 0:
+        # Even data require the central midpoint as the median.
+        return (data[int(len(data)/2)-1]+data[int(len(data)/2)])/2
+    else:
+        # Odd data require simple the middle value.
+        return data[int(len(data)/2)]
+```
+
+Input this cell into Jupyter and then test it using this code:
+
+```python
+values = [1,1,2,2,3,4,4,5,9]
+print(f'The median of {values} is {median(values)}.')
+
+values = [1,1,2,2,3,3.5,4,4,5,9]
+print(f'The median of {values} is {median(values)}.')
+```
+
+A function requires only a `def` statement, a name, and a [body]({{ page.root }}/reference/#function-body).  Most functions also `return` a value.
+
+In an earlier lesson, you wrote code to reverse a string.  Let's wrap that up in a new function.
+
+```python
+def reverse(oldstring):
     newstring = ''
     for char in oldstring:
         newstring = char + newstring
-    print(newstring)
     return newstring
-~~~
-{: .language-python}
+```
 
-When we call the function, the values we pass to it are assigned to those variables, so they will be used inside of the function.
-Inside the function,
-we use a [return statement]({{ page.root }}/reference/#return-statement) to send a result back to whoever asked for it.
-Now you can use it on whatever strings you want like this: 
-~~~
-rev("string")
-~~~
-{: .language-python}
+Notice how much of the code stays the same:  the only real changes are the additions of a header line and a `return` statement.
 
-This command should call our function, using "string" as the input and return the function value.
+Every time you write a function, you should test it:
 
-> ## Challenge 2.1
-> Write a function that returns the average of the list <br>
-> Hint: use built in functions `sum()` to get the sum and `len()` to get the length  
+```python
+reverse('Stolen Dance')
+```
+
+When we _call_ a function, we use the name of the function and we include data for the function inside of the parentheses.  From the function's perspective, the incoming data have the name given them in the function header (which means that the same data may have two names!).
+
+> ## Calculate an Average
+>
+> Write a function named `average` that returns the average of any given list of numbers.
+>
+> Hint: use built in functions `sum()` to get the sum and `len()` to get the length
+>
+> You can test your function using this code (which shouldn't be inside of your function).  It should yield `True`.
+>
 > ~~~
-> # you can test your code with the following:  
-> lt = [1,2,3,4,5,7]
-> your_function_name(lt)  
-> it should return 3.66667
+> data = [1,2,3,4,5,9]
+> average(data) == 4.0
 > ~~~
 > {: .language-python}
 >
 > > ## Solution
 > > ~~~
-> > def avg(lt):
-> >     return sum(lt)/len(lt)
+> > def average(values):
+> >     return sum(values)/len(values)
 > > ~~~
 > > {: .language-python}
 > {: .solution}
 {: .challenge}
 
-## Modules   
 
-While a lot of powerful, general tools are built into languages like Python,
-specialized tools built up from these basic units live in modules that can be called upon when needed.
+## Libraries Redux
 
-A [module](https://docs.python.org/3/tutorial/modules.html) is a file containing Python definitions and statements. A module can contain executable statements as well as function definitions, you can include a module with `import` statement. 
-For example, Python does not provide a built in function for square root. Of course, you can write a function that do square root by yourself. But the good thing is, the function is included in the built in `math` module. You can import the `math` module by:  
+You previously saw libraries (or modules) when we needed to calculate some basic statistics of numbers.  There are many libraries built into Python and many more available from other users.
+
+Now you can see what a module is:  it is a collection of function definitions (and data type definitions, and ...).
+
+### Your Own Library
+
+In fact, any new code that you write can be saved in a `py` file and loaded (from the same directory).  Put the following code into a new plain text file `stats.py` and save it in the same folder that your Jupyter notebook is in.
+
+```python
+def median(data):
+    data = sorted(data)
+    midpoint = len(data)/2
+    if len(data) % 2 == 0:
+        # Even data require the central midpoint as the median.
+        return (data[int(len(data)/2)-1]+data[int(len(data)/2)])/2
+    else:
+        # Odd data require simple the middle value.
+        return data[int(len(data)/2)]
+
+# Include your `average` function as well here.
 ```
-import math
-math.sqrt(7)
-```
-Too see what we can do with the module, we can read its [documentation](https://docs.python.org/3/library/math.html). Modules usually have clearly stated documentations that tells you what functions are included and how to use them. To use the functions, you do `module_name.function_name()`. 
 
-A cool thing about Python is that there are a lot of modules available for you to perform various kinds of tasks. For example, there are modules that do statistics, graphing, charts, etc. Many useful functions are pre written, and you just have to find the modules and import them. 
-Note that not all modules are included in your Python package in the beginning. Sometimes you have to download the module before importing it. For example, there is a cool graphing module called `plotly`. If you simply do `import plotly`, it will fail because the file is not in your computer yet. You can download it by using the `!pip install` statement: 
+In Jupyter, you can now load and use those functions:
 
-```
-!pip install plotly
-```
-After that, you will be able to import the module. They way to install outside packages varies. `!pip install` is just one of the most common ways. You should always check the installation guide in the documentation of the packages.  
+```python
+import stats
 
-> ## Challenge 2.2
-> Write a function that returns the standard deviation of the list <br>
-> Hint: you have just wrote a function that returns the average, you can use it here  
-> Hint 2: power of two can be achieved by using `** 2`
+print(stats.median([-10,-9,100,5,16,85]))
+```
+
+### Other Libraries of Note
+
+You've seen `statistics` and `pandas`.  Other libraries which you may need include:
+
+**`math`**.  The `math` module includes helpful basic operations like these:
+
+- `sqrt(x)` for $\sqrt{x}$
+- `sin(x)` for $\sin{x}$ (`cos`, `tan`)
+- `log10(x)` for $\log_{10} x$, base-10 logarithm
+- `exp(x)` for $\exp x$
+
+(Some of these are also duplicated in `pandas` for compatibility with `DataFrame`s and `Series`.)
+
+**`random`**.  Sometimes you need to generate unpredictable values for use with your calculations.
+
+- `uniform(0,1)` for a random floating-point value between 0 and 1 (the bounds can be adjusted)—this is like the chance of probability
+- `randint(1,10)` for a random integer between 1 and 8 (the bounds can be adjusted)—this is like rolling a die
+
+Use these functions to create your own business math and data-analytics tools.
+
+> ## Calculating Residuals
+>
+> A residual is an estimate of the statistical error using actual observed values to calculate.  The set of residuals is calculated for each data point in a set using the mean and the observed value:
+>
+> $$
+> r_{i}
+> =
+> y_{i} - \bar{y}
+> $$
+>
+> where $r_{i}$ is the $i$-th residual, $y_{i}$ is the $i$-th observation, and $\bar{y}$ is the mean of all observations.
+>
+> Compose a function `resid` which accepts a list of observations, calculates their mean and the residuals, and returns a list of residuals.
+>
 > ~~~
-> # you can test your code with the following:  
-> lt = [1,2,3,4,5,7]
-> your_function_name(lt)  
-> it should return 1.9720265943665387  
+> # Starting code
+> def resid(values):
+>     mean = _____
+>     resids = []
+>     for i in range(len(values)):
+>         resids.append(_____)
+>     return resids
+> ~~~
+> {: .language-python}
+>
+> You can test your function using this code (which shouldn't be inside of your function).  It should yield `True`.
+>
+> ~~~
+> data = [1.173,1.062,0.807,1.186,1.107,0.897]
+> from numpy import isclose  # checks for approximate closeness
+> isclose(resid(data),[1.129,1.022,0.777,1.142,1.066,0.864],rtol=1e-3)
 > ~~~
 > {: .language-python}
 >
 > > ## Solution
 > > ~~~
-> > def std(lt):
+> > def resid(values):
+> >     mean = sum(values)/len(values)
+> >     resids = []
+> >     for i in range(len(values)):
+> >         resids.append(values[i]/mean)
+> >     return resids
+> > ~~~
+> > {: .language-python}
+> {: .solution}
+{: .challenge}
+
+> ## Calculating the Sum of Squared Error (SSE)
+>
+> The sum of squared error (or residuals) evaluates how much error is present in a model of a data set.  A model $y$ is used alongside actual observations $\hat{y}$.
+>
+> $$
+> \operatorname{SSE}
+> =
+> \frac{1}{n} \sum_{i=1}^{n} (y_i-\hat{y_i})^{2}
+> $$
+>
+> where $n$ is the total number of observations, $y_{i}$ is the $i$-th observation, and $\hat{y_{i}}$ is the $i$-th model prediction.
+>
+> Compose a function `sse` which accepts a list of observations and a list of model values and returns the SSE.
+>
+> ~~~
+> # Starting code
+> def SSE(obs,fit):
+>     n = _____
+>     sse = 0  # we start a sum from zero, of course
+>     for i in range(n):
+>         sse = sse + _____ / _____
+>     return sse
+> ~~~
+> {: .language-python}
+>
+> You can test your function using this code (which shouldn't be inside of your function).  It should yield `True`.
+>
+> ~~~
+> observed_values = [1.173,1.062,0.807,1.186,1.107,0.897]
+> modeled_values = [1.2,1.1,1.0,0.9,0.8,0.7]
+> from numpy import isclose  # checks for approximate closeness
+> isclose(SSE(observed_values,modeled_values),0.2543,rtol=1e-3)
+> ~~~
+> {: .language-python}
+>
+> > ## Solution
+> > ~~~
+> > def SSE(obs,fit):
+> >     n = len(obs)
+> >     sse = 0
+> >     for i in range(n):
+> >         sse = sse + (obs[i]-fit[i]) ** 2
+> >     return sse
+> > ~~~
+> > {: .language-python}
+> {: .solution}
+{: .challenge}
+
+At this point, although we have been working with lists, I would like you to observe that your code works correctly with numeric fields from `DataFrame`s as well:
+
+~~~
+import pandas as pd
+
+data = [['Alex',10,10.3],['Bob',12,11.8],['Clarke',13,13.4]]
+df = pd.DataFrame(data,columns=['Name','Age','Age-Actual'])
+
+SSE(df['Age'],df['Age-Actual'])
+~~~
+{.language-python}
+
+> ## Calculating the Standard Deviation
+>
+> The sum of squared error (or residuals) evaluates how much error is present in a model of a data set.  A model $y$ is used alongside actual observations $\hat{y}$.
+>
+> $$
+> \sigma
+> =
+> \sqrt{\frac{1}{n-1}\sum_{i=1}^{n} \left(y_{i} - \bar{y}\right)^2}
+> $$
+>
+> Compose a function `stdev` which accepts a list of observations and returns the standard deviation.  You may wish to use the function `sqrt` from the `math` library.
+>
+> ~~~
+> # Starting code
+> def stdev(_____):
+>     _____
+> ~~~
+> {: .language-python}
+>
+> You can test your function using this code (which shouldn't be inside of your function).  It should yield `True`.
+>
+> ~~~
+> observed_values = [1.173,1.062,0.807,1.186,1.107,0.897]
+> from numpy import isclose  # checks for approximate closeness
+> isclose(stdev(observed_values),0.1406,rtol=1e-3)
+> ~~~
+> {: .language-python}
+>
+> > ## Solution
+> > ~~~
+> > def stdev(lt):
 > >     average = avg(lt)
 > >     sum_squared_dev = 0
-> >     for num in lt: 
+> >     for num in lt:
 > >         sum_squared_dev = sum_squared_dev + (num - average) ** 2
 > >     return math.sqrt(temp/len(lt))
 > > ~~~
@@ -138,85 +314,55 @@ After that, you will be able to import the module. They way to install outside p
 > {: .solution}
 {: .challenge}
 
-An alternative is that you can import the [`scipy`](https://docs.scipy.org/doc/numpy/reference/generated/numpy.std.html) module, and the standard deviation function is pre written for you. 
-```
-import scipy
-scipy.std(lt)
-```
-So much easier.  
-As business students, you don't really have to actually implement functions such as standard deviation, PCA (detention reduction) and some probabilistic models at detailed level because they are usually pre written in some modules. Of course, it will never hurt if you are interested in learning them so that you can write your customized function to better fit your tasks (path way to an engineer). However, for most of us, it is more helpful to learn what kind of analysis we need for a certain task, what modules can perform the analysis, and how to use the functions in the modules. To find modules, you can first google your task, and go to the module's website to read the documentations. 
+As with `stats.py`, you can now save these working functions into a new library module that you can use over and over again.  Copy `resid`, `SSE`, and `stdev` into a new file `stats.py` (or reuse the old one).
 
-## Readable functions
+~~~
+import stats
 
-Consider this function:
+observed_values = [1.173,1.062,0.807,1.186,1.107,0.897]
+from numpy import isclose  # checks for approximate closeness
+
+isclose(stats.stdev(observed_values),0.1406,rtol=1e-3)
+~~~
+{: .language-python}
+
+Not all modules are included with your Python installation (although we prefer Anaconda because most things are).  Sometimes you have to download the module before importing it.  For example, there is a graphing module called `plotly`.  If you run `import plotly`, it may fail because the library files are not on your computer yet.  You can install it by using the `!pip install` statement:
+
+~~~
+!pip install plotly
+~~~
+{.language-python}
+
+Then you should be able to import the module normally.
+
+You shouldn't need to actually implement your own version of common procedures like the standard deviation.  Pandas, for instance, has it built in:
+
+~~~
+df['Age'].std()
+~~~
+{.language-python}
+
+Elements of your data analysis such as the standard deviation (or even ANOVAs), PCA (dimension reduction), and some probabilistic models are usually available in reputable and well-vetted libraries.  Once you have written part of your analysis, however, moving repeatedly used blocks of code into functions and loops will save you time and effort fairly quickly.
+
+### Writing Readable Functions
+
+Consider the following function:
 
 ~~~
 def s(p):
     a = avg(p)
     t = 0
-    for q in p: 
+    for q in p:
         t = t + (q - a) ** 2
     return math.sqrt(t/len(p))
 ~~~
 {: .language-python}
 
-The functions `s` actually calculates standard deviation, exactly the same as the previous exercise. 
-But to a human reader, it is difficult to read.  
+The functions `s` does calculate the standard deviation, exactly the same as in the previous exercise.  To a human reader, however, it is difficult to read and interpret because of the overly terse variable names and the lack of description.  Using comments to explain complex code and using helpful variable names is a much better approach, since you are the most likely person to have to figure out what your code means later on!
 
-As this example illustrates, both documentation and a programmer's
-_coding style_ combine to determine how easy it is for others to read
-and understand the programmer's code. Choosing meaningful variable
-names and using blank spaces to break the code into logical "chunks"
-are helpful techniques for producing _readable code_. This is useful
-not only for sharing code with others, but also for the original
-programmer. (Especially for Python, it can get really messy because there are so many short cuts and tricks... So please also keep commenting in your code) 
-If you need to revisit code that you wrote months ago and
-haven't thought about since then, you will appreciate the value of
-readable code!
+You should also avoid choosing variable names that confuse you when working with a process.  Consider the following example.
 
-> ## Challenge 2.3
->
-> Write a function `rescale` that takes an array as input
-> and returns a corresponding array of values scaled to lie in the range 0.0 to 1.0.
-> (Hint: If `L` and `H` are the lowest and highest values in the original array,
-> then the replacement for a value `v` should be `(v-L) / (H-L)`.)
->
-> > ## Solution
-> > ~~~
-> > def rescale(input_array):
-> >     L = min(input_array)
-> >     H = max(input_array)
-> >     output_array = []
-> >     for item in input_array: 
-> >         output_array.append((item - L) / (H - L))
-> >     return output_array
-> > ~~~
-> > {: .language-python}
-> {: .solution}
-{: .challenge}
-
-> ## Challenge 2.4
->
-> Rewrite the `rescale` function so that it scales data to lie between `0.0` and `1.0` by default,
-> but will allow the caller to specify lower and upper bounds if they want.
-> Compare your implementation to your neighbor's:
-> do the two functions always behave the same way?
->
-> > ## Solution
-> > ~~~
-> > def rescale(input_array, low_val=0.0, high_val=1.0):
-> >    L = min(input_array)
-> >    H = max(input_array)
-> >    output_array = []
-> >    for item in input_array: 
-> >        output_array.append((item - L) / (H - L)*(high_val - low_val)+ low_val)
-> >    return output_array
-> > ~~~
-> > {: .language-python}
-> {: .solution}
-{: .challenge}
-
-> ## Challenge 2.5
+> ## Understanding Variable Scope
 >
 > What does the following piece of code display when run --- and why?
 >
@@ -225,7 +371,7 @@ readable code!
 > k = 0
 >
 > def f2k(f):
->   k = ((f-32)*(5.0/9.0)) + 273.15
+>   k = ((f-32) * (5.0/9.0)) + 273.15
 >   return k
 >
 > f2k(8)
@@ -249,10 +395,75 @@ readable code!
 > {: .solution}
 {: .challenge}
 
+### Using Default Arguments
+
+Many times, it is cumbersome to expect the user to specify _everything_ about a function.  In that case, we can specify a default value to use if the user doesn't give a value for that option.
+
+For instance, you have already seen us use default arguments:
+
+~~~
+from numpy import isclose
+print(isclose(1,1.01))
+print(isclose(1,1.01,rtol=1e-1))
+~~~
+{: .language-python}
+
+which specifies the relative tolerance (or how close the values have to be before they are considered to be close to each other).
+
+To set these up, define the default value in the function definition:
+
+~~~
+def divide_by(a,b=2):
+    return a/b
+
+print(divide_by(1))
+print(divide_by(1,4))
+print(divide_by(1,b=4))  # equivalent but more explicit
+~~~
+{: .language-python}
+
+> ## Rescale an Array
+>
+> Write a function `rescale` that takes an array as input and returns a corresponding array of values scaled to lie in the range 0.0 to 1.0.
+>
+> Hint: If `L` and `H` are the lowest and highest values in the original array,
+> then the replacement for a value `v` should be `(v-L) / (H-L)`.
+>
+> > ## Solution
+> > ~~~
+> > def rescale(input_array):
+> >     L = min(input_array)
+> >     H = max(input_array)
+> >     output_array = []
+> >     for item in input_array:
+> >         output_array.append((item - L) / (H - L))
+> >     return output_array
+> > ~~~
+> > {: .language-python}
+> {: .solution}
+{: .challenge}
+
+> ## Rescale an Array to a Default Range
+>
+> Rewrite the `rescale` function so that it scales data to lie between `0.0` and `1.0` by default, but will allow the caller to specify lower and upper bounds if they want.
+>
+> Compare your implementation to your neighbor's: do the two functions always behave the same way?
+>
+> > ## Solution
+> > ~~~
+> > def rescale(input_array, low_val=0.0, high_val=1.0):
+> >    L = min(input_array)
+> >    H = max(input_array)
+> >    output_array = []
+> >    for item in input_array:
+> >        output_array.append((item - L) / (H - L) * (high_val - low_val)+ low_val)
+> >    return output_array
+> > ~~~
+> > {: .language-python}
+> {: .solution}
+{: .challenge}
+
 > ## Readable Code
 >
-> Revise a function you wrote for one of the previous exercises to try to make
-> the code more readable. Then, collaborate with one of your neighbors
-> to critique each other's functions and discuss how your function implementations
-> could be further improved to make them more readable.
+> Revise a function you wrote for one of the previous exercises to try to make the code more readable. Then, collaborate with one of your neighbors to critique each other's functions and discuss how your function implementations could be further improved to make them more readable.
 {: .challenge}

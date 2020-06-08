@@ -25,7 +25,7 @@ keypoints:
 - "Use `len(thing)` to determine the length of something that contains other values."
 ---
 
-## Conditional Statements  
+## Conditional Statements
 
 Any useful program will need to make decisions on the basis of incoming data.  Sometimes data need to be thrown out, or converted to a new format, or used to look up other values, or sent to a different database:  hundreds of cases for decisions exist.  More than that, if we are emphasizing making a process automatic, then clearly we need the program to produce different outputs for different conditions without needing our intervention.
 
@@ -279,7 +279,7 @@ Once that is done, we use `library.` before the name of the function we intend t
 
 **Loop Accumulators**.  Other quantities may require custom code to identify the desired summary.  For instance, finding the _second_-highest value
 
-<!-- TODO -->
+<!-- TODO lists and accums-->
 
 Here's another loop that repeatedly updates a variable:
 
@@ -408,7 +408,7 @@ for i, x in enumerate(interable_sequence):
 > > for char in oldstring:
 > >    newstring = char + newstring
 > > print(newstring)
-> > # (ability power carrier?)  
+> > # (ability power carrier?)
 > > ~~~
 > > {: .language-python}
 > {: .solution}
@@ -417,7 +417,7 @@ for i, x in enumerate(interable_sequence):
 > ## Challenge 1.4
 > You have a list if lists called `a`
 > Print out the position and the list in `a` that contains more than 2 elements AND starts with 1
-> Hint: use `len()` to get the length  
+> Hint: use `len()` to get the length
 > ~~~
 > a = [[1,2,3],[1,2],[1,2],[0,2,3],[1,2,4]]
 > ~~~
