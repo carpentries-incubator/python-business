@@ -146,7 +146,7 @@ Keep your basic algebra in mind so you can get a single value on the left-hand s
 > > P = 1000
 > > i = 0.034
 > > n = 60
-> > R = (P*i) / (1-(1+i)**-n)
+> > R = (P*i) / (1-(1+i) ** -n)
 > > ~~~
 > > {: .language-python}
 > {: .solution}

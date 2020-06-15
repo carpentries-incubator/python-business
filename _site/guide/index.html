@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-05-01 12:48:12 -0500">
+    <meta http-equiv="last-modified" content="2020-06-15 16:14:48 -0500">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -57,29 +57,33 @@
           <a href="../" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Episodes <span class="caret"></span></a>
           <ul class="dropdown-menu">
             
-            <li><a href="../00-intro_notebook/">Introduction to Jupyter Notebook</a></li>
+            <li><a href="../00-intro_notebook/">Introduction to Jupyter Notebooks</a></li>
             
-            <li><a href="../01-intro/">Python basics 1 - Intro to Python</a></li>
+            <li><a href="../01-intro/">Introduction to Python</a></li>
             
-            <li><a href="../02-conditional_loop/">Python basics 2 - Conditional statements and Loops</a></li>
+            <li><a href="../02-program_behavior/">Controlling Program Behavior</a></li>
             
-            <li><a href="../03-func/">Python basics 3 - Functions and Modules</a></li>
+            <li><a href="../03-pandas/">Working with Tabular Data</a></li>
             
-            <li><a href="../04-pandas/">Intro to Pandas</a></li>
+            <li><a href="../04-functions/">Python basics 3 - Functions and Modules</a></li>
             
-            <li><a href="../05-stat_vis/">Statistical Analysis and Visualization</a></li>
+            <li><a href="../05-merge/">Working with Tabular Data</a></li>
             
-            <li><a href="../06-errors/">Extra - Errors and Exceptions</a></li>
+            <li><a href="../06-stat_vis/">Statistical Analysis and Visualization</a></li>
             
-            <li><a href="../07-debugging/">Extra - Debugging</a></li>
+            <li><a href="../07-errors/">Extra - Errors and Exceptions</a></li>
             
-            <li><a href="../08-crisp/">Introduction to CRISP-DM</a></li>
+            <li><a href="../08-debugging/">Extra - Debugging</a></li>
             
             <li><a href="../09-data_prep/">Data Preparation techniques</a></li>
             
             <li><a href="../10-linear_regression/">Linear regression</a></li>
             
-            <li><a href="../11-case_study/">Case Study</a></li>
+            <li><a href="../11-crisp/">Introduction to CRISP-DM</a></li>
+            
+            <li><a href="../12-case_study/">Case Study</a></li>
+            
+            <li><a href="../13-case_study2/">Case Study 2 - Yellow Cab Chicago Case</a></li>
             
 	    <li role="separator" class="divider"></li>
             <li><a href="../aio/">All in one page (Beta)</a></li>
@@ -124,15 +128,6 @@
 
 <h1 class="maintitle"><a href="../">Python for Business</a>: Instructor Notes</h1>
 
-<h2 id="legend">Legend</h2>
-
-<p>We are using a dataset with records on inflammation from patients following an
-arthritis treatment.</p>
-
-<p>We make reference in the lesson that this data is somehow strange. It is strange
-because it is fabricated! The script used to generate the inflammation data
-is included as <a href="tools/gen_inflammation.py"><code class="highlighter-rouge">tools/gen_inflammation.py</code></a>.</p>
-
 <h2 id="overall">Overall</h2>
 
 <p>This lesson is written as an introduction to Python,
@@ -148,13 +143,14 @@ instructors should resist the temptation to explain
 the “other 90%” of the language
 as well.</p>
 
-<p>The final example asks them to build a command-line tool
-that works with the Unix pipe-and-filter model.
-We do this because it is a useful skill
-and because it helps learners see that the software they use isn’t magical.
-Tools like <code class="highlighter-rouge">grep</code> might be more sophisticated than
-the programs our learners can write at this point in their careers,
-but it’s crucial they realize this is a difference of scale rather than kind.</p>
+<p>Since these lessons are voiced towards business students with previous experience using spreadsheets, it is frequently helpful to preface your discussion of any new topic with a reference to the spreadsheet operation.  By showing the Excel analogue first, many students more quickly grasp what is being taught because they have a way to analogize around the problem.</p>
+
+<ol>
+  <li>Show (or ask) how to carry out a task using Excel.</li>
+  <li>Show the task in Python.</li>
+  <li>Extend the task using Python.</li>
+  <li>Ask how to carry out the extension in Excel—this is often not straightforward, particularly as tasks get more complex.</li>
+</ol>
 
 <p>Explain that we use Python because:</p>
 
@@ -162,23 +158,7 @@ but it’s crucial they realize this is a difference of scale rather than kind.<
   <li>It’s free.</li>
   <li>It has a lot of scientific libraries, and more are constantly being added.</li>
   <li>It has a large scientific user community.</li>
-  <li>It’s easier for novices to learn than most of the mature alternatives.
-(Software Carpentry originally used Perl;
-when we switched,
-we found that we could cover as much material in two days in Python
-as we’d covered in three days in Perl,
-and that retention was higher.)</li>
-</ul>
-
-<p>We do <em>not</em> include instructions on running the Jupyter Notebook in the tutorial
-because we want to focus on the language rather than the tools.
-Instructors should, however, walk learners through some basic operations:</p>
-
-<ul>
-  <li>Launch from the command line with <code class="highlighter-rouge">jupyter notebook</code>.</li>
-  <li>Create a new notebook.</li>
-  <li>Enter code or data in a cell and execute it.</li>
-  <li>Explain the difference between <code class="highlighter-rouge">In[#]</code> and <code class="highlighter-rouge">Out[#]</code>.</li>
+  <li>It’s easier for novices to learn than most of the mature alternatives.</li>
 </ul>
 
 <p>Watching the instructor grow programs step by step
@@ -246,7 +226,7 @@ do not result in side-effects.</p>
   <div class="row">
     <div class="col-md-6" align="left">
       <h4>
-	Copyright &copy; 2016–2019
+	Copyright &copy; 2016–2020
 	
 	<a href="https://software-carpentry.org">Software Carpentry Foundation</a>
 	

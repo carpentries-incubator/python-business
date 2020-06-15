@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-05-01 12:48:12 -0500">
+    <meta http-equiv="last-modified" content="2020-06-15 16:14:48 -0500">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -57,29 +57,33 @@
           <a href="../" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Episodes <span class="caret"></span></a>
           <ul class="dropdown-menu">
             
-            <li><a href="../00-intro_notebook/">Introduction to Jupyter Notebook</a></li>
+            <li><a href="../00-intro_notebook/">Introduction to Jupyter Notebooks</a></li>
             
-            <li><a href="../01-intro/">Python basics 1 - Intro to Python</a></li>
+            <li><a href="../01-intro/">Introduction to Python</a></li>
             
-            <li><a href="../02-conditional_loop/">Python basics 2 - Conditional statements and Loops</a></li>
+            <li><a href="../02-program_behavior/">Controlling Program Behavior</a></li>
             
-            <li><a href="../03-func/">Python basics 3 - Functions and Modules</a></li>
+            <li><a href="../03-pandas/">Working with Tabular Data</a></li>
             
-            <li><a href="../04-pandas/">Intro to Pandas</a></li>
+            <li><a href="../04-functions/">Python basics 3 - Functions and Modules</a></li>
             
-            <li><a href="../05-stat_vis/">Statistical Analysis and Visualization</a></li>
+            <li><a href="../05-merge/">Working with Tabular Data</a></li>
             
-            <li><a href="../06-errors/">Extra - Errors and Exceptions</a></li>
+            <li><a href="../06-stat_vis/">Statistical Analysis and Visualization</a></li>
             
-            <li><a href="../07-debugging/">Extra - Debugging</a></li>
+            <li><a href="../07-errors/">Extra - Errors and Exceptions</a></li>
             
-            <li><a href="../08-crisp/">Introduction to CRISP-DM</a></li>
+            <li><a href="../08-debugging/">Extra - Debugging</a></li>
             
             <li><a href="../09-data_prep/">Data Preparation techniques</a></li>
             
             <li><a href="../10-linear_regression/">Linear regression</a></li>
             
-            <li><a href="../11-case_study/">Case Study</a></li>
+            <li><a href="../11-crisp/">Introduction to CRISP-DM</a></li>
+            
+            <li><a href="../12-case_study/">Case Study</a></li>
+            
+            <li><a href="../13-case_study2/">Case Study 2 - Yellow Cab Chicago Case</a></li>
             
 	    <li role="separator" class="divider"></li>
             <li><a href="../aio/">All in one page (Beta)</a></li>
@@ -126,7 +130,7 @@
   <div class="col-xs-1">
     <h3 class="text-left">
       
-      <a href="../08-crisp/"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
+      <a href="../08-debugging/"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
       
     </h3>
   </div>
@@ -201,17 +205,13 @@
 
 </blockquote>
 
-<p>Survey of data analysts found that they spend most of their time massaging rather than mining or modeling data. Data preparation accounts for 60-80% of the work of data analysts. In this section we will introduce some common techniques in data preparation. Mastering these techniques may save you a lot time and trouble. In this lesson, we will introduce some commonly used python data preparation techniques, which include:</p>
-<ul>
-  <li>Load Data</li>
-  <li>Change Column Name</li>
-  <li>Handle Missing Data</li>
-  <li>Manipulate String Values</li>
-  <li>Transform Datetime</li>
-  <li>Lambda Function</li>
-</ul>
+<h2 id="data-preparation">Data Preparation</h2>
 
-<h2 id="load-data">Load Data</h2>
+<p>Anecdotal and rigorous surveys reveal that data analysts spend an outsized proportion of their time not in mining or modeling data, but in preparing or massaging the data into proper shape.  Let’s look at some common techniques for data cleaning and preparation in the hopes that you can spend more of your time on analysis and reporting than on data preparation.</p>
+
+<h3 id="loading-data">Loading Data</h3>
+
+<!-- TODO -->
 
 <p>A dataset can be one of several different types. Dataset type is distinguished on the basis of data storage and structure. In this lesson, we will briefly introduce how to load <strong>structured</strong> data from various storage type, CSV file, Excel file and relational database, using <code class="highlighter-rouge">pandas</code> functions. We first need to import the pandas module:</p>
 <blockquote>
@@ -555,7 +555,7 @@ dtypes: float64(1), object(3)
   <div class="col-xs-1">
     <h3 class="text-left">
       
-      <a href="../08-crisp/"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
+      <a href="../08-debugging/"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
       
     </h3>
   </div>
@@ -578,7 +578,7 @@ dtypes: float64(1), object(3)
   <div class="row">
     <div class="col-md-6" align="left">
       <h4>
-	Copyright &copy; 2016–2019
+	Copyright &copy; 2016–2020
 	
 	<a href="https://software-carpentry.org">Software Carpentry Foundation</a>
 	

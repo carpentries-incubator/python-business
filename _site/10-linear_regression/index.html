@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-05-01 12:48:12 -0500">
+    <meta http-equiv="last-modified" content="2020-06-15 16:14:48 -0500">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -57,29 +57,33 @@
           <a href="../" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Episodes <span class="caret"></span></a>
           <ul class="dropdown-menu">
             
-            <li><a href="../00-intro_notebook/">Introduction to Jupyter Notebook</a></li>
+            <li><a href="../00-intro_notebook/">Introduction to Jupyter Notebooks</a></li>
             
-            <li><a href="../01-intro/">Python basics 1 - Intro to Python</a></li>
+            <li><a href="../01-intro/">Introduction to Python</a></li>
             
-            <li><a href="../02-conditional_loop/">Python basics 2 - Conditional statements and Loops</a></li>
+            <li><a href="../02-program_behavior/">Controlling Program Behavior</a></li>
             
-            <li><a href="../03-func/">Python basics 3 - Functions and Modules</a></li>
+            <li><a href="../03-pandas/">Working with Tabular Data</a></li>
             
-            <li><a href="../04-pandas/">Intro to Pandas</a></li>
+            <li><a href="../04-functions/">Python basics 3 - Functions and Modules</a></li>
             
-            <li><a href="../05-stat_vis/">Statistical Analysis and Visualization</a></li>
+            <li><a href="../05-merge/">Working with Tabular Data</a></li>
             
-            <li><a href="../06-errors/">Extra - Errors and Exceptions</a></li>
+            <li><a href="../06-stat_vis/">Statistical Analysis and Visualization</a></li>
             
-            <li><a href="../07-debugging/">Extra - Debugging</a></li>
+            <li><a href="../07-errors/">Extra - Errors and Exceptions</a></li>
             
-            <li><a href="../08-crisp/">Introduction to CRISP-DM</a></li>
+            <li><a href="../08-debugging/">Extra - Debugging</a></li>
             
             <li><a href="../09-data_prep/">Data Preparation techniques</a></li>
             
             <li><a href="../10-linear_regression/">Linear regression</a></li>
             
-            <li><a href="../11-case_study/">Case Study</a></li>
+            <li><a href="../11-crisp/">Introduction to CRISP-DM</a></li>
+            
+            <li><a href="../12-case_study/">Case Study</a></li>
+            
+            <li><a href="../13-case_study2/">Case Study 2 - Yellow Cab Chicago Case</a></li>
             
 	    <li role="separator" class="divider"></li>
             <li><a href="../aio/">All in one page (Beta)</a></li>
@@ -138,7 +142,7 @@
   <div class="col-xs-1">
     <h3 class="text-right">
       
-      <a href="../11-case_study/"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      <a href="../11-crisp/"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
       
     </h3>
   </div>
@@ -198,195 +202,226 @@
 
 </blockquote>
 
-<p>In this lesson, we will introduce one of the very basic modeling technique, <strong>linear regression</strong>, which constructs a simple model, such as</p>
+<h2 id="fitting-data-to-a-model">Fitting Data to a Model</h2>
 
-<p>y = β<sub>0</sub> + β<sub>1</sub> x<sub>1</sub> + β<sub>2</sub> x<sub>2</sub> + … + β<sub>n</sub> x<sub>n</sub></p>
+<p>With data points available for certain values, we can build a more general predictive model using linear regression.  What we’ll do is fit a linear response to each variable from a data set; in fancy terms,</p>
 
-<p>from a data set. This model builds on assumptions, such as the features are linearly independent and any errors in the regression are normally distributed, to build a model from the independent variables (i.e., x<sub>1</sub>..x<sub>n</sub>) for the dependent variable (y). In some application areas, the independent variables are known as the predictors, while the dependent variable is known as the response variable. If only one feature is used (x), the technique is known as simple linear regression, while if more than one feature is used (x<sub>1</sub>, x<sub>2</sub>, …, x<sub>n</sub>), the technique is known as multiple linear regression.</p>
+<script type="math/tex; mode=display">y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + \beta_n x_n</script>
 
-<p>There are various implementations of regression in Python. In this lesson we will use python module <code class="highlighter-rouge">statsmodels</code> to construct a regression model on the mpg dataset, which can be loaded with seaborn <code class="highlighter-rouge">load_dataset()</code> function. We’d like to build a regression model to predict an automobile’s fuel efficiency(mpg or mile per gallon) with multiple vehicle features.</p>
+<p>for $n$ values.  A linear regression model makes a few key assumptions:</p>
 
-<p>First we will load the data and clean up the data.</p>
+<ol>
+  <li>Features are linearly independent of each other.</li>
+  <li>Errors in the regression are normally distributed (rather than biased).</li>
+  <li>Effects are linear functions of inputs.</li>
+</ol>
 
-<h3 id="load-data">Load data</h3>
-<blockquote>
-  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span>
+<p>The model $y$ is an <em>effect</em> or <em>response</em> produced by the <em>features</em>, the <em>predictors</em>, or the <em>values</em> (all meaning more or less the same thing to us).  If only one feature $x_1$ is used, this is a simple linear regression; if more than one feature is used, as above, then this is a multiple linear regression.</p>
+
+<p>Linear regression is actually implemented several times in Python libraries.  We will use the Python library <code class="highlighter-rouge">statsmodels</code> to construct a regression model over a fuel efficiency dataset, which can be loaded from Seaborn with the <code class="highlighter-rouge">load_dataset()</code> function.  We would like to build a regression model to predict an automobile’s fuel efficiency (in mpg or miles per gallon) from vehicle features.</p>
+
+<p>First, we load and clean the data.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span>
 <span class="n">mpg</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s">"mpg"</span><span class="p">)</span>
+
 <span class="c1"># Display first few rows
 </span><span class="n">mpg</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-</code></pre></div>  </div>
-  <p><img src="../pic/df_mpg.png" alt="pt" height="150px" /></p>
+</code></pre></div></div>
+
+<p><img src="../pic/df_mpg.png" alt="pt" height="150px" /></p>
+
+<p>Load and examine the data set:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mpg</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</code></pre></div></div>
+
+<blockquote class="output">
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="k">class</span> <span class="err">'</span><span class="nc">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="s">'&gt;</span><span class="err">
+</span><span class="s">RangeIndex: 398 entries, 0 to 397</span><span class="err">
+</span><span class="s">Data columns (total 9 columns):</span><span class="err">
+</span><span class="s">mpg             398 non-null float64</span><span class="err">
+</span><span class="s">cylinders       398 non-null int64</span><span class="err">
+</span><span class="s">displacement    398 non-null float64</span><span class="err">
+</span><span class="s">horsepower      392 non-null float64</span><span class="err">
+</span><span class="s">weight          398 non-null int64</span><span class="err">
+</span><span class="s">acceleration    398 non-null float64</span><span class="err">
+</span><span class="s">model_year      398 non-null int64</span><span class="err">
+</span><span class="s">origin          398 non-null object</span><span class="err">
+</span><span class="s">name            398 non-null object</span><span class="err">
+</span><span class="s">dtypes: float64(4), int64(3), object(2)</span><span class="err">
+</span><span class="s">memory usage: 28.1+ KB</span><span class="err">
+</span></code></pre></div>  </div>
 </blockquote>
 
-<blockquote>
-  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mpg</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-</code></pre></div>  </div>
-  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
-RangeIndex: 398 entries, 0 to 397
-Data columns (total 9 columns):
-mpg             398 non-null float64
-cylinders       398 non-null int64
-displacement    398 non-null float64
-horsepower      392 non-null float64
-weight          398 non-null int64
-acceleration    398 non-null float64
-model_year      398 non-null int64
-origin          398 non-null object
-name            398 non-null object
-dtypes: float64(4), int64(3), object(2)
-memory usage: 28.1+ KB
-</code></pre></div>  </div>
-</blockquote>
+<p>The dataset has nine columns, with self-explanatory titles.  There are 398 rows in the dataset.  One column, <code class="highlighter-rouge">horsepower</code>, has 6 missing values.  We focus on linear regression in this lesson so we simply drop the rows with missing values to get a clean dataset.  (This is by no means the best approach since we will lose valuable data points.  One alternative is estimating horsepower by other factors, ie. displacement and acceleration.)</p>
 
-<p>This dataset has 9 columns. The column names are self-explanatory. There are 398 rows in the dataset, and one column, horsepower, has 6 missing values. We will focus on linear regression in this lesson so we will simply drop the rows with missing value to get a clean dataset. This is by no means the best approach since we will lose valuable data points. An alternative is estimating horsepower by other factors, ie. displacement and acceleration.</p>
-<blockquote>
-  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#simply drop missing values
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#simply drop missing values
 </span><span class="n">mpg</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">mpg</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-</code></pre></div>  </div>
-  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
-Int64Index: 392 entries, 0 to 397
-Data columns (total 9 columns):
-mpg             392 non-null float64
-cylinders       392 non-null int64
-displacement    392 non-null float64
-horsepower      392 non-null float64
-weight          392 non-null int64
-acceleration    392 non-null float64
-model_year      392 non-null int64
-origin          392 non-null object
-name            392 non-null object
-dtypes: float64(4), int64(3), object(2)
-memory usage: 30.6+ KB
-</code></pre></div>  </div>
+</code></pre></div></div>
+
+<blockquote class="output">
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="k">class</span> <span class="err">'</span><span class="nc">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="s">'&gt;</span><span class="err">
+</span><span class="s">Int64Index: 392 entries, 0 to 397</span><span class="err">
+</span><span class="s">Data columns (total 9 columns):</span><span class="err">
+</span><span class="s">mpg             392 non-null float64</span><span class="err">
+</span><span class="s">cylinders       392 non-null int64</span><span class="err">
+</span><span class="s">displacement    392 non-null float64</span><span class="err">
+</span><span class="s">horsepower      392 non-null float64</span><span class="err">
+</span><span class="s">weight          392 non-null int64</span><span class="err">
+</span><span class="s">acceleration    392 non-null float64</span><span class="err">
+</span><span class="s">model_year      392 non-null int64</span><span class="err">
+</span><span class="s">origin          392 non-null object</span><span class="err">
+</span><span class="s">name            392 non-null object</span><span class="err">
+</span><span class="s">dtypes: float64(4), int64(3), object(2)</span><span class="err">
+</span><span class="s">memory usage: 30.6+ KB</span><span class="err">
+</span></code></pre></div>  </div>
 </blockquote>
 
 <h3 id="descriptive-statistics">Descriptive Statistics</h3>
 
-<p>Our next step is to compute basic descriptive statistics for the features in this data set. To accomplish this, we can use the <code class="highlighter-rouge">describe()</code> function on our Pandas DataFrame.</p>
-<blockquote>
-  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mpg</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-</code></pre></div>  </div>
-  <p><img src="../pic/mpg_describe.png" alt="pt" height="250px" /></p>
-</blockquote>
+<p>Our next step is to compute the basic descriptive statistics for the features in this data set.  To accomplish this, we can use the <code class="highlighter-rouge">.describe()</code> function of the <code class="highlighter-rouge">DataFrame</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mpg</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="../pic/mpg_describe.png" alt="pt" height="250px" /></p>
 
 <h3 id="regression-model">Regression Model</h3>
 
-<p>Now we’ve loaded the dataset and cleaned it up. We also have some basic understandings of the dataset. Since we want to build a model to predict fuel efficiency, the depend variable will be mpg. The next step is to pick dependent variables. All of the rest 8 columns can be independent variables. There are two types of variables in the dataset, <strong>categorical</strong> and <strong>continuous</strong>.</p>
+<p>With a clean dataset and a cursory understanding of the basic statistics, we are ready to build a model to predict fuel efficiency.  The dependent variable (or <em>response</em>) will be <code class="highlighter-rouge">mpg</code>.  We need to pick a set of candidate dependent variables from the other eight columns.</p>
+
+<p>There are two types of variables in the dataset, <em>categorical</em> and <em>continuous</em>:</p>
 
 <ul>
-  <li>Categorical Variables: the value is limited and usually based on a particular finite group. For example, origin</li>
-  <li>Continuous Variables: numeric variables that have an infinite number of values between any two values. For example, horsepower</li>
+  <li>Categorical Variables:  the value is limited and usually based on a particular finite group.  E.g., <code class="highlighter-rouge">origin</code>.</li>
+  <li>Continuous Variables:  numeric variables that have an infinite number of gradations between any two values. E.g., <code class="highlighter-rouge">horsepower</code>.</li>
 </ul>
 
-<p>In a regression model, dependent variable must be continuous variable. Independent variables can be continuous or categorical. But when we pick categorical variables as independent variables, we normally need to create dummy variables for them. Take origin in this dataset as an example, as shown below, origin has three unique values, usa, japan and europe.</p>
+<p>In a regression model, dependent variables must be continuous.  We don’t have a really great way to handle categorical dependent variables except to create dummy variables for them.  Taking <code class="highlighter-rouge">origin</code> in this dataset as an example, there are three unique values:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mpg</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</code></pre></div></div>
 
 <blockquote>
-  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mpg</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-</code></pre></div>  </div>
   <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array(['usa', 'japan', 'europe'], dtype=object)
 </code></pre></div>  </div>
 </blockquote>
 
-<p>To create dummy variables for origin, we can add two new columns to the dataset, say origin_usa and origin_japan.</p>
+<p>To create dummy variables for <code class="highlighter-rouge">origin</code>, we can add two new columns to the dataset, say <code class="highlighter-rouge">origin_usa</code> and <code class="highlighter-rouge">origin_japan</code>.</p>
 
 <ul>
-  <li>If origin = usa, orign_usa = 1 and origin_japan = 0;</li>
-  <li>If origin = japan, origin_usa=0 and origin_japan = 1;</li>
-  <li>If origin = europe, orgin_usa=0 and origin_japan = 0.</li>
+  <li>If <code class="highlighter-rouge">origin</code> is <code class="highlighter-rouge">usa</code>, <code class="highlighter-rouge">origin_usa=1</code> and <code class="highlighter-rouge">origin_japan=0</code>;</li>
+  <li>If <code class="highlighter-rouge">origin</code> is <code class="highlighter-rouge">japan</code>, <code class="highlighter-rouge">origin_usa=0</code> and <code class="highlighter-rouge">origin_japan=1</code>;</li>
+  <li>If <code class="highlighter-rouge">origin</code> is <code class="highlighter-rouge">europe</code>, <code class="highlighter-rouge">origin_usa=0</code> and <code class="highlighter-rouge">origin_japan=0</code>.</li>
 </ul>
 
-<p>As shown above, even though there are three distinct values, we only need 2 dummy columns to cover all the cases.</p>
+<p>(Even though there are three distinct values, we only need two dummy columns to cover all the cases.)</p>
 
-<p>The python module <code class="highlighter-rouge">statsmodels</code> provides a way to create dummy variables for categorical variables, so we don’t have to do it manually.</p>
+<p><code class="highlighter-rouge">statsmodels</code> provides a way to automatically create dummy variables for categorical variables, so we don’t have to do it manually.</p>
 
-<p>For this regression, mpg will be dependent variable, we will pick horsepower, weight and origin as independent variables. Among them, origin is categorical variable and the other two are continuous variables. The process to select independent variables can be very complicated and it’s out of the scope of this lesson.</p>
+<p>For this regression, <code class="highlighter-rouge">mpg</code> will be the dependent variable.  Let’s choose <code class="highlighter-rouge">horsepower</code>, <code class="highlighter-rouge">weight</code> and <code class="highlighter-rouge">origin</code> for the independent variables.  Among these, <code class="highlighter-rouge">origin</code> is a categorical variable while the other two are continuous.  (Criteria for selecting independent variables can become very complicated.)</p>
 
-<p>To construct the regression model, we first need to define a string-formula using column names(column names can’t have whitespaces). For this dataset and variables we choose, the formula is defined as:</p>
+<p>To construct the regression model, we define a string-formula using column names (column names can’t have whitespaces).  For this dataset and the variables we chose, the formula is defined as:</p>
 
-<p><code class="highlighter-rouge">mpg ~ horsepower + weight + C(origin)</code></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mpg</span> <span class="o">~</span> <span class="n">horsepower</span> <span class="o">+</span> <span class="n">weight</span> <span class="o">+</span> <span class="n">C</span><span class="p">(</span><span class="n">origin</span><span class="p">)</span>
+</code></pre></div></div>
 
-<p>In this formula, mpg is dependent variable, horsepower, weight and origin are independent variable. <code class="highlighter-rouge">C(origin)</code> indicates that origin is categorical variable.</p>
+<p><code class="highlighter-rouge">C(origin)</code> indicates that <code class="highlighter-rouge">origin</code> is a categorical variable.</p>
 
-<p>We will then construct the model with the string formula and the dataset, then fit the model and display the summary of the regression result.</p>
+<p>We next construct the model using the string formula and the dataset, then fit the model, and display the summary of the regression result.</p>
 
-<blockquote>
-  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="n">smf</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="n">smf</span>
+
 <span class="n">formula</span> <span class="o">=</span> <span class="s">'mpg ~ horsepower + weight + C(origin)'</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">mpg</span><span class="p">)</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
 <span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</code></pre></div>  </div>
-  <p><img src="../pic/mpg_regression.png" alt="pt" height="650px" /></p>
-</blockquote>
+</code></pre></div></div>
 
-<h3 id="interpret-regression-result">Interpret Regression Result</h3>
+<p><img src="../pic/mpg_regression.png" alt="pt" height="650px" /></p>
 
-<p>First we have the dependent variable and the model and the method. OLS stands for <a href="http://setosa.io/ev/ordinary-least-squares-regression/">Ordinary Least Squares</a> and the method “Least Squares” means that we’re trying to fit a regression line that would minimize the square of distance from the regression line.</p>
+<h3 id="interpreting-regression-results">Interpreting Regression Results</h3>
 
-<p>The model has R-Squared value 0.719, means 71.9% of the variance in our dependent variable(mpg) can be explained by this model.</p>
+<p>The resulting tables shows the dependent variable, the model, and the method.  OLS stands for <a href="http://setosa.io/ev/ordinary-least-squares-regression/">Ordinary Least Squares</a>, meaning that we’re trying to fit a model that minimizes the square of distance of each point from the model regression line.</p>
+
+<p>This model has an $R^2$ value of 0.719, meaning that 71.9% of the variance in our dependent variable (<code class="highlighter-rouge">mpg</code>) can be explained by this model.</p>
 
 <p>Based on the coefficient values, we can construct the regression equation:</p>
 
-<p>mpg = 43.7 - 0.0535 horsepower - 0.0048 weight + 1.7811 origin.japan - 0.9611 origin.usa</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mpg</span> <span class="o">=</span> <span class="mf">43.7</span> <span class="o">-</span> <span class="mf">0.0535</span> <span class="n">horsepower</span> <span class="o">-</span> <span class="mf">0.0048</span> <span class="n">weight</span> <span class="o">+</span> <span class="mf">1.7811</span> <span class="n">origin</span><span class="o">.</span><span class="n">japan</span> <span class="o">-</span> <span class="mf">0.9611</span> <span class="n">origin</span><span class="o">.</span><span class="n">usa</span>
+</code></pre></div></div>
 
 <p>This reads:</p>
 
 <ol>
-  <li>Horsepower increase by 1, mpg will decrease by 0.0535</li>
-  <li>Weight increase by 1 pound, mgp will decrease by 0.0048</li>
-  <li>If origin is Japan, mpg will increase by 1.7811(comparing to European cars)</li>
-  <li>If origin is USA, mpg will decrease by 0.9611(comparing to European cars)</li>
+  <li>If <code class="highlighter-rouge">horsepower</code> increases by 1, <code class="highlighter-rouge">mpg</code> will decrease by 0.0535.</li>
+  <li>If <code class="highlighter-rouge">weight</code> increases by 1 pound, <code class="highlighter-rouge">mpg</code> will decrease by 0.0048.</li>
+  <li>If the <code class="highlighter-rouge">origin</code> is Japan, <code class="highlighter-rouge">mpg</code> will increase by 1.7811 (compared to European cars).</li>
+  <li>If the <code class="highlighter-rouge">origin</code> is USA, <code class="highlighter-rouge">mpg</code> will decrease by 0.9611 (compared to European cars).</li>
 </ol>
 
-<p>For an European car, origin.japan=0 and origin.usa=0, so the equation becomes:</p>
+<p>For an European car, <code class="highlighter-rouge">origin.japan=0</code> and <code class="highlighter-rouge">origin.usa=0</code>, yielding the equation:</p>
 
-<p>mpg = 43.7 - 0.0535 horsepower - 0.0048 weight</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mpg</span> <span class="o">=</span> <span class="mf">43.7</span> <span class="o">-</span> <span class="mf">0.0535</span> <span class="n">horsepower</span> <span class="o">-</span> <span class="mf">0.0048</span> <span class="n">weight</span>
+</code></pre></div></div>
 
-<p>Which means the impact of origin in incorporated in the intercept. That’s why the impact of origin.japan and origin.usa is on top of European cars.</p>
+<p>This means that the impact of <code class="highlighter-rouge">origin</code> has already been incorporated in the $y$-intercept.  This explains why the impact of <code class="highlighter-rouge">origin.japan</code> and <code class="highlighter-rouge">origin.usa</code> is on top of European cars.</p>
 
-<p>So far so good, we’ve got a model that can predict auto mpg with horsepower, weight and origin to certain extend(R<sup>2</sup>=0.719). But we need to look into the coefficient table further, especially <strong>t scores</strong> and <strong>p values</strong>(p&gt;|t|), for hypothesis test. |t|&gt;2 or P &lt; 0.05 indicates the coefficient is statistically significant(at 95% confidence). The coefficient of origin.usa has a p value 0.134, which means it’s not statistically significant, or we can’t reject the null-hypothesis that the coefficient is 0(at 95% confidence). This is also indicated by the 95% confidence interval of the coefficient, -2.220 to 0.298, which covers 0. Based on the p-value, we can say that Japanese cars are more efficient than European cars holding horsepower and weight constant, but we can’t say the same thing for American cars at 95% confidence level.</p>
+<table>
+  <tbody>
+    <tr>
+      <td>So far, so good:  we have a model that can predict automotive gas mileage using <code class="highlighter-rouge">horsepower</code>, <code class="highlighter-rouge">weight</code>, and <code class="highlighter-rouge">origin</code> to a certain extent ($R^2=0.719$).  But looking into the coefficient table further, we can see some statistical information which illuminates what’s going on.  In particular, <em>$t$ scores</em> and <em>$p$ values</em> ($p&gt;</td>
+      <td>t</td>
+      <td>$) provide support for a hypothesis test.  $</td>
+      <td>t</td>
+      <td>&gt;2$ or $p&lt;0.05$ indicates that a coefficient is statistically significant (at 95% confidence).  The coefficient of <code class="highlighter-rouge">origin.usa</code> has a $p$ value of 0.134, which means it’s not statistically significant, or at least that we can’t reject the null hypothesis that the coefficient is 0 (at 95% confidence).  This is also indicated by the 95% confidence interval of the coefficient, -2.220 to 0.298, which includes 0.  Based on the $p$-value, we can say that Japanese cars are more efficient than European cars holding horsepower and weight constant, but we can’t say the same thing for American cars at 95% confidence level.</td>
+    </tr>
+  </tbody>
+</table>
 
-<h3 id="model_year-categorical-or-continuous">model_year, Categorical or Continuous?</h3>
+<h3 id="is-model_year-categorical-or-continuous">Is <code class="highlighter-rouge">model_year</code> categorical or continuous?</h3>
 
-<p>Fuel efficiency improves over time. So it make sense to add model_year to the regression model as independent variable. model_year column contains numeric values, we can add it as a continuous variable. The formula then looks like this:</p>
+<p>Fuel efficiency generally improves over time, so it make sense to consider <code class="highlighter-rouge">model_year</code> in the regression model as independent variable. The <code class="highlighter-rouge">model_year</code> column contains numeric values, we can add it as a continuous variable. The formula then looks like this:</p>
 
-<p><code class="highlighter-rouge">mpg ~ horsepower + weight + C(origin) + model_year</code></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mpg</span> <span class="o">~</span> <span class="n">horsepower</span> <span class="o">+</span> <span class="n">weight</span> <span class="o">+</span> <span class="n">C</span><span class="p">(</span><span class="n">origin</span><span class="p">)</span> <span class="o">+</span> <span class="n">model_year</span>
+</code></pre></div></div>
 
-<p>However, this model assumes that fuel efficiency changes linearly over time, which is obviously not true. So it’s better add model_year into the regression model as a categorical feature, which leads to following formula:</p>
+<p>However, this model assumes that fuel efficiency changes linearly over time, which is not obviously true.  It is, in fact, better to add <code class="highlighter-rouge">model_year</code> into the regression model as a categorical feature, leadind to the following formula:</p>
 
-<p><code class="highlighter-rouge">mpg ~ horsepower + weight + C(origin) + C(model_year)</code></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mpg</span> <span class="o">~</span> <span class="n">horsepower</span> <span class="o">+</span> <span class="n">weight</span> <span class="o">+</span> <span class="n">C</span><span class="p">(</span><span class="n">origin</span><span class="p">)</span> <span class="o">+</span> <span class="n">C</span><span class="p">(</span><span class="n">model_year</span><span class="p">)</span>
+</code></pre></div></div>
 
-<p>We will compare these two models in following code cells.</p>
+<p>We will compare these two models:</p>
 
-<blockquote>
-  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">formula</span> <span class="o">=</span> <span class="s">'mpg ~ horsepower + weight + C(origin) + model_year'</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">formula</span> <span class="o">=</span> <span class="s">'mpg ~ horsepower + weight + C(origin) + model_year'</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">mpg</span><span class="p">)</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 <span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</code></pre></div>  </div>
-  <p><img src="../pic/mpg_regression2.png" alt="pt" height="550px" /></p>
-</blockquote>
+</code></pre></div></div>
 
-<p>We can see that adding model_year to the model increase 𝑅<sup>2</sup> from 0.719 to 0.819. The coefficient of model_year is 0.7544, which means mpg increases by 0.7544 each year. The coefficient is also statistically significant. Now let’s see what we get when we add model_year to the regression model as a categorical variable.</p>
+<p><img src="../pic/mpg_regression2.png" alt="pt" height="550px" /></p>
 
-<blockquote>
-  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">formula</span> <span class="o">=</span> <span class="s">'mpg ~ horsepower + weight + C(origin) + C(model_year)'</span>
+<p>We can see that adding <code class="highlighter-rouge">model_year</code> to the model increases $R^2$ from 0.719 to 0.819.  The coefficient of <code class="highlighter-rouge">model_year</code> is 0.7544, which means <code class="highlighter-rouge">mpg</code> increases by 0.7544 each year.  The coefficient is also statistically significant.  Let’s see what we get when we add <code class="highlighter-rouge">model_year</code> to the regression model as a categorical variable.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">formula</span> <span class="o">=</span> <span class="s">'mpg ~ horsepower + weight + C(origin) + C(model_year)'</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">mpg</span><span class="p">)</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 <span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</code></pre></div>  </div>
-  <p><img src="../pic/mpg_regression3.png" alt="pt" height="850px" /></p>
-</blockquote>
+</code></pre></div></div>
 
-<p>The new model has R<sup>2</sup>=0.852. And if we look into the coefficients of dummy variables of model_year, we can see that from 1971 to 1976, there’s not much improvement in vehicle mpg; from 1977 to 1982, vehicle mpg has significant improvements every year. This model gives better R<sup>2</sup> and reveals more insight in vehicle mpg changes over time. One drawback of this model is that we can’t predict vehicle mpg with it if the vehicle is made after 1982. But overall, we can see that adding model_year as categorical variable gives us a better regression model.</p>
+<p><img src="../pic/mpg_regression3.png" alt="pt" height="850px" /></p>
 
-<p>Notice that when we add model_year to the regression model, the coefficient of horsepower is no longer significant. This indicates that there could be a <a href="https://en.wikipedia.org/wiki/Multicollinearity">multicollinearity</a> problem, or horsepower could somewhat be explained by other independent variables. This is a very important concept in linear regression but it’s out of the scope of this lesson.</p>
+<p>The new model has $R^2 = 0.852$.  Looking into the coefficients of dummy variables of <code class="highlighter-rouge">model_year</code>, we can see that from 1971 to 1976, there’s not much improvement in vehicle <code class="highlighter-rouge">mpg</code>; while from 1977 to 1982, vehicle <code class="highlighter-rouge">mpg</code> has significant improvements every year.  This model gives better $R^2$, revealing insight into fuel economy changes over time.  One drawback of this model is that we can’t predict vehicle gas mileage with it if the vehicle is made after 1982.  But overall, we can see that adding <code class="highlighter-rouge">model_year</code> as a categorical variable gives us a better regression model.</p>
+
+<p>When we add <code class="highlighter-rouge">model_year</code> to the regression model, the coefficient of <code class="highlighter-rouge">horsepower</code> is no longer significant.  This could indicate that there is <a href="https://en.wikipedia.org/wiki/Multicollinearity">multicollinearity</a> between variables, or that horsepower could be explained by other independent variables.  This is a very important concept in linear regression that deserves careful investigation to tease out.</p>
 
 <blockquote class="challenge">
-  <h2 id="challenge">Challenge</h2>
+  <h2 id="challenge--determining-impact-of-variables">Challenge:  Determining Impact of Variables</h2>
 
-  <p>Drop horsepower from the regression model, only include weight, origin and model_year. What’s the impact of this change?</p>
+  <p>Drop horsepower from the regression model, including only <code class="highlighter-rouge">weight</code>, <code class="highlighter-rouge">origin</code> and <code class="highlighter-rouge">model_year</code>.  What is the impact of this change on the model?  Why?</p>
 
 </blockquote>
 
@@ -417,7 +452,7 @@ memory usage: 30.6+ KB
   <div class="col-xs-1">
     <h3 class="text-right">
       
-      <a href="../11-case_study/"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      <a href="../11-crisp/"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
       
     </h3>
   </div>
@@ -430,7 +465,7 @@ memory usage: 30.6+ KB
   <div class="row">
     <div class="col-md-6" align="left">
       <h4>
-	Copyright &copy; 2016–2019
+	Copyright &copy; 2016–2020
 	
 	<a href="https://software-carpentry.org">Software Carpentry Foundation</a>
 	

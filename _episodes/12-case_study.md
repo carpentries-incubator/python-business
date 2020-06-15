@@ -1,7 +1,7 @@
 ---
 title: Case Study
-teaching: 30
-exercises: 0
+teaching: 0
+exercises: 30
 questions:
 - "How to apply my python skills on real world data?"
 objectives:
@@ -9,12 +9,11 @@ objectives:
 keypoints:
 ---
 
-We will demonstrate how to apply CRISP-DM framework on a real world dataset-Titanic dataset. Download the dataset and notebook template(and solution) from [here](../data/data_code.zip). Please work on notebook  CaseStudy_Titanic_Template.ipynb. You may find solutions for all tasks in CaseStudy_Titanic_Solution.ipynb.
+We will apply the CRISP-DM framework to a real world dataset.  Download the dataset and notebook template (and solution) [here](../data/data_code.zip).  Please work on the notebook `CaseStudy_Titanic_Template.ipynb`.
 
-In this case study, We will
-- explore the data,
+In this case study, we will
+
+- explore the data set,
 - practice data preparation,
-- visualize the data and
+- visualize the data, and
 - construct a linear regression
-
-Just follow the instructions in the template and finish all the tasks. Please note that this dataset is not a good dataset for regression. We do it just for practice purpose.

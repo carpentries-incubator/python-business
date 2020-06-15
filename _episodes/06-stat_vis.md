@@ -17,149 +17,239 @@ keypoints:
 
 ## Statistical Analysis
 
-Similar as the Dada Analytics Tools in Excel, python can perform many statistic analysis as well. [`scipy`](https://www.scipy.org/) module has many useful statistic tools. (more than Excel).
+The cornerstone of understood data is statistical analysis.  If you want to build sound statistical analysis in a spreadsheet, you typically use either built-in tools or add-ons like the [Analysis ToolPak](https://support.office.com/en-us/article/Load-the-Analysis-ToolPak-in-Excel-6a63e598-cd6d-42e3-9317-6b40ba1a66b4) in Excel.
 
-### t-test
-Assume you are interested in selling either energy drink or cola, and you want to know if the two categories has significant difference in average bottle sales.
-We can perform a [t-test](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html) assuming different variance.
-Firstly we need to import the stats module.
+In Python, we will utilize the Pandas-compatible library [SciPy](https://www.scipy.org/), which contains many statistical tools for testing and exploring data sets.
+
+![](https://docs.scipy.org/doc/scipy-0.19.1/reference/_images/scipy-stats-skewnorm-1.png)
+
+### Student's $t$-test
+
+The $t$-test is a way of examining and comparing populations.  (You may have seen this used previously in a statistics class.)  We will use the $t$-test to examine whether two different categories of soft drinks are significantly different in sales.  Formally, we will perform a [$t$-test](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html) assuming different variance.
+
+Import the `stats` submodule to gain access to the tools we need:
+
 ```python
 from scipy import stats
 ```
-Then we need to use aggregate function to find the total bottle sold for each soda in each category. Remember the groupby function? Try to do it by yourself.
+
+We will utilize our `groupby`/`aggregate` functionality which we developed previously.  We want to find the total bottles sold for each soft drink in each category.
+
+(Take a moment and construct this expression yourself.)
 
 ```python
 ct = inv_soda.groupby(['Item_Description','Category'], as_index=False).agg({"Bottles_Sold":"sum"})
 ```
 
-Then, you get the total bottles sold for the two categories.
-```
+Next, get the total bottles sold for both categories.
+
+```python
 ct_eng = ct[ct["Category"] == "Energy Drink"]
 ct_cola = ct[ct["Category"] == "Cola"]
 ```
-Finally, you perform the t-test.
-```
+
+With this information in hand, we can perform the $t$-test.
+
+```python
 stats.ttest_ind(ct_eng['Bottles_Sold'],ct_cola['Bottles_Sold'], equal_var=False)
 ```
-Then you get
-```
+
+yielding
+
+```python
 Ttest_indResult(statistic=1.9035249229837687, pvalue=0.057480903679786859)
 ```
 {: .output}
-Well, the p value is not low enough to reject the null.  <br>
 
-#### Takeaways
-* Scipy has a lot of statistical tools. You can perform anything in the Excel Data Analytics Tool with Scipy, yet it is much more powerful. For example, you can do [chi-squares](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chisquare.html#scipy.stats.chisquare), [ANOVA](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f_oneway.html#scipy.stats.f_oneway), [k-stat](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kstat.html#scipy.stats.kstat), etc. You can click the link to see all tools in [Scipy.stats](https://docs.scipy.org/doc/scipy/reference/stats.html).
-* As you can observe above, the most difficult part is to preprocess the data. As soon as the data is prepaired, you can just feed it into the model, very easy.
-* There are many modules that can perform stats tasks in python. For example, [sklearn](http://scikit-learn.org/stable/), [Statsmodles](https://www.statsmodels.org/stable/index.html) are also great. You can play with those if you have time.
+In this case, the $p$ value is not low enough to justify rejecting the null hypothesis.
+
+<!--TODO exercise -->
+
+Scipy has an ample set of statistical tools, in many ways more extensive than the Excel Analysis ToolPak.  Other example operations include [chi-squares](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chisquare.html#scipy.stats.chisquare), [ANOVAs](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f_oneway.html#scipy.stats.f_oneway), and [$k$-stats](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kstat.html#scipy.stats.kstat).  There are many other modules that can perform more expansive statistics, data mining, and machine learning—for example, [scikit-learn](http://scikit-learn.org/stable/) and [`statsmodels`](https://www.statsmodels.org/stable/index.html).
+
+Frequently the most difficult part is to process the data into an appropriate form ("preprocessing").  As soon as the data are prepared, you can feed them into the SciPy model without further ado.  Develop your programs with this utility and (relative) ease-of-use in mind.
+
 
 ## Visualization
 
 ### Basics
-Many of you are experts in Excel graphing. You can do similar visualization with python. [`matplotlib`](https://matplotlib.org/) is a good starter module for visualization in python. Firstly, let's import the module.
+
+Graphing with a spreadsheets affords many conveniences:
+
+- Data selection and updating
+- Click-to-edit visual styling
+- Prepackaged visual styles
+
+Python uses code to generate plots.  This means that you lose the advantages of the graphical interface, but this is compensated by introducing repeatability, automation, and precise control over details.  We will use the [MatPlotLib](https://matplotlib.org/) library.  First, let's import it:
 
 ```python
-%matplotlib inline
-# In majority of cases, you will just use pyplot. So you can just import that.
 import matplotlib.pyplot as plt
+%matplotlib inline
 ```
-Similar as Excel, you just need to feed in the values in x-axis and y-axis. Let's start with a very basic example:
+
+The simplest way to use this is just to provide $x$ and $y$ data.
+
 ```python
 # create three points for the first line
 x = [1,2,3]
 y = [2,3,5]
-# create three points for the second line (optional, I just want to show you that you can plot multiple lines in one graph)
-x2 = [1.5,2.5,3.5]
-y2 = [2.7,3.7,5.7]
-# change size (set size before plotting)
-plt.figure(figsize=(10,7))
-# plot the graph
-plt.plot(x,y, label = "first line")
-plt.plot(x2,y2, label = "second line")
-# Set x, y limits
-plt.xlim(0, 5)
-plt.ylim(0, 7)
-# Add x, y label
-plt.xlabel("independent variable")
-plt.ylabel("dependent variable")
-# Add title
-plt.title("example")
-# Add legend
-plt.legend()
-# show the graph
+plt.plot(x,y)
 plt.show()
 ```
-You will get something like this:
-![graph](../pic/graph.png){:height="400px"}
 
-Without a graphic interface like Excel, it is a little less intuitive. Carefully review the code, and try to understand what each line is doing.  Note that [`pyplot.plot`](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html) (you can click to read the documentation) has a lot of parameters. Basically, you can customize everything such as color, marker, alpha, etc.
+(On newer systems, the last line may not be necessary.)
 
-### Histogram
-Let's go back to our data.
-Assume you want to see the price distribution of the soda that cost less than $5, you can draw a histogram with [`pyplot.hist`](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.hist.html).
+These data points assume all of the defaults of MatPlotLib, such as blue lines between points, no axis labels, and no title.  A better plot would pay attention to such niceties:
 
 ```python
-# set size
+# First data set:
+x1 = [1,2,3]
+y1 = [2,3,5]
+
+# Second data set:
+x2 = [1.5,2.5,3.5]
+y2 = [2.7,3.7,5.7]
+
+# Set figure size:
 plt.figure(figsize=(10,7))
-# feed in the data, set range, plot the graph
-plt.hist(soda['Bottle_Cost'], range=(0,5))
-# set x, y label
-plt.xlabel("price")
-plt.ylabel("number of soda")
-# Add title
-plt.title("Price distribution")
+
+# Plot the data with labels.
+plt.plot(x,y, label="first line")
+plt.plot(x2,y2, label="second line")
+
+# Set x,y limits:
+plt.xlim(0, 5)
+plt.ylim(0, 7)
+
+# Add axis labels:
+plt.xlabel("independent variable")
+plt.ylabel("dependent variable")
+
+# Add a title:
+plt.title("example")
+
+# Add a legend:
+plt.legend()
+
+# Show the graph:
 plt.show()
 ```
+
+You should get something like:
+
+![graph](../pic/graph.png){:height="400px"}
+
+This may seem less intuitive than using a spreadsheet.  After all, how does one know what all of the options are?  There are two ways to figure this out:
+
+1.  Check the docs at [`pyplot.plot`](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html).  This is useful for finding specific functionality but is often overwhelming.
+2.  Check the [gallery](https://matplotlib.org/gallery) of interesting plots.  Each of these provides source code for the image, and you can readily find examples which are similar to what you are aiming for in your plot.
+
+![](https://matplotlib.org/_images/boxplot_color_demo.png)
+
+<!-- TODO exercise with df -->
+
+### Histogram
+
+A histogram shows the distribution of data by counting how many of them fall into particular ranges (or "bins").
+
+Assume we want to see the price distribution of soft drinks that cost less than $5.  We will use [`pyplot.hist`](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.hist.html) to produce a histogram.
+
+```python
+# Set size:
+plt.figure(figsize=(10,7))
+
+# Feed in the data, set the range and number of bins, and plot the graph:
+plt.hist(soda['Bottle_Cost'], range=(0,5), bins=15)
+
+# Set x,y labels:
+plt.xlabel("Price")
+plt.ylabel("Number of sodas")
+
+# Add title:
+plt.title("Price distribution")
+
+plt.show()
+```
+
 ![hist](../pic/hist.png){:height="400px"}
 
-This is a very basic example. You can customize a lot more parameters such as colors, bins, etc.
+> ## Challenge:  Histogram
+>
+> Produce a histogram which shows the volume distribution of two different categories on the same plot.
+>
+> > ## Solution
+> >
+> > ``` TODO
+> > inv_soda["Total_Cost"] = inv_soda["Bottle_Cost"] * inv_soda["Bottles_Sold"]
+> > ct = inv_soda.groupby(['Category'])["Total_Cost"].agg(["sum"]).reset_index()
+> > ct = temp.sort_values("sum", ascending = False)
+> >
+> > plt.figure(figsize=(15,15))
+> > plt.pie(ct["sum"], labels=ct["Category"], autopct='%.0f%%')
+> > plt.show()
+> > ```
+> {: .solution}
+{: .challenge}
+
 
 ### Scatter plot
 
 A scatter plot is a two-dimensional data visualization that uses dots to represent the values obtained for two different variables.
 
 ```python
-# set figure size
+# Set figure size:
 fig, ax = plt.subplots(figsize=(10,7))
-# Plot data
+
+# Plot data:
 ax.scatter(soda['Bottle_Cost'], soda['Bottle_Retail_Price'])
+
+# Set x,y labels:
 plt.xlabel("Bottle_Cost")
 plt.ylabel("Bottle_Retail_Price")
-# Set title
+
+# Set title:
 plt.title("Bottle_Retail_Price VS Bottle_Cost")
-# Set x, y limit
+
+# Set x, y limits:
 plt.xlim(1, 5)
 plt.ylim(1, 10)
+
+# Set a legend:
 plt.legend()
+
 plt.show()
 ```
+
 ![sc](../pic/sc.png){:height="400px"}
 
-#### Takeaways
-* You can do many other kinds of visualizations with matplotlib. For example, [pie chart](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.pie.html), [bar chart](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.bar.html), etc.
-* Anything you can draw in Excel, you can do it with matplotlib. Similar as statistical analysis, the most difficult part for visualization is preprocessing. After that, you can just feed your data into the pre-written graphing tool.
-* If you are going to big companies, you will probablly learn Tableau later. Tableau can easily create nice graphs but it is a little annoying in preprocessing. We can preprocess with python and feed the data to Tableau. <br>
-* Last but not the least, there are many other cool visualization modules avaliable. If you have time, you can consider these modules: [plotly](https://plot.ly/), [graph-tool](https://graph-tool.skewed.de). They can draw cool and interactive graphs.
+Any of the plots you can make in a spreadsheet program like Excel can be made with MatPlotLib.  Check the gallery, figure out how, and you can produce fantastic graphics for reports and presentations.
 
-> ## Challenge
-> Assume you just opened a new convenience store. You want to see what categories of soda did other stores spend the most money on in their inventory.
-> What are the top three categories in terms of total cost? Visualize it with pie chart. Read the [documentation](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.pie.html) yourself and try to figure out how to draw it.
-> Hint: 1. Calculate total cost for each soda (arithmetic)
-> 2. Calculate total cost for each category (aggregation)
-> 3. Sort the aggregated value
-> 4. draw the graph (what is the x? what is the label?)
-> 5. set autopct parameter to '%.0f%%'
+Some companies prefer you to use a different tool like Tableau to produce images.  In that case, Python is helpful for preparing and filtering the data to be fed into that program.
+
+Many other Python-based visualization modules are available, including [Plotly](https://plot.ly/) and [`graph-tool`](https://graph-tool.skewed.de).  These can produce interactive graphs as well.
+
+> ## Challenge:  Pie Chart
 >
->> ## Solution
->>
->> ```
->> inv_soda["Total_Cost"] = inv_soda["Bottle_Cost"] * inv_soda["Bottles_Sold"]
->> ct = inv_soda.groupby(['Category'])["Total_Cost"].agg(["sum"]).reset_index()
->> ct = temp.sort_values("sum", ascending = False)
->> plt.figure(figsize=(15,15))
->> plt.pie(ct["sum"], labels=ct["Category"], autopct='%.0f%%')
->> plt.show()
->>
->> ```
+> Assume that a new convenience store has just opened.  You want to compare and see which categories of soft drinks other stores spent the most money on.
+>
+> What are the top three categories in terms of total cost?  Visualize these with a pie chart.  Read the [documentation](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.pie.html) yourself and try to figure out how to draw it.
+>
+> 1.  Calculate total cost for each soft drink (arithmetic).
+> 2.  Calculate total cost for each category (aggregation).
+> 3.  Sort the aggregated values.
+> 4.  Draw the graph.  (What are the x data?  What is the label?)
+> 5.  Set `autopct` parameter to `'%.0f%%'`.
+>
+> > ## Solution
+> >
+> > ```
+> > inv_soda["Total_Cost"] = inv_soda["Bottle_Cost"] * inv_soda["Bottles_Sold"]
+> > ct = inv_soda.groupby(['Category'])["Total_Cost"].agg(["sum"]).reset_index()
+> > ct = temp.sort_values("sum", ascending = False)
+> >
+> > plt.figure(figsize=(15,15))
+> > plt.pie(ct["sum"], labels=ct["Category"], autopct='%.0f%%')
+> > plt.show()
+> > ```
 > {: .solution}
 {: .challenge}

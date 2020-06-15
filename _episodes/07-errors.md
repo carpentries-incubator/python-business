@@ -16,6 +16,12 @@ keypoints:
 - "Trying to read a file that does not exist will give you an `FileNotFoundError`. Trying to read a file that is open for writing, or writing to a file that is open for reading, will give you an `IOError`."
 ---
 
+## Handling Errors
+
+### How Things Go Wrong:  Types of Errors
+
+<!-- TODO -->
+
 Every programmer encounters errors,
 both those who are just beginning,
 and those who have been programming for years.
