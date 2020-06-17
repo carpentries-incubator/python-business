@@ -6,7 +6,7 @@ questions:
 - "How can my programs do different things based on data values?"
 - "How can I do the same operations on many different values?"
 objectives:
-- "Write conditional statements including `if`, `elif`, and `else` branches."
+- "Write conditional statements including `if` and `else` branches."
 - "Correctly evaluate expressions containing `and` and `or`."
 - "Explain what a `for` loop does."
 - "Correctly write `for` loops to repeat simple calculations."
@@ -14,7 +14,7 @@ objectives:
 - "Trace changes to other variables as they are updated by a `for` loop."
 - "Use libraries to access pre-written and pre-vetted code."
 keypoints:
-- "Use `if condition` to start a conditional statement, `elif condition` to provide additional tests, and `else` to provide a default."
+- "Use `if condition` to start a conditional statement and `else` to provide a default."
 - "The bodies of the branches of conditional statements must be indented."
 - "Use `==` to test for equality."
 - "`X and Y` is only true if both `X` and `Y` are true."
@@ -84,9 +84,9 @@ Sometimes our truth conditions are more complicated:  we may want to find all tr
 > ~~~
 > if 4 > 5:
 >     print('A')
-> elif 4 == 5:   # TODO FIXME no more elif
+> if 4 == 5:
 >     print('B')
-> elif 4 < 5:
+> if 4 < 5:
 >     print('C')
 > ~~~
 > {: .language-python}

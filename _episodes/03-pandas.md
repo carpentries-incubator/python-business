@@ -31,11 +31,20 @@ keypoints:
 
 When we read information from a table, we use a casual $x--y$ system to do so:  we typically find the record we want (reading down the rows) and then locate the column which contains the value we need to look up.  This cleanly separates the two kinds of factors we need to think about:  the set of records, and the set of values they contain.
 
-![](TODO)
+![](https://datacarpentry.org/spreadsheet-ecology-lesson/fig/single-info.png)
 
 Spreadsheets are valuable because they contain tabular data and allow us to add new fields and relationships.  We prefer spreadsheets to be well-organized with only one kind of table in each sheet, and very consistent layout.  This makes our tabular data easy for humans to read and (more importantly now) easy for computers to process automatically.
 
-![](TODO bad/good tables)
+There are some important rules to follow when creating a spreadsheet.  Well-formatted data are easier for humans to read and for computer programs to use.
+
+1.  All variables should be in unique columns across the spreadsheet.
+2.  Each record should be on its own row with data spanning across the sheet.
+3.  Each datum should be in its own cell, which makes processing _much_ easier.
+4.  Work with copies of the raw data, never the raw data themselves.
+
+For instance, the following may look like a good table, but because it breaks the rules (how?) it is hard to use with a program.
+
+![](https://datacarpentry.org/spreadsheet-ecology-lesson/fig/2_datasheet_example.jpg)
 
 One of the chief limitations of working with spreadsheets, however, is that they are limited in the number of columns and rows they can manipulate.  (At the time of writing, Excel can load 1,048,576 rows and 16,384 columns.  This may seem like a lot, but consider common applications like processing transaction records or stock events.)  Python is only limited by your computer's memory in processing data sets.
 
@@ -221,13 +230,13 @@ soda.loc["Saitama's Cream Soda"]
 
 (Note that `.iloc[]` is used with numeric indices while `.loc[]` is used with row labels.)
 
-**Subset**.  You can use indexing together with field names and record labels to grab particular subsets of data:
+**Subset**.  You can use indexing together with field names and record labels to grab particular subsets of data.  What would this look like, based on what you know now?
 
 ```python
-TODO
+subset = soda[['Bottle_Volume_ml','Bottle_Cost']][soda['Pack']>1]
 ```
 
-We will use these selection abilities to produce gradually more complicated formulas for analyzing our data.  For instance, to get a list of all of the categories in the `soda` `DataFrame`, use
+We can use these selection abilities to produce gradually more complicated formulas for analyzing our data.  For instance, to get a list of all of the categories in the `soda` `DataFrame`, use
 
 ```python
 soda['Category']
@@ -282,7 +291,16 @@ soda.sort_values(["Bottle_Cost","Item_Description"], ascending=[True,False])
 
 How would you sort on bottle cost without `nan`s in the data set?
 
-TODO exercise sort descending on something
+> ## Challenge:  Sorting Both Ways
+>
+> Produce a `DataFrame` which is sorted in descending order by bottle volume and ascending order by category.
+>
+> > ## Solution
+> > ```python
+> > soda.sort_values(["Bottle_Volume_ml","Category"], ascending=[False,True])
+> > ```
+> {: .solution}
+{: .challenge}
 
 **Filtering**.  Filtering describes selecting records based on their values (by range, for instance) or selecting records based on multiple fields.
 
@@ -294,7 +312,7 @@ soda[soda["Bottle_Cost"]<= 3]["Item_Description"]
 
 `soda['Bottle_Cost']` by itself produces a `Series` of `True`/`False` values.  These are then used to select _only_ the `True` values from `soda`, thus those meeting the filter criterion.
 
-> ## Filtering Data
+> ## Challenge:  Filtering Data
 >
 > Select all of the sodas with a volume greater than 750 mL.
 >
@@ -305,7 +323,7 @@ soda[soda["Bottle_Cost"]<= 3]["Item_Description"]
 > {: .solution}
 {: .challenge}
 
-> ## Combining Filters
+> ## Challenge:Challenge:  Combining Filters
 >
 > If we need multiple criteria, we can put parentheses over each criteria and use `&` (and) or `|` (or) to combine the criterias. For example, let's select sodas that are at least 500ml and cheaper than $3.
 >

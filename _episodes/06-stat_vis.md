@@ -63,7 +63,21 @@ Ttest_indResult(statistic=1.9035249229837687, pvalue=0.057480903679786859)
 
 In this case, the $p$ value is not low enough to justify rejecting the null hypothesis.
 
-<!--TODO exercise -->
+> ## Challenge:  Test $p$ values
+>
+> Construct a $t$-test to see whether two different markups have the same sales rate.  Use the markup ranges of less than $2 and more than or equal to $2.
+>
+> > ## Solution
+> >
+> > ```
+> > ct_lt2 = ct[ct["Markup"] < 2]
+> > ct_ge2 = ct[ct["Markup"] >= 2]
+> >
+> > stats.ttest_ind(ct_lt2['Bottles_Sold'],ct_ge2['Bottles_Sold'], equal_var=False)
+> > ```
+> {: .solution}
+{: .challenge}
+
 
 Scipy has an ample set of statistical tools, in many ways more extensive than the Excel Analysis ToolPak.  Other example operations include [chi-squares](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chisquare.html#scipy.stats.chisquare), [ANOVAs](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f_oneway.html#scipy.stats.f_oneway), and [$k$-stats](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kstat.html#scipy.stats.kstat).  There are many other modules that can perform more expansive statistics, data mining, and machine learning—for example, [scikit-learn](http://scikit-learn.org/stable/) and [`statsmodels`](https://www.statsmodels.org/stable/index.html).
 
@@ -146,7 +160,31 @@ This may seem less intuitive than using a spreadsheet.  After all, how does one 
 
 ![](https://matplotlib.org/_images/boxplot_color_demo.png)
 
-<!-- TODO exercise with df -->
+> ## Challenge:  Plotting a `DataFrame`
+>
+> Construct a plot which shows markup on the $y$ axis as a function of bottle cost on the $x$ axis.  Use dots `'.'`.  You may wish to filter out values greater than 100.  If you do so, you'll need to filter both $x$ and $y$ data sets to retain the same number of points.
+>
+> > ## Solution
+> >
+> > ```
+> > # Set size:
+> > plt.figure(figsize=(10,7))
+> >
+> > plt.plot(soda['Markup'],soda['Bottle_cost'])
+> >
+> > # Set x,y labels:
+> > plt.xlabel("Bottle Cost")
+> > plt.ylabel("Markup")
+> >
+> > # Add title:
+> > plt.title("Markup as a function of bottle cost")
+> > plt.legend()
+> >
+> > plt.show()
+> > ```
+> {: .solution}
+{: .challenge}
+
 
 ### Histogram
 
@@ -175,17 +213,26 @@ plt.show()
 
 > ## Challenge:  Histogram
 >
-> Produce a histogram which shows the volume distribution of two different categories on the same plot.
+> Produce a histogram which shows the volume distribution of two different categories on the same plot with ten bins.  You may need to trim off an erroneous high-volume bottle, at say 3L.
 >
 > > ## Solution
 > >
-> > ``` TODO
-> > inv_soda["Total_Cost"] = inv_soda["Bottle_Cost"] * inv_soda["Bottles_Sold"]
-> > ct = inv_soda.groupby(['Category'])["Total_Cost"].agg(["sum"]).reset_index()
-> > ct = temp.sort_values("sum", ascending = False)
+> > ```
+> > # Set size:
+> > plt.figure(figsize=(10,7))
 > >
-> > plt.figure(figsize=(15,15))
-> > plt.pie(ct["sum"], labels=ct["Category"], autopct='%.0f%%')
+> > # Feed in the data, set the range and number of bins, and plot the graph:
+> > plt.hist(soda['Bottle_Volume_ml'][soda['Bottle_Volume_ml']<3e3][soda['Category']=='Cream Soda'],label='Cream Soda', bins=15)
+> > plt.hist(soda['Bottle_Volume_ml'][soda['Bottle_Volume_ml']<3e3][soda['Category']=='Cola'],label='Cola', bins=15)
+> >
+> > # Set x,y labels:
+> > plt.xlabel("Bottle Volume")
+> > plt.ylabel("Number of sodas")
+> >
+> > # Add title:
+> > plt.title("Price distribution")
+> > plt.legend()
+> >
 > > plt.show()
 > > ```
 > {: .solution}

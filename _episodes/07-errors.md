@@ -20,22 +20,9 @@ keypoints:
 
 ### How Things Go Wrong:  Types of Errors
 
-<!-- TODO -->
+At this point, you have surely encountered a variety of errors.  Errors are Python's way of telling you that it can't do what you think you've requested.  This could be because you are talking about data it can't find, writing logic it can't follow, or trying to run code that isn't well-formed.
 
-Every programmer encounters errors,
-both those who are just beginning,
-and those who have been programming for years.
-Encountering errors and exceptions can be very frustrating at times,
-and can make coding feel like a hopeless endeavour.
-However,
-understanding what the different types of errors are
-and when you are likely to encounter them can help a lot.
-Once you know *why* you get certain types of errors,
-they become much easier to fix.
-
-Errors in Python have a very specific form,
-called a [traceback]({{ page.root }}/reference/#traceback).
-Let's examine one:
+The first step in diagnosing what has gone wrong is to know how to read an error report.  This is called a [traceback]({{ page.root }}/reference/#traceback).  Let's examine one:
 
 ~~~
 # This code has an intentional error. You can type it directly or
@@ -71,9 +58,7 @@ IndexError: list index out of range
 ~~~
 {: .error}
 
-This particular traceback has two levels.
-You can determine the number of levels by looking for the number of arrows on the left hand side.
-In this case:
+This particular traceback has two levels, but you may find tracebacks with only a single layer or with close to a dozen layers.  (You can determine the number of levels by looking for the number of arrows on the left hand side.)  In this case:
 
 1.  The first shows code from the cell above,
     with an arrow pointing to Line 8 (which is `favorite_ice_cream()`).
@@ -81,346 +66,33 @@ In this case:
 2.  The second shows some code in the function `favorite_ice_cream`,
     with an arrow pointing to Line 6 (which is `print(ice_creams[3])`).
 
-The last level is the actual place where the error occurred.
-The other level(s) show what function the program executed to get to the next level down.
-So, in this case, the program first performed a [function call]({{ page.root }}/reference/#function-call) to the function `favorite_ice_cream`.
-Inside this function,
-the program encountered an error on Line 6, when it tried to run the code `print(ice_creams[3])`.
+The last level is the actual place where the error occurred. The other level(s) show what function the program executed to get to that level.  Most of the time, we only really care about the bottommost message (or innermost layer).
+
+In this case, the program first performed a [function call]({{ page.root }}/reference/#function-call) to the function `favorite_ice_cream`.  Inside this function, the program encountered an error on Line 6, when it tried to run the code `print(ice_creams[3])`.
+
+In the last line of the traceback, Python helpfully tells us the category or type of error (in this case, it is an `IndexError`) and a more detailed error message (in this case, it says "list index out of range").
 
 > ## Long Tracebacks
 >
-> Sometimes, you might see a traceback that is very long -- sometimes they might even be 20 levels deep!
-> This can make it seem like something horrible happened,
-> but really it just means that your program called many functions before it ran into the error.
-> Most of the time,
-> you can just pay attention to the bottom-most level,
-> which is the actual place where the error occurred.
+> Sometimes, you might see a traceback that is very long -- sometimes they might even be twenty levels deep!  This can make it seem like something horrible happened, but really it just means that your program called many functions before it ran into the error.
+>
+> Most of the time, you can just pay attention to the bottom-most level, which is the actual place where the error occurred.
 {: .callout}
 
-So what error did the program actually encounter?
-In the last line of the traceback,
-Python helpfully tells us the category or type of error (in this case, it is an `IndexError`)
-and a more detailed error message (in this case, it says "list index out of range").
+Once we know where something went wrong, our next step is to figure out why.  The type of error can be quite helpful in diagnosing and correcting the error.
 
-If you encounter an error and don't know what it means,
-it is still important to read the traceback closely.
-That way,
-if you fix the error,
-but encounter a new one,
-you can tell that the error changed.
-Additionally,
-sometimes just knowing *where* the error occurred is enough to fix it,
-even if you don't entirely understand the message.
+What are some common exceptions you may have seen up to this point?
 
-If you do encounter an error you don't recognize,
-try looking at the [official documentation on errors](http://docs.python.org/3/library/exceptions.html).
-However,
-note that you may not always be able to find the error there,
-as it is possible to create custom errors.
-In that case,
-hopefully the custom error message is informative enough to help you figure out what went wrong.
+- `NameError`
+- `SyntaxError`
+- `IndexError` and `KeyError`
+- `FileNotFoundError` and relatives
 
-## Syntax Errors
+If you encounter an error and don't know what it means, it is still important to read the traceback closely.  That way, if you fix the error, but encounter a new one, you can tell that the error changed.  Additionally, sometimes just knowing *where* the error occurred is enough to fix it, even if you don't entirely understand the message.
 
-When you forget a colon at the end of a line,
-accidentally add one space too many when indenting under an `if` statement,
-or forget a parenthesis,
-you will encounter a [syntax error]({{ page.root }}/reference/#syntax-error).
-This means that Python couldn't figure out how to read your program.
-This is similar to forgetting punctuation in English:
-for example,
-this text is difficult to read there is no punctuation there is also no capitalization
-why is this hard because you have to figure out where each sentence ends
-you also have to figure out where each sentence begins
-to some extent it might be ambiguous if there should be a sentence break or not
+If you do encounter an error you don't recognize, try looking at the [official documentation on errors](http://docs.python.org/3/library/exceptions.html).
 
-People can typically figure out what is meant by text with no punctuation,
-but people are much smarter than computers.
-If Python doesn't know how to read the program,
-it will just give up and inform you with an error.
-For example:
-
-~~~
-def some_function()
-    msg = "hello, world!"
-    print(msg)
-     return msg
-~~~
-{: .language-python}
-
-~~~
-  File "<ipython-input-3-6bb841ea1423>", line 1
-    def some_function()
-                       ^
-SyntaxError: invalid syntax
-~~~
-{: .error}
-
-Here, Python tells us that there is a `SyntaxError` on line 1,
-and even puts a little arrow in the place where there is an issue.
-In this case the problem is that the function definition is missing a colon at the end.
-
-Actually, the function above has *two* issues with syntax.
-If we fix the problem with the colon,
-we see that there is *also* an `IndentationError`,
-which means that the lines in the function definition do not all have the same indentation:
-
-~~~
-def some_function():
-    msg = "hello, world!"
-    print(msg)
-     return msg
-~~~
-{: .language-python}
-
-~~~
-  File "<ipython-input-4-ae290e7659cb>", line 4
-    return msg
-    ^
-IndentationError: unexpected indent
-~~~
-{: .error}
-
-Both `SyntaxError` and `IndentationError` indicate a problem with the syntax of your program,
-but an `IndentationError` is more specific:
-it *always* means that there is a problem with how your code is indented.
-
-> ## Tabs and Spaces
->
-> Some indentation errors are harder to spot than others.
-> In particular, mixing spaces and tabs can be difficult to spot
-> because they are both [whitespace]({{ page.root }}/reference/#whitespace).
-> The Jupyter notebook actually gives us a bit of a hint,
-> but not all Python editors will do that.
-> In the following example,
-> the first two lines are using a tab for indentation,
-> while the third line uses eight spaces:
->
-> <div class="python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def some_function():
-> &#009;msg = "hello, world!"
-> &#009;print(msg)
->         return msg
-> </code></pre></div></div>
->
-> Visually it is impossible to spot the error.
-> Fortunately, Python does not allow you to mix tabs and spaces.
->
-> ~~~
->   File "<ipython-input-5-653b36fbcd41>", line 4
->     return msg
->               ^
-> TabError: inconsistent use of tabs and spaces in indentation
-> ~~~
-> {: .error}
-{: .callout}
-
-## Variable Name Errors
-
-Another very common type of error is called a `NameError`,
-and occurs when you try to use a variable that does not exist.
-For example:
-
-~~~
-print(a)
-~~~
-{: .language-python}
-
-~~~
----------------------------------------------------------------------------
-NameError                                 Traceback (most recent call last)
-<ipython-input-7-9d7b17ad5387> in <module>()
-----> 1 print(a)
-
-NameError: name 'a' is not defined
-~~~
-{: .error}
-
-Variable name errors come with some of the most informative error messages,
-which are usually of the form "name 'the_variable_name' is not defined".
-
-Why does this error message occur?
-That's a harder question to answer,
-because it depends on what your code is supposed to do.
-However,
-there are a few very common reasons why you might have an undefined variable.
-The first is that you meant to use a [string]({{ page.root }}/reference/#string), but forgot to put quotes around it:
-
-~~~
-print(hello)
-~~~
-{: .language-python}
-
-~~~
----------------------------------------------------------------------------
-NameError                                 Traceback (most recent call last)
-<ipython-input-8-9553ee03b645> in <module>()
-----> 1 print(hello)
-
-NameError: name 'hello' is not defined
-~~~
-{: .error}
-
-The second is that you just forgot to create the variable before using it.
-In the following example,
-`count` should have been defined (e.g., with `count = 0`) before the for loop:
-
-~~~
-for number in range(10):
-    count = count + number
-print("The count is:", count)
-~~~
-{: .language-python}
-
-~~~
----------------------------------------------------------------------------
-NameError                                 Traceback (most recent call last)
-<ipython-input-9-dd6a12d7ca5c> in <module>()
-      1 for number in range(10):
-----> 2     count = count + number
-      3 print("The count is:", count)
-
-NameError: name 'count' is not defined
-~~~
-{: .error}
-
-Finally, the third possibility is that you made a typo when you were writing your code.
-Let's say we fixed the error above by adding the line `Count = 0` before the for loop.
-Frustratingly, this actually does not fix the error.
-Remember that variables are [case-sensitive]({{ page.root }}/reference/#case-sensitive),
-so the variable `count` is different from `Count`. We still get the same error, because we still have not defined `count`:
-
-~~~
-Count = 0
-for number in range(10):
-    count = count + number
-print("The count is:", count)
-~~~
-{: .language-python}
-
-~~~
----------------------------------------------------------------------------
-NameError                                 Traceback (most recent call last)
-<ipython-input-10-d77d40059aea> in <module>()
-      1 Count = 0
-      2 for number in range(10):
-----> 3     count = count + number
-      4 print("The count is:", count)
-
-NameError: name 'count' is not defined
-~~~
-{: .error}
-
-## Index Errors
-
-Next up are errors having to do with containers (like lists and strings) and the items within them.
-If you try to access an item in a list or a string that does not exist,
-then you will get an error.
-This makes sense:
-if you asked someone what day they would like to get coffee,
-and they answered "caturday",
-you might be a bit annoyed.
-Python gets similarly annoyed if you try to ask it for an item that doesn't exist:
-
-~~~
-letters = ['a', 'b', 'c']
-print("Letter #1 is", letters[0])
-print("Letter #2 is", letters[1])
-print("Letter #3 is", letters[2])
-print("Letter #4 is", letters[3])
-~~~
-{: .language-python}
-
-~~~
-Letter #1 is a
-Letter #2 is b
-Letter #3 is c
-~~~
-{: .output}
-
-~~~
----------------------------------------------------------------------------
-IndexError                                Traceback (most recent call last)
-<ipython-input-11-d817f55b7d6c> in <module>()
-      3 print("Letter #2 is", letters[1])
-      4 print("Letter #3 is", letters[2])
-----> 5 print("Letter #4 is", letters[3])
-
-IndexError: list index out of range
-~~~
-{: .error}
-
-Here,
-Python is telling us that there is an `IndexError` in our code,
-meaning we tried to access a list index that did not exist.
-
-## File Errors
-
-The last type of error we'll cover today
-are those associated with reading and writing files: `FileNotFoundError`.
-If you try to read a file that does not exist,
-you will receive a `FileNotFoundError` telling you so.
-If you attempt to write to a file that was opened read-only, Python 3
-returns an `UnsupportedOperationError`.
-More generally, problems with input and output manifest as
-`IOError`s or `OSError`s, depending on the version of Python you use.
-
-~~~
-file_handle = open('myfile.txt', 'r')
-~~~
-{: .language-python}
-
-~~~
----------------------------------------------------------------------------
-FileNotFoundError                         Traceback (most recent call last)
-<ipython-input-14-f6e1ac4aee96> in <module>()
-----> 1 file_handle = open('myfile.txt', 'r')
-
-FileNotFoundError: [Errno 2] No such file or directory: 'myfile.txt'
-~~~
-{: .error}
-
-One reason for receiving this error is that you specified an incorrect path to the file.
-For example,
-if I am currently in a folder called `myproject`,
-and I have a file in `myproject/writing/myfile.txt`,
-but I try to just open `myfile.txt`,
-this will fail.
-The correct path would be `writing/myfile.txt`.
-It is also possible (like with `NameError`) that you just made a typo.
-
-A related issue can occur if you use the "read" flag instead of the "write" flag.
-Python will not give you an error if you try to open a file for writing when the file does not exist.
-However,
-if you meant to open a file for reading,
-but accidentally opened it for writing,
-and then try to read from it,
-you will get an `UnsupportedOperation` error
-telling you that the file was not opened for reading:
-
-~~~
-file_handle = open('myfile.txt', 'w')
-file_handle.read()
-~~~
-{: .language-python}
-
-~~~
----------------------------------------------------------------------------
-UnsupportedOperation                      Traceback (most recent call last)
-<ipython-input-15-b846479bc61f> in <module>()
-      1 file_handle = open('myfile.txt', 'w')
-----> 2 file_handle.read()
-
-UnsupportedOperation: not readable
-~~~
-{: .error}
-
-These are the most common errors with files,
-though many others exist.
-If you get an error that you've never seen before,
-searching the Internet for that error type
-often reveals common reasons why you might get that error.
-
-> ## Reading Error Messages
+> ## Challenge:  Reading Error Messages
 >
 > Read the python code and the resulting traceback below, and answer the following questions:
 >
@@ -487,7 +159,81 @@ often reveals common reasons why you might get that error.
 > {: .solution}
 {: .challenge}
 
-> ## Identifying Syntax Errors
+
+### Syntax Errors
+
+When you forget a colon at the end of a line, accidentally add one space too many when indenting under an `if` statement, or forget a parenthesis, you will encounter a [syntax error]({{ page.root }}/reference/#syntax-error).  This means that Python couldn't figure out how to read your program.  This is similar to forgetting punctuation in English:  for example,  `this text is difficult to read there is no punctuation there is also no capitalization why is this hard because you have to figure out where each sentence ends you also have to figure out where each sentence begins to some extent it might be ambiguous if there should be a sentence break or not`
+
+People can typically figure out what is meant by text with no punctuation, but people are much smarter at inferring context than computers.  If Python doesn't know how to read the program, it will just give up and inform you with an error.  For example:
+
+~~~
+def some_function()
+    msg = "hello, world!"
+    print(msg)
+     return msg
+~~~
+{: .language-python}
+
+~~~
+  File "<ipython-input-3-6bb841ea1423>", line 1
+    def some_function()
+                       ^
+SyntaxError: invalid syntax
+~~~
+{: .error}
+
+Here, Python tells us that there is a `SyntaxError` on line 1, and even puts a little arrow in the place where there is an issue.  In this case the problem is that the function definition is missing a colon at the end.
+
+Actually, the function above has *two* issues with syntax.  If we fix the problem with the colon, we see that there is *also* an `IndentationError`, which means that the lines in the function definition do not all have the same indentation:
+
+~~~
+def some_function():
+    msg = "hello, world!"
+    print(msg)
+     return msg
+~~~
+{: .language-python}
+
+~~~
+  File "<ipython-input-4-ae290e7659cb>", line 4
+    return msg
+    ^
+IndentationError: unexpected indent
+~~~
+{: .error}
+
+Both `SyntaxError` and `IndentationError` indicate a problem with the syntax of your program, but an `IndentationError` is more specific:  it *always* means that there is a problem with how your code is indented.
+
+> ## Tabs and Spaces
+>
+> Some indentation errors are harder to spot than others.
+> In particular, mixing spaces and tabs can be difficult to spot
+> because they are both [whitespace]({{ page.root }}/reference/#whitespace).
+> The Jupyter notebook actually gives us a bit of a hint,
+> but not all Python editors will do that.
+> In the following example,
+> the first two lines are using a tab for indentation,
+> while the third line uses eight spaces:
+>
+> <div class="python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def some_function():
+> &#009;msg = "hello, world!"
+> &#009;print(msg)
+>         return msg
+> </code></pre></div></div>
+>
+> Visually it is impossible to spot the error.
+> Fortunately, Python does not allow you to mix tabs and spaces.
+>
+> ~~~
+>   File "<ipython-input-5-653b36fbcd41>", line 4
+>     return msg
+>               ^
+> TabError: inconsistent use of tabs and spaces in indentation
+> ~~~
+> {: .error}
+{: .callout}
+
+> ## Challenge:  Identifying Syntax Errors
 >
 > 1. Read the code below, and (without running it) try to identify what the errors are.
 > 2. Run the code, and read the error message. Is it a `SyntaxError` or an `IndentationError`?
@@ -517,7 +263,89 @@ often reveals common reasons why you might get that error.
 > {: .solution}
 {: .challenge}
 
-> ## Identifying Variable Name Errors
+### Variable Name Errors
+
+Another very common type of error is called a `NameError`, and occurs when you try to use a variable that does not exist.  For example:
+
+~~~
+print(a)
+~~~
+{: .language-python}
+
+~~~
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-7-9d7b17ad5387> in <module>()
+----> 1 print(a)
+
+NameError: name 'a' is not defined
+~~~
+{: .error}
+
+Variable name errors come with some of the most informative error messages, which are usually of the form "name 'the_variable_name' is not defined".
+
+Why does this error message occur?  That's a harder question to answer, because it depends on what your code is supposed to do.  However, there are a few very common reasons why you might have an undefined variable.  The first is that you meant to use a [string]({{ page.root }}/reference/#string), but forgot to put quotes around it:
+
+~~~
+print(hello)
+~~~
+{: .language-python}
+
+~~~
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-8-9553ee03b645> in <module>()
+----> 1 print(hello)
+
+NameError: name 'hello' is not defined
+~~~
+{: .error}
+
+The second is that you just forgot to create the variable before using it.  In the following example, `count` should have been defined (e.g., with `count = 0`) before the for loop:
+
+~~~
+for number in range(10):
+    count = count + number
+print("The count is:", count)
+~~~
+{: .language-python}
+
+~~~
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-9-dd6a12d7ca5c> in <module>()
+      1 for number in range(10):
+----> 2     count = count + number
+      3 print("The count is:", count)
+
+NameError: name 'count' is not defined
+~~~
+{: .error}
+
+Finally, the third possibility is that you made a spelling error when you were writing your code.  Let's say we fixed the error above by adding the line `Count = 0` before the `for` loop.  Frustratingly, this actually does not fix the error.  Remember that variables are [case-sensitive]({{ page.root }}/reference/#case-sensitive), so the variable `count` is different from `Count`. We still get the same error, because we still have not defined `count`:
+
+~~~
+Count = 0
+for number in range(10):
+    count = count + number
+print("The count is:", count)
+~~~
+{: .language-python}
+
+~~~
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-10-d77d40059aea> in <module>()
+      1 Count = 0
+      2 for number in range(10):
+----> 3     count = count + number
+      4 print("The count is:", count)
+
+NameError: name 'count' is not defined
+~~~
+{: .error}
+
+> ## Challenge:  Identifying Variable Name Errors
 >
 > 1. Read the code below, and (without running it) try to identify what the errors are.
 > 2. Run the code, and read the error message.
@@ -558,7 +386,41 @@ often reveals common reasons why you might get that error.
 > {: .solution}
 {: .challenge}
 
-> ## Identifying Index Errors
+### Index Errors
+
+Next up are errors having to do with containers (like lists and strings) and the items within them.  If you try to access an item in a list or a string that does not exist, then you will get an error.  This makes sense:  if you asked someone what day they would like to get coffee, and they answered "caturday", you might be a bit surprised but not fundamentally confused.  Python gets downright annoyed if you try to ask it for an item that doesn't exist:
+
+~~~
+letters = ['a', 'b', 'c']
+print("Letter #1 is", letters[0])
+print("Letter #2 is", letters[1])
+print("Letter #3 is", letters[2])
+print("Letter #4 is", letters[3])
+~~~
+{: .language-python}
+
+~~~
+Letter #1 is a
+Letter #2 is b
+Letter #3 is c
+~~~
+{: .output}
+
+~~~
+---------------------------------------------------------------------------
+IndexError                                Traceback (most recent call last)
+<ipython-input-11-d817f55b7d6c> in <module>()
+      3 print("Letter #2 is", letters[1])
+      4 print("Letter #3 is", letters[2])
+----> 5 print("Letter #4 is", letters[3])
+
+IndexError: list index out of range
+~~~
+{: .error}
+
+Here, Python is telling us that there is an `IndexError` in our code, meaning we tried to access a list index that did not exist.
+
+> ## Challenge:  Identifying Index Errors
 >
 > 1. Read the code below, and (without running it) try to identify what the errors are.
 > 2. Run the code, and read the error message. What type of error is it?
@@ -581,3 +443,45 @@ often reveals common reasons why you might get that error.
 > > {: .language-python}
 > {: .solution}
 {: .challenge}
+
+### File Errors
+
+The last type of error we'll cover today are those associated with reading and writing files: `FileNotFoundError`.  If you try to read a file that does not exist, you will receive a `FileNotFoundError` telling you so.  If you attempt to write to a file that was opened read-only, Python 3 returns an `UnsupportedOperationError`.  More generally, problems with input and output manifest as `IOError`s or `OSError`s, depending on the version of Python you use.
+
+~~~
+file_handle = open('myfile.txt', 'r')
+~~~
+{: .language-python}
+
+~~~
+---------------------------------------------------------------------------
+FileNotFoundError                         Traceback (most recent call last)
+<ipython-input-14-f6e1ac4aee96> in <module>()
+----> 1 file_handle = open('myfile.txt', 'r')
+
+FileNotFoundError: [Errno 2] No such file or directory: 'myfile.txt'
+~~~
+{: .error}
+
+One reason for receiving this error is that you specified an incorrect path to the file.  For example, if I am currently in a folder called `myproject`, and I have a file in `myproject/writing/myfile.txt`, but I try to just open `myfile.txt`, this will fail.  The correct path would be `writing/myfile.txt`.  It is also possible (like with `NameError`) that you just made a typo.
+
+A related issue can occur if you use the "read" flag instead of the "write" flag.  Python will not give you an error if you try to open a file for writing when the file does not exist.  However, if you meant to open a file for reading, but accidentally opened it for writing, and then try to read from it, you will get an `UnsupportedOperation` error telling you that the file was not opened for reading:
+
+~~~
+file_handle = open('myfile.txt', 'w')
+file_handle.read()
+~~~
+{: .language-python}
+
+~~~
+---------------------------------------------------------------------------
+UnsupportedOperation                      Traceback (most recent call last)
+<ipython-input-15-b846479bc61f> in <module>()
+      1 file_handle = open('myfile.txt', 'w')
+----> 2 file_handle.read()
+
+UnsupportedOperation: not readable
+~~~
+{: .error}
+
+These are the most common errors with files, though many others exist.  If you get an error that you've never seen before, searching the Internet for that error type often reveals common reasons why you might get that error.
