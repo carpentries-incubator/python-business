@@ -21,6 +21,7 @@ All participants should agree to abide by the [Software Carpentry Code of Conduc
 
 - Robert Brunner (PI)
 
+- [Neal Davis](https://github.com/davis68)
 - [Linden Lu](https://github.com/zllu2)
 - [Hao Xi](https://github.com/TacNayn) (initial author)
 
