@@ -8,9 +8,15 @@ root: .
 </p>
 
 ### Welcome
-This workshop is designed to help you (business students) go through some basic Python programming skills. <br>
-Many of you are Excel experts. In this workshop, you will learn how to deal with table-like data in Python, without a graphical interface. <br>
-The workshop covers a lot of materials. So don't worry if you can't remember everything in the end. We will help you go through the material once, and you can always review the website in the future. 
+
+This workshop is designed to help business students acquire data processing skills that are:
+
+- automated
+- repeatable
+- testable
+
+through using Python as an adjunct for (or replacement to) a spreadsheet.  We cover dealing with tabular data, basic statistical tests, plotting, pivot tables, and more.
+
 
 > ## Prerequisites
 >
