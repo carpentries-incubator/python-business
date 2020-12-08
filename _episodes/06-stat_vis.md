@@ -23,9 +23,9 @@ In Python, we will utilize the Pandas-compatible library [SciPy](https://www.sci
 
 ![](https://docs.scipy.org/doc/scipy-0.19.1/reference/_images/scipy-stats-skewnorm-1.png)
 
-### Student's $t$-test
+### Student's t-test
 
-The $t$-test is a way of examining and comparing populations.  (You may have seen this used previously in a statistics class.)  We will use the $t$-test to examine whether two different categories of soft drinks are significantly different in sales.  Formally, we will perform a [$t$-test](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html) assuming different variance.
+The t-test is a way of examining and comparing populations.  (You may have seen this used previously in a statistics class.)  We will use the t-test to examine whether two different categories of soft drinks are significantly different in sales.  Formally, we will perform a [t-test](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html) assuming different variance.
 
 Import the `stats` submodule to gain access to the tools we need:
 
@@ -48,7 +48,7 @@ ct_eng = ct[ct["Category"] == "Energy Drink"]
 ct_cola = ct[ct["Category"] == "Cola"]
 ```
 
-With this information in hand, we can perform the $t$-test.
+With this information in hand, we can perform the t-test.
 
 ```python
 stats.ttest_ind(ct_eng['Bottles_Sold'],ct_cola['Bottles_Sold'], equal_var=False)
@@ -61,11 +61,11 @@ Ttest_indResult(statistic=1.9035249229837687, pvalue=0.057480903679786859)
 ```
 {: .output}
 
-In this case, the $p$ value is not low enough to justify rejecting the null hypothesis.
+In this case, the p value is not low enough to justify rejecting the null hypothesis.
 
-> ## Challenge:  Test $p$ values
+> ## Challenge:  Test p values
 >
-> Construct a $t$-test to see whether two different markups have the same sales rate.  Use the markup ranges of less than $2 and more than or equal to $2.
+> Construct a t-test to see whether two different markups have the same sales rate.  Use the markup ranges of less than $2 and more than or equal to $2.
 >
 > > ## Solution
 > >
@@ -79,7 +79,7 @@ In this case, the $p$ value is not low enough to justify rejecting the null hypo
 {: .challenge}
 
 
-Scipy has an ample set of statistical tools, in many ways more extensive than the Excel Analysis ToolPak.  Other example operations include [chi-squares](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chisquare.html#scipy.stats.chisquare), [ANOVAs](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f_oneway.html#scipy.stats.f_oneway), and [$k$-stats](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kstat.html#scipy.stats.kstat).  There are many other modules that can perform more expansive statistics, data mining, and machine learning—for example, [scikit-learn](http://scikit-learn.org/stable/) and [`statsmodels`](https://www.statsmodels.org/stable/index.html).
+Scipy has an ample set of statistical tools, in many ways more extensive than the Excel Analysis ToolPak.  Other example operations include [chi-squares](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chisquare.html#scipy.stats.chisquare), [ANOVAs](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f_oneway.html#scipy.stats.f_oneway), and [k-stats](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kstat.html#scipy.stats.kstat).  There are many other modules that can perform more expansive statistics, data mining, and machine learning—for example, [scikit-learn](http://scikit-learn.org/stable/) and [`statsmodels`](https://www.statsmodels.org/stable/index.html).
 
 Frequently the most difficult part is to process the data into an appropriate form ("preprocessing").  As soon as the data are prepared, you can feed them into the SciPy model without further ado.  Develop your programs with this utility and (relative) ease-of-use in mind.
 
@@ -101,7 +101,7 @@ import matplotlib.pyplot as plt
 %matplotlib inline
 ```
 
-The simplest way to use this is just to provide $x$ and $y$ data.
+The simplest way to use this is just to provide x and y data.
 
 ```python
 # create three points for the first line
@@ -162,7 +162,7 @@ This may seem less intuitive than using a spreadsheet.  After all, how does one 
 
 > ## Challenge:  Plotting a `DataFrame`
 >
-> Construct a plot which shows markup on the $y$ axis as a function of bottle cost on the $x$ axis.  Use dots `'.'`.  You may wish to filter out values greater than 100.  If you do so, you'll need to filter both $x$ and $y$ data sets to retain the same number of points.
+> Construct a plot which shows markup on the y axis as a function of bottle cost on the x axis.  Use dots `'.'`.  You may wish to filter out values greater than 100.  If you do so, you'll need to filter both x and y data sets to retain the same number of points.
 >
 > > ## Solution
 > >
