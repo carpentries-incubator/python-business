@@ -205,13 +205,14 @@ which in this case means 100,000.
 > 6. `10 % 7`
 >
 > > ## Solution
->
-> 1. `int` (both inputs are `int`s)
-> 2. `float` (both inputs are `float`s)
-> 3. `float` (division makes a `float` even if the inputs are `int`s)
-> 4. `int` (this is division-without-remainder, or floor-division)
-> 5. `int`
-> 6. `int` (this is the remainder or modulus function)
+> > ~~~
+> > 1. `int` (both inputs are `int`s)
+> > 2. `float` (both inputs are `float`s)
+> > 3. `float` (division makes a `float` even if the inputs are `int`s)
+> > 4. `int` (this is division-without-remainder, or floor-division)
+> > 5. `int`
+> > 6. `int` (this is the remainder or modulus function)
+> >  ~~~
 > {: .solution}
 {: .challenge}
 
@@ -362,19 +363,20 @@ When we use `type` to find out what type a value has, the short answer can be us
 > 12. `round(-0.5)`
 >
 > > ## Solution
->
-> 1. `float(1)`
-> 2. `int(10)`
-> 3. `int(10.1)` (the fractional part is cut off)
-> 4. `int(10.9)` (rounding does not occur, just "truncation" or chopping-off)
-> 5. `float(-10)`
-> 6. `int(-10.5)`
-> 7. `float('10')`
-> 8. `float('100%')` doesn't work, so you need to grab the part of the number that matters and divide by 100:  `float('100%'[:-1])/100`
-> 9. `int(float('10.5'))`
-> 10. `round(1.5)` rounds up to 2
-> 11. `round(0.5)` rounds _down_ to 0
-> 12. `round(-0.5)` rounds _up_ to 0
+> > ~~~
+> > 1. `float(1)`
+> > 2. `int(10)`
+> > 3. `int(10.1)` (the fractional part is cut off)
+> > 4. `int(10.9)` (rounding does not occur, just "truncation" or chopping-off)
+> > 5. `float(-10)`
+> > 6. `int(-10.5)`
+> > 7. `float('10')`
+> > 8. `float('100%')` doesn't work, so you need to grab the part of the number that matters and divide by 100:  `float('100%'[:-1])/100`
+> > 9. `int(float('10.5'))`
+> > 10. `round(1.5)` rounds up to 2
+> > 11. `round(0.5)` rounds _down_ to 0 (for more information see https://docs.python.org/3/library/functions.html?highlight=round#round)
+> > 12. `round(-0.5)` rounds _up_ to 0
+> > ~~~
 > {: .solution}
 {: .challenge}
 
